@@ -7,6 +7,12 @@ message User {
     int32 age = 2;
 }
 
+message Response {
+    int32 statusCode = 1;
+    string responseBody = 2;
+}
+
 service UserService {
     rpc GetUser (Empty) returns (User) {}
+    rpc PostUser (User) returns (Response) {}
 }

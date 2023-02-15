@@ -7,11 +7,11 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Launch grpc server",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\Woordenlijst\\server.js"
+            "program": "${workspaceFolder}\\Wordlist\\server.js"
         }
     ]
 }
