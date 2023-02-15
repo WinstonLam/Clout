@@ -1,0 +1,14 @@
+{
+  "name": "gameservice",
+  "version": "0.0.1",
+  "description": "service for game logic",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.8.8"
+  }
+}
