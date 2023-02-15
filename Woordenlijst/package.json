@@ -1,0 +1,14 @@
+{
+  "name": "woordenlijst",
+  "version": "1.0.0",
+  "description": "De woordenlijst microservice voor het Lingo spel",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Douwe Schepers",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
