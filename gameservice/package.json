@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "service for game logic",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,5 +11,13 @@
   "license": "ISC",
   "dependencies": {
     "@grpc/grpc-js": "^1.8.8"
+  },
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "esquery": "1.4.0"
   }
 }

@@ -2,20 +2,17 @@ syntax = "proto3";
 
 package gameservice;
 
-// The greeting service definition.
-service Greeter {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-
-  rpc SayHelloStreamReply (HelloRequest) returns (stream HelloReply) {}
+message GameUpdateRequest {
+  int32 session_id = 1;
+  string guess = 2;
+  int32 wordlist_id = 3;
 }
 
-// The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+message GameUpdateResponse {
+  bool success = 1;
+  map<int32, string> feedback_map = 2;
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
+service LingoGame {
+  rpc updateGame(GameUpdateRequest) returns (GameUpdateResponse);
 }

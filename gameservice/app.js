@@ -1,9 +1,13 @@
+import grpc from '@grpc/grpc-js'
+import protoLoader from '@grpc/proto-loader'
 
-var PROTO_PATH = __dirname + '/protos/gameservice.proto';
+import { Game, ongoingGames } from './libs/gamelogic.js'
 
-var grpc = require('@grpc/grpc-js');
-var protoLoader = require('@grpc/proto-loader');
-var packageDefinition = protoLoader.loadSync(
+const serverAddress = '0.0.0.0'
+const serverPort = '50051'
+
+const PROTO_PATH = './protos/gameservice.proto'
+const packageDefinition = protoLoader.loadSync(
   PROTO_PATH,
   {
     keepCase: true,
@@ -11,24 +15,36 @@ var packageDefinition = protoLoader.loadSync(
     enums: String,
     defaults: true,
     oneofs: true
-  });
-var gameservice_proto = grpc.loadPackageDefinition(packageDefinition).gameservice;
+  })
+const gameserviceProto = grpc.loadPackageDefinition(packageDefinition).gameservice
+const lingoGameService = gameserviceProto.LingoGame.service
 
-/**
- * Implements the SayHello RPC method.
- */
-function sayHello(call, callback) {
-  callback(null, { message: 'Hiya! ' + call.request.name });
+// RPC method
+function updateGame (call, callback) {
+  const request = call.request
+  const sessionId = request.session_id
+  const wordlistId = request.wordlist_id
+  const guess = request.guess
+  const response = {}
+
+  // If a game for this session already exists, use it. Otherwise, create a new
+  // game with the provided word.
+  const game = ongoingGames.has(sessionId) ? ongoingGames.get(sessionId) : new Game(wordlistId, sessionId)
+  ongoingGames.set(sessionId, game);
+
+  [response.feedback_map, response.success] = game.update(guess)
+
+  callback(null, response) // Kind of the return statement but for gRPC
 }
 
-function main() {
-  console.log("Starting webserver on 0.0.0.0 port 50051");
-
-  var server = new grpc.Server();
-  server.addService(gameservice_proto.Greeter.service, { sayHello: sayHello });
-  server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
-    server.start();
-  });
+function main () {
+  // TODO - gRPC authentication, proper address:port config, full proto spec
+  // and implementations
+  const server = new grpc.Server()
+  server.addService(lingoGameService, { updateGame })
+  server.bindAsync(serverAddress + ':' + serverPort, grpc.ServerCredentials.createInsecure(), () => {
+    server.start()
+  })
 }
 
-main();
+main()
