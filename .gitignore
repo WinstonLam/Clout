@@ -6,6 +6,15 @@ node_modules
 /.pnp
 .pnp.js
 
+#wordlist dependencies
+/Wordlist/node_modules
+
+#Database
+/Database
+
+#linter
+.eslintrc.js
+
 # testing
 /coverage
 

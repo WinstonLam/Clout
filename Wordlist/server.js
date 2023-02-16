@@ -1,65 +1,72 @@
-//dependencies
-const grpc = require("@grpc/grpc-js");
-const protoLoader = require("@grpc/proto-loader");
+// dependencies
+const grpc = require('@grpc/grpc-js')
+const protoLoader = require('@grpc/proto-loader')
+const wordList = require('./Resources/wordlist')
 
-//path to our proto file
-// var USER_PROTO_PATH = "./node_modules/@example/protobuff/src/protos/user.proto"
-
-const PROTO_FILE = `./Wordlist/service_def.proto`;
-//options needed for loading Proto file
+const PROTO_FILE = './Wordlist/protos/service_def.proto'
+// options needed for loading Proto file
 const options = {
-    keepCase: true,
-    longs: String,
-    enums: String,
-    defaults: true,
-    oneofs: true,
-  };
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: true,
+  oneofs: true
+}
 
+const pkgDefs = protoLoader.loadSync(PROTO_FILE, options)
 
-const pkgDefs = protoLoader.loadSync(PROTO_FILE, options);
+// load Definition into gRPC
+const userProto = grpc.loadPackageDefinition(pkgDefs)
 
-//load Definition into gRPC
-const userProto = grpc.loadPackageDefinition(pkgDefs);
+// create gRPC server
+const server = new grpc.Server()
 
-//create gRPC server
-const server = new grpc.Server();
-
-//implement UserService
+// implement UserService
 server.addService(userProto.UserService.service, {
-//implment GetUser
-GetUser: (input, callback) => {
-    try {
+// implment GetUser
+  getWordlist,
+  addNewWordlist
 
-    callback(null, { name: "Jake", age: 25 });
-    } catch (error) {
-    callback(error, null);
+})
+function getWordlist (input, callback) {
+  try {
+    const data = wordList.get()
+    const returnObject = {
+      wordlistName: data.wordListName,
+      words: data.words
     }
-},
-PostUser: (input, callback) =>{
-    try{
-        console.log(input.request);
-        callback(null,{statusCode: 200, responseBody: "succesful post"});
-    }catch(error)
-    {
-        callback(error,null);
-    }
+    callback(null, returnObject)
+  } catch (error) {
+    callback(error, null)
+  }
 }
-});
+function addNewWordlist (input, callback) {
+  try {
+    console.log(input.request)
+    const response = wordList.post(input)
+    callback(null, response)
+  } catch (error) {
+    const errorObject = {
+      statusCode: 400,
+      responseBody: error.message
+    }
+    callback(errorObject, null)
+  }
+}
 
-//start the Server
+// start the Server
 server.bindAsync(
-//port to serve on
-"127.0.0.1:5000",
-//authentication settings
-grpc.ServerCredentials.createInsecure(),
-//server start callback
-(error, port) =>
-{
-    console.log(`listening on port ${port}`);
-    server.start();
-}
-);
-// function requireResource(resource)
-// {
-//   return require('./resources/'+resource);
-// }
+  // port to serve on
+  '127.0.0.1:5000',
+  // authentication settings
+  grpc.ServerCredentials.createInsecure(),
+  // server start callback
+  (error, port) => {
+    if (error) {
+      console.log(error)
+    } else {
+      console.log(`listening on port ${port}`)
+      server.start()
+    }
+  }
+)
