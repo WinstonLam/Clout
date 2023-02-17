@@ -4,6 +4,9 @@ import WordInput from "./word-input";
 import { TextField } from "@mui/material";
 import WordListButtons from "./wordlist-buttons";
 
+// server communication functions
+import { createWordList } from "../communication/grpcClient";
+
 function Wordlist() {
   const [values, setValues] = useState({
     title: "",
@@ -172,7 +175,7 @@ function Wordlist() {
           </div>
         </div>
         <div className="wordlist-footer">
-          <WordListButtons />
+          <WordListButtons createWordlist={createWordList(wordlist)} />
         </div>
       </div>
     </div>
