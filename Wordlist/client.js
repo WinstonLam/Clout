@@ -1,45 +1,42 @@
-//dependencies
-const grpc = require("@grpc/grpc-js");
-const protoLoader = require("@grpc/proto-loader");
+// dependencies
+const grpc = require('@grpc/grpc-js')
+const protoLoader = require('@grpc/proto-loader')
 
-//path to our proto file
-const PROTO_FILE = "./service_def.proto";
+// path to our proto file
+const PROTO_FILE = './protos/service_def.proto'
 
-//options needed for loading Proto file
+// options needed for loading Proto file
 const options = {
-    keepCase: true,
-    longs: String,
-    enums: String,
-    defaults: true,
-    oneofs: true,
-  };
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: true,
+  oneofs: true
+}
 
-  const pkgDefs = protoLoader.loadSync(PROTO_FILE, options);
+const pkgDefs = protoLoader.loadSync(PROTO_FILE, options)
 
-  //load Definition into gRPC
-  const UserService = grpc.loadPackageDefinition(pkgDefs).UserService;
+// load Definition into gRPC
+const UserService = grpc.loadPackageDefinition(pkgDefs).UserService
 
-  //create the Client
-  const client = new UserService(
-    "127.0.0.1:5000",
-    grpc.credentials.createInsecure()
-  );
+// create the Client
+const client = new UserService(
+  '127.0.0.1:5000',
+  grpc.credentials.createInsecure()
+)
 
-  //make a call to GetUser
-  client.GetUser({}, (error, user) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(user);
-    }
-  });
-  client.PostUser({"name": "douwe","age": 25}, (error, reponse)=>{
-    if(error)
-    {
-        console.log(error);
-    }
-    else
-    {
-        console.log(reponse)
-    }
-  })
+// make a call to GetUser
+client.getWordlist({}, (error, user) => {
+  if (error) {
+    console.log(error)
+  } else {
+    console.log(user)
+  }
+})
+client.addNewWordlist({ wordlistName: 'test', words: ['maan', 'roos', 'vis'] }, (error, reponse) => {
+  if (error) {
+    console.log(error)
+  } else {
+    console.log(reponse)
+  }
+})
