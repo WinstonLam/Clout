@@ -14,7 +14,7 @@ function Wordlist() {
     <div className="container">
       <div className="box">
         <div className="wordlist-header">
-          <h1>Wordlist</h1>
+          <h1>Create Your Wordlist</h1>
           <TextField
             id="word-input"
             label="Title of the wordlist"
