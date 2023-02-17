@@ -33,7 +33,7 @@ client.getWordlist({}, (error, user) => {
     console.log(user)
   }
 })
-client.addNewWordlist({ wordlistName: 'test', words: ['maan', 'roos', 'vis'] }, (error, reponse) => {
+client.addNewWordlist({ wordlistName: 'test', words: ['maann', 'roos', 'vis'] }, (error, reponse) => {
   if (error) {
     console.log(error)
   } else {
