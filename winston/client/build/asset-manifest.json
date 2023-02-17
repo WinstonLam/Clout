@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Clout/static/css/main.e28aff95.css",
+    "main.js": "/Clout/static/js/main.70b91823.js",
+    "static/js/787.ccf04206.chunk.js": "/Clout/static/js/787.ccf04206.chunk.js",
+    "index.html": "/Clout/index.html",
+    "main.e28aff95.css.map": "/Clout/static/css/main.e28aff95.css.map",
+    "main.70b91823.js.map": "/Clout/static/js/main.70b91823.js.map",
+    "787.ccf04206.chunk.js.map": "/Clout/static/js/787.ccf04206.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e28aff95.css",
+    "static/js/main.70b91823.js"
+  ]
+}
