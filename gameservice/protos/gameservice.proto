@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package gameservice;
+
+message GameUpdateRequest {
+  int32 session_id = 1;
+  string guess = 2;
+  int32 wordlist_id = 3;
+}
+
+message GameUpdateResponse {
+  bool success = 1;
+  map<int32, string> feedback_map = 2;
+}
+
+service LingoGame {
+  rpc updateGame(GameUpdateRequest) returns (GameUpdateResponse);
+}
