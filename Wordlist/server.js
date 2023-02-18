@@ -28,14 +28,14 @@ server.addService(userProto.UserService.service, {
   addNewWordlist
 
 })
-function getWordlist (input, callback) {
+async function getWordlist (input, callback) {
   try {
-    const data = wordList.get()
-    const returnObject = {
-      wordlistName: data.wordListName,
-      words: data.words
-    }
-    callback(null, returnObject)
+    const data = await wordList.get()
+    // const returnObject = {
+    //   wordlistName: data.wordListName,
+    //   words: data.words
+    // }
+    callback(null, data)
   } catch (error) {
     callback(error, null)
   }

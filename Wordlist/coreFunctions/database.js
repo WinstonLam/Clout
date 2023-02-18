@@ -1,69 +1,46 @@
-// const Connection = require('tedious').Connection
-// const config = {
-//   server: 'db', // update me
-//   authentication: {
-//     type: 'default',
-//     options: {
-//       userName: 'sa', // update me
-//       password: 'DevOps2023!' // update me
+
+const sql = require('mssql')
+
+// config for your database
+const config = {
+  user: 'sa',
+  password: 'DevOps2023!',
+  server: 'localhost',
+  database: 'WORD1',
+  trustServerCertificate: true
+}
+
+// async function query (queryToExecute) {
+//   const result = sql.connect(config, async function (err) {
+//     if (err) {
+//       console.log(err)
+//     } else {
+//       const request = new sql.Request()
+//       // return request
+//       return request.query(queryToExecute, function (err, recordset) {
+//         if (err) {
+//           console.log(err)
+//         } else {
+//         // send records as a response
+//           console.log(recordset.re)
+//           return recordset
+//         // res.send(recordset)
+//         }
+//       })
+//       // return result
 //     }
-//   },
-//   options: {
-//     // If you are on Microsoft Azure, you need encryption:
-//     encrypt: true,
-//     database: 'WORD01' // update me
-//   }
+//   })
+//   return result
 // }
-// const connection = new Connection(config)
-// connection.on('connect', function (err) {
-//   if (err) {
-//     console.log(err)
-//   } else {
-//     // If no error, then good to proceed.
-//     console.log('Connected')
-//   }
+async function query (queryToExecute) {
+  await sql.connect(config)
+  const result = await sql.query(queryToExecute)
+  return result
+}
+
+module.exports = { query }
 // })
 
-// connection.connect()
-// // Server=localhost\MSSQLSERVER01;Database=master;Trusted_Connection=True;
-
-const express = require('express')
-const app = express()
-
-app.get('/', function (req, res) {
-  const sql = require('mssql')
-
-  // config for your database
-  const config = {
-    user: 'sa',
-    password: 'DevOps2023!',
-    server: 'localhost',
-    database: 'WORD1',
-    trustServerCertificate: true
-  }
-
-  // connect to your database
-  sql.connect(config, function (err) {
-    if (err) {
-      console.log(err)
-    } else {
-    // create Request object
-      const request = new sql.Request()
-
-      // query to the database and get the records
-      request.query('select * from words', function (err, recordset) {
-        if (err) {
-          console.log(err)
-        } else {
-          // send records as a response
-          console.log(recordset)
-          res.send(recordset)
-        }
-      })
-    }
-  })
-})
-
-app.listen(5000, function () {
-  console.log('Server is running..')
-})
+// app.listen(5000, function () {
+//   console.log('Server is running..')
+// })
