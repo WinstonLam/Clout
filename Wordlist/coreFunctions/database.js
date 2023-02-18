@@ -10,28 +10,6 @@ const config = {
   trustServerCertificate: true
 }
 
-// async function query (queryToExecute) {
-//   const result = sql.connect(config, async function (err) {
-//     if (err) {
-//       console.log(err)
-//     } else {
-//       const request = new sql.Request()
-//       // return request
-//       return request.query(queryToExecute, function (err, recordset) {
-//         if (err) {
-//           console.log(err)
-//         } else {
-//         // send records as a response
-//           console.log(recordset.re)
-//           return recordset
-//         // res.send(recordset)
-//         }
-//       })
-//       // return result
-//     }
-//   })
-//   return result
-// }
 async function query (queryToExecute) {
   await sql.connect(config)
   const result = await sql.query(queryToExecute)
@@ -39,8 +17,3 @@ async function query (queryToExecute) {
 }
 
 module.exports = { query }
-// })
-
-// app.listen(5000, function () {
-//   console.log('Server is running..')
-// })
