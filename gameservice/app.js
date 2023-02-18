@@ -34,7 +34,7 @@ function updateGame (call, callback) {
 
   [response.feedback_map, response.success] = game.update(guess)
 
-  callback(null, response) // Kind of the return statement but for gRPC
+  callback(null, response)
 }
 
 function main () {
