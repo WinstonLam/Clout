@@ -1,6 +1,10 @@
 env:
   browser: true
   es2021: true
+<<<<<<< Updated upstream
+=======
+  jest: true
+>>>>>>> Stashed changes
 extends: standard
 overrides: []
 parserOptions:
