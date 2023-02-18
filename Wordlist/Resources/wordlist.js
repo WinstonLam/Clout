@@ -28,13 +28,13 @@ async function post (inputWordlist) {
       return { statusCode: 200, responseBody: 'Saving wordlist to dataBase succesful' + result }
     }
   } catch (error) {
-    throw new Error('error saving new wordlist', error)
+    throw new Error("error saving new wordlist", error);
   }
 }
-function getById () {
-  return 'get by id'
+function getById() {
+  return "get by id";
 }
-function deleteById () {
-  return 'delete'
+function deleteById() {
+  return "delete";
 }
-module.exports = { get, post, getById, deleteById }
+module.exports = { get, post, getById, deleteById };

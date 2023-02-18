@@ -1,9 +1,10 @@
 // dependencies
-const grpc = require('@grpc/grpc-js')
-const protoLoader = require('@grpc/proto-loader')
-const wordList = require('./Resources/wordlist')
+const grpc = require("@grpc/grpc-js");
+const protoLoader = require("@grpc/proto-loader");
+const wordList = require("./Resources/wordlist");
 
-const PROTO_FILE = './Wordlist/protos/service_def.proto'
+// add /Wordlist if wanting to debug
+const PROTO_FILE = "./protos/service_def.proto";
 // options needed for loading Proto file
 const options = {
   keepCase: true,
@@ -19,11 +20,11 @@ const pkgDefs = protoLoader.loadSync(PROTO_FILE, options)
 const userProto = grpc.loadPackageDefinition(pkgDefs)
 
 // create gRPC server
-const server = new grpc.Server()
+const server = new grpc.Server();
 
 // implement UserService
 server.addService(userProto.UserService.service, {
-// implment GetUser
+  // implment GetUser
   getWordlist,
   addNewWordlist
 
@@ -40,7 +41,7 @@ async function getWordlist (input, callback) {
     callback(error, null)
   }
 }
-function addNewWordlist (input, callback) {
+function addNewWordlist(input, callback) {
   try {
     console.log(input.request)
     const response = wordList.post(input)
@@ -57,7 +58,7 @@ function addNewWordlist (input, callback) {
 // start the Server
 server.bindAsync(
   // port to serve on
-  '127.0.0.1:5000',
+  "127.0.0.1:5000",
   // authentication settings
   grpc.ServerCredentials.createInsecure(),
   // server start callback
@@ -69,4 +70,4 @@ server.bindAsync(
       server.start()
     }
   }
-)
+);
