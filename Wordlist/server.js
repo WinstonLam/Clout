@@ -1,41 +1,73 @@
-'use strict';
+// dependencies
+const grpc = require("@grpc/grpc-js");
+const protoLoader = require("@grpc/proto-loader");
+const wordList = require("./Resources/wordlist");
 
-const express = require('express');
-
-// Constants
-const PORT = 8080;
-const HOST = '0.0.0.0';
-
-/*
-Possible paths:
-Get game: /game
-Get game by id: /game/{game_id}
-Put game by id: /game/{game_id}
-Delete game by id: game/{game_id}
-*/
-function requireResource(resource)
-{
-  return require('./resources/'+resource);
+// add /Wordlist if wanting to debug
+const PROTO_FILE = "./protos/service_def.proto";
+// options needed for loading Proto file
+const options = {
+  keepCase: true,
+  longs: String,
+  enums: String,
+  defaults: true,
+  oneofs: true
 }
-const app = express();
-app.get
-app.get('*', (req, res) => {
-  let strUrl = req._parsedUrl.path;
-  let arrResource = strUrl.split('/');
 
-  let resource = requireResource(arrResource[1]);
-  let response = resource.get();
-  res.send(response);
-});
-app.put('*', (req, res) => {
-  res.send('Update item');
-});
-app.delete('*', (req, res) => {
-  res.send('Delete item');
-});
-app.post('*', (req, res) => {
-  res.send('Add item');
-});
-app.listen(PORT, HOST, () => {
-  console.log(`Running on http://${HOST}:${PORT}`);
-});
+const pkgDefs = protoLoader.loadSync(PROTO_FILE, options)
+
+// load Definition into gRPC
+const userProto = grpc.loadPackageDefinition(pkgDefs)
+
+// create gRPC server
+const server = new grpc.Server();
+
+// implement UserService
+server.addService(userProto.UserService.service, {
+  // implment GetUser
+  getWordlist,
+  addNewWordlist
+
+})
+async function getWordlist (input, callback) {
+  try {
+    const data = await wordList.get()
+    // const returnObject = {
+    //   wordlistName: data.wordListName,
+    //   words: data.words
+    // }
+    callback(null, data)
+  } catch (error) {
+    callback(error, null)
+  }
+}
+function addNewWordlist(input, callback) {
+  try {
+    console.log(input.request)
+    const response = wordList.post(input)
+    callback(null, response)
+  } catch (error) {
+    const errorObject = {
+      statusCode: 400,
+      responseBody: error.message
+    }
+    callback(errorObject, null)
+  }
+}
+
+// start the Server
+server.bindAsync(
+  // port to serve on
+  "127.0.0.1:5000",
+  // authentication settings
+  grpc.ServerCredentials.createInsecure(),
+  // server start callback
+  (error, port) => {
+    if (error) {
+      console.log(error)
+    } else {
+      console.log(`listening on port ${port}`)
+      server.start()
+    }
+  }
+);
