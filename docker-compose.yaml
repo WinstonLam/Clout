@@ -1,0 +1,10 @@
+version: "2"
+services:
+  node:
+    image: "jurrewolff/gameservice"
+    environment:
+      - NODE_ENV="production"
+      - NODE_OPTIONS="--max-old-space-size=4096"
+    ports:
+      - "127.0.0.1:45287:45287"
+    command: "npm start"

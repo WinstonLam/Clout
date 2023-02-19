@@ -4,7 +4,7 @@ import protoLoader from '@grpc/proto-loader'
 import { Game, ongoingGames } from './libs/gamelogic.js'
 
 const serverAddress = '0.0.0.0'
-const serverPort = '50051'
+const serverPort = '45287'
 
 const PROTO_PATH = './protos/gameservice.proto'
 const packageDefinition = protoLoader.loadSync(
