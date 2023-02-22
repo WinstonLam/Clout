@@ -13,7 +13,7 @@ server.bindAsync(
   }
 );
 
-const protoPath = "./protos/service_def.proto";
+const protoPath = "./protos/client.proto";
 const protoDefinition = grpc.loadPackageDefinition(
   protoLoader.loadSync(protoPath)
 );

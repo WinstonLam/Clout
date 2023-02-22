@@ -5,11 +5,11 @@ const {
 } = require("./controllers/wordlistController");
 
 // dependencies
-const grpc = require("@grpc/grpc-web");
+const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
 
 // path to our proto file
-const PROTO_FILE = "./protos/service_def.proto";
+const PROTO_FILE = "./protos/client.proto";
 
 // options needed for loading Proto file
 const options = {
@@ -36,6 +36,7 @@ function createWordList(wordlist) {
 }
 
 // tests:
+createWordList({ wordlistName: "test", words: ["maann", "roos", "vis"] });
 
 // call the getWordlist method
 // getWordlist(client)

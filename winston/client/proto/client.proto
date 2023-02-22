@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package wordlist;
+
 message Empty {}
 
 message wordlist {
