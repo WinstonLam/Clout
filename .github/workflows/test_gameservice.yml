@@ -23,7 +23,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-      working-directory: ./gameservice
     - run: npm ci
+      working-directory: ./gameservice
     - run: npm test
+      working-directory: ./gameservice
 
