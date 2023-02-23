@@ -4,9 +4,9 @@ Declare @query varchar(max), @addQuery varchar(max), @insertDataQuery nvarchar(m
 SET @Id=0
 SET @IdDB = 1
 
-While @IdDB <= 10
+While @IdDB <= 1
 BEGIN
-    Set @DB = 'WORD' + CAST(@IdDB as varchar(10))
+    Set @DB = 'LINGO'
     SET @query = FORMATMESSAGE(N'CREATE DATABASE %s', @DB)
     SET @USEDBquery = FORMATMESSAGE('USE %s', @DB)
     -- Create Tables
@@ -18,7 +18,15 @@ BEGIN
             (
                     Id int identity primary key,
                     word nvarchar(50),
-                    description nvarchar(50)
+                    description nvarchar(50),
+                    wordlistID int
+
+            )
+        CREATE Table wordlist
+            (
+                Id int identity primary key,
+                Name nvarchar(50),
+                description nvarchar(50)
             )
         '
         SET @query = FORMATMESSAGE('%s %s', @USEDBquery, @addQuery)
@@ -34,7 +42,10 @@ BEGIN
     -- INSERT DATA INTO TABLE
     SET @insertDataQuery = '
         Insert Into words values (''word - '' + CAST(@Id as nvarchar(10)),
-        ''description - '' + CAST(@Id as nvarchar(10)) + '' test'')
+        ''description - '' + CAST(@Id as nvarchar(10)) + '' test'',
+        1)
+        Insert Into wordlist values (''testList '' + CAST(@Id as nvarchar(10)),
+        ''description of testList- '' + CAST(@Id as nvarchar(10)))
        '
     SET @insertDataQuery = FORMATMESSAGE('%s %s', @USEDBquery ,@insertDataQuery);
     PRINT @insertDataQuery
@@ -56,6 +67,7 @@ BEGIN
         End
     SET @Id = 0
     SET @IdDB = @IdDB + 1
+
 END
 
 -- END

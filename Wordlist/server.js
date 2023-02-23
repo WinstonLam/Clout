@@ -1,10 +1,10 @@
 // dependencies
 const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
-const wordList = require("./Resources/wordlist");
+const wordList = require("./libs/wordlist");
 
 // add /Wordlist if wanting to debug
-const PROTO_FILE = "./protos/service_def.proto";
+const PROTO_FILE = "./Wordlist/protos/service_def.proto";
 // options needed for loading Proto file
 const options = {
   keepCase: true,
@@ -32,10 +32,6 @@ server.addService(userProto.UserService.service, {
 async function getWordlist (input, callback) {
   try {
     const data = await wordList.get()
-    // const returnObject = {
-    //   wordlistName: data.wordListName,
-    //   words: data.words
-    // }
     callback(null, data)
   } catch (error) {
     callback(error, null)
