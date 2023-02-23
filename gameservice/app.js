@@ -39,7 +39,7 @@ function updateGame (call, callback) {
 
 function main () {
   // TODO - gRPC authentication, proper address:port config, full proto spec
-  // and implementations
+  // and implementations. Also communicate about the interface and potentially update code.
   const server = new grpc.Server()
   server.addService(lingoGameService, { updateGame })
   server.bindAsync(serverAddress + ':' + serverPort, grpc.ServerCredentials.createInsecure(), () => {
