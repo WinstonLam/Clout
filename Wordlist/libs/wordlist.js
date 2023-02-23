@@ -31,6 +31,7 @@ async function post (inputWordlist) {
       return { statusCode: 200, responseBody: 'Saving wordlist to dataBase succesful' + result }
     }
   } catch (error) {
+    console.log('error in saving list:' + error)
     throw new Error('error saving new wordlist', error)
   }
 }
