@@ -9,14 +9,22 @@ import RegisterForm from './RegisterForm';
 import Iconify from '../../../components/iconify';
 // ----------------------------------------------------------------------
 
-export default function LoginForm() {
+export default function LoginForm({onSwitch}) {
 
+  const [success, setSuccess] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
 
   const handleClick = () => {
     setShowRegister(!showRegister);
   };
+
+
+  const sendInformation = () => {
+
+    if (success) onSwitch();
+
+  }
 
   return (
     <>
@@ -46,7 +54,7 @@ export default function LoginForm() {
         </Link>
       </Stack> */}
 
-      <LoadingButton sx={{marginTop: 5}}fullWidth size="large" type="submit" variant="contained" onClick={handleClick}>
+      <LoadingButton sx={{marginTop: 5}}fullWidth size="large" type="submit" variant="contained" onClick={sendInformation}>
         Register
       </LoadingButton>
     </>

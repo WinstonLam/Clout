@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import { Helmet } from 'react-helmet-async';
 // @mui
 // import styled, { keyframes } from 'styled-components';
@@ -37,9 +39,24 @@ const StyledContent = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 
-export default function PopUp({loginOpen, registerOpen, handleClick}) {
+export default function PopUp({open, openLogin}) {
   const mdUp = useResponsive('up', 'md');
 
+  const [register, setRegister] = useState(false);
+  const [login, setLogin] = useState(true);
+
+  const switchScreen = () => {
+
+    console.log(`${login} and ${register}`);
+    setLogin(!login);
+    setRegister(!register);
+    console.log(`${login} and ${register} after function`);
+
+
+  }
+
+
+  
   return (
     <>
     
@@ -47,9 +64,9 @@ export default function PopUp({loginOpen, registerOpen, handleClick}) {
         <title> Login </title>
       </Helmet>
 
-      <div className={`${!(loginOpen || registerOpen) ? "active" : ""} show`}>
-        {loginOpen && <LoginPage onClose={handleClick}/>}
-        {registerOpen && <RegisterPage onClose={handleClick}/>}
+      <div className={`${!(open) ? "active" : ""} show`}>
+        {login && <LoginPage onSwitch={switchScreen}/>}
+        {register && <RegisterPage onSwitch={switchScreen}/>}
       </div>
     </>
   );

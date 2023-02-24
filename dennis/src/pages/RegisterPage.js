@@ -31,7 +31,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function RegisterPage({handleClick}) {
+export default function RegisterPage({onSwitch}) {
   const mdUp = useResponsive('up', 'md');
 
   return (
@@ -68,7 +68,7 @@ export default function RegisterPage({handleClick}) {
             </Typography>
         </Divider> */}
 
-        <LoginForm />
+        <LoginForm onSwitch={onSwitch} />
         </StyledContent>
     </Container>
     </>

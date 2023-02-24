@@ -59,8 +59,9 @@ export default function Header() {
 
     const [showComponent, setShowComponent] = useState(false);
 
-    const handleClick = () => {
-        console.log(showComponent);
+    // Opens and closes the popup
+    const openScreen = () => {
+
         setShowComponent(!showComponent);
 
     }
@@ -69,7 +70,7 @@ export default function Header() {
 
     <StyledRoot>
 
-      <PopUp loginOpen={showComponent} registerOpen={false} handleClick={handleClick}/>
+      <PopUp open={showComponent} openLogin={openScreen}/>
       {/* {showComponent && <LoginPage />} */}
       {/* {showComponent && (<LoginPage show={showComponent} onClose={() => setShowComponent(false)} />)} */}
       
@@ -78,7 +79,7 @@ export default function Header() {
 
         <Container maxWidth="xxl">
             <AppWidgetSummary height={3} width={5} color="redblack" title="Lingo" />
-            <Button onClick={handleClick} variant="contained" size="large" align="center">Login</Button>
+            <Button onClick={openScreen} variant="contained" size="large" align="center">Login</Button>
         </Container>
 
         <Box sx={{ flexGrow: 1 }} />

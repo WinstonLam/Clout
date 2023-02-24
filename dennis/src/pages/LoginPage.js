@@ -41,7 +41,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function LoginPage({handleClick}) {
+export default function LoginPage({onSwitch}) {
   const mdUp = useResponsive('up', 'md');
 
   return (
@@ -79,7 +79,7 @@ export default function LoginPage({handleClick}) {
               </Typography>
             </Divider>
 
-            <button onClick={handleClick}>Hoi</button>
+            <button onClick={onSwitch}>Hoi</button>
 
             <LoginForm />
           </StyledContent>
