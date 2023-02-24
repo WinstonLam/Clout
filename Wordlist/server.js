@@ -4,7 +4,7 @@ const protoLoader = require("@grpc/proto-loader");
 const wordList = require("./libs/wordlist");
 
 // add /Wordlist if wanting to debug
-const PROTO_FILE = "./Wordlist/protos/service_def.proto";
+const PROTO_FILE = "./protos/service_def.proto";
 // options needed for loading Proto file
 const options = {
   keepCase: true,
@@ -54,7 +54,7 @@ function addNewWordlist(input, callback) {
 // start the Server
 server.bindAsync(
   // port to serve on
-  "127.0.0.1:5000",
+  "0.0.0.0:5000",
   // authentication settings
   grpc.ServerCredentials.createInsecure(),
   // server start callback
