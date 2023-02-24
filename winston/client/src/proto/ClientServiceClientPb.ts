@@ -1,5 +1,5 @@
 /**
- * @fileoverview gRPC-Web generated client stub for wordlist
+ * @fileoverview gRPC-Web generated client stub for 
  * @enhanceable
  * @public
  */
@@ -10,36 +10,37 @@
 // 	protoc              v3.11.4
 // source: proto/client.proto
 
+
 /* eslint-disable */
 // @ts-nocheck
 
-import * as grpcWeb from "grpc-web";
 
-import * as proto_client_pb from "./client_pb";
+import * as grpcWeb from 'grpc-web';
+
+import * as proto_client_pb from '../proto/client_pb';
+
 
 export class UserServiceClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
-  credentials_: null | { [index: string]: string };
-  options_: null | { [index: string]: any };
+  credentials_: null | { [index: string]: string; };
+  options_: null | { [index: string]: any; };
 
-  constructor(
-    hostname: string,
-    credentials?: null | { [index: string]: string },
-    options?: null | { [index: string]: any }
-  ) {
+  constructor (hostname: string,
+               credentials?: null | { [index: string]: string; },
+               options?: null | { [index: string]: any; }) {
     if (!options) options = {};
     if (!credentials) credentials = {};
-    options["format"] = "text";
+    options['format'] = 'text';
 
     this.client_ = new grpcWeb.GrpcWebClientBase(options);
-    this.hostname_ = hostname.replace(/\/+$/, "");
+    this.hostname_ = hostname.replace(/\/+$/, '');
     this.credentials_ = credentials;
     this.options_ = options;
   }
 
   methodDescriptorgetWordlist = new grpcWeb.MethodDescriptor(
-    "/wordlist.UserService/getWordlist",
+    '/UserService/getWordlist',
     grpcWeb.MethodType.UNARY,
     proto_client_pb.Empty,
     proto_client_pb.wordlist,
@@ -51,45 +52,38 @@ export class UserServiceClient {
 
   getWordlist(
     request: proto_client_pb.Empty,
-    metadata: grpcWeb.Metadata | null
-  ): Promise<proto_client_pb.wordlist>;
+    metadata: grpcWeb.Metadata | null): Promise<proto_client_pb.wordlist>;
 
   getWordlist(
     request: proto_client_pb.Empty,
     metadata: grpcWeb.Metadata | null,
-    callback: (
-      err: grpcWeb.RpcError,
-      response: proto_client_pb.wordlist
-    ) => void
-  ): grpcWeb.ClientReadableStream<proto_client_pb.wordlist>;
+    callback: (err: grpcWeb.RpcError,
+               response: proto_client_pb.wordlist) => void): grpcWeb.ClientReadableStream<proto_client_pb.wordlist>;
 
   getWordlist(
     request: proto_client_pb.Empty,
     metadata: grpcWeb.Metadata | null,
-    callback?: (
-      err: grpcWeb.RpcError,
-      response: proto_client_pb.wordlist
-    ) => void
-  ) {
+    callback?: (err: grpcWeb.RpcError,
+               response: proto_client_pb.wordlist) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ + "/wordlist.UserService/getWordlist",
+        this.hostname_ +
+          '/UserService/getWordlist',
         request,
         metadata || {},
         this.methodDescriptorgetWordlist,
-        callback
-      );
+        callback);
     }
     return this.client_.unaryCall(
-      this.hostname_ + "/wordlist.UserService/getWordlist",
-      request,
-      metadata || {},
-      this.methodDescriptorgetWordlist
-    );
+    this.hostname_ +
+      '/UserService/getWordlist',
+    request,
+    metadata || {},
+    this.methodDescriptorgetWordlist);
   }
 
   methodDescriptoraddNewWordlist = new grpcWeb.MethodDescriptor(
-    "/wordlist.UserService/addNewWordlist",
+    '/UserService/addNewWordlist',
     grpcWeb.MethodType.UNARY,
     proto_client_pb.wordlist,
     proto_client_pb.Response,
@@ -101,40 +95,35 @@ export class UserServiceClient {
 
   addNewWordlist(
     request: proto_client_pb.wordlist,
-    metadata: grpcWeb.Metadata | null
-  ): Promise<proto_client_pb.Response>;
+    metadata: grpcWeb.Metadata | null): Promise<proto_client_pb.Response>;
 
   addNewWordlist(
     request: proto_client_pb.wordlist,
     metadata: grpcWeb.Metadata | null,
-    callback: (
-      err: grpcWeb.RpcError,
-      response: proto_client_pb.Response
-    ) => void
-  ): grpcWeb.ClientReadableStream<proto_client_pb.Response>;
+    callback: (err: grpcWeb.RpcError,
+               response: proto_client_pb.Response) => void): grpcWeb.ClientReadableStream<proto_client_pb.Response>;
 
   addNewWordlist(
     request: proto_client_pb.wordlist,
     metadata: grpcWeb.Metadata | null,
-    callback?: (
-      err: grpcWeb.RpcError,
-      response: proto_client_pb.Response
-    ) => void
-  ) {
+    callback?: (err: grpcWeb.RpcError,
+               response: proto_client_pb.Response) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        this.hostname_ + "/wordlist.UserService/addNewWordlist",
+        this.hostname_ +
+          '/UserService/addNewWordlist',
         request,
         metadata || {},
         this.methodDescriptoraddNewWordlist,
-        callback
-      );
+        callback);
     }
     return this.client_.unaryCall(
-      this.hostname_ + "/wordlist.UserService/addNewWordlist",
-      request,
-      metadata || {},
-      this.methodDescriptoraddNewWordlist
-    );
+    this.hostname_ +
+      '/UserService/addNewWordlist',
+    request,
+    metadata || {},
+    this.methodDescriptoraddNewWordlist);
   }
+
 }
+

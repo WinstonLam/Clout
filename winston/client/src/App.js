@@ -1,21 +1,26 @@
 import { useEffect } from "react";
 import Wordlist from "./components/Wordlist";
-import { WordlistRequest } from "./proto/client_pb";
-import { UserServiceClient } from "./proto/ClientServiceClientPb";
+import { wordlist, word } from "./proto/client_pb";
+import { UserServiceClient } from "./proto/ClientServiceClientPb.ts";
 
 function App() {
   useEffect(() => {
-    const fetchWordList = async () => {
-      const client = new UserServiceClient("http://localhost:5000");
-      const request = new WordlistRequest();
-      request.setWordlistname("test");
-      request.setWordsList(["maann", "roos", "vis"]);
-      const response = await client
-        .addNewWordlist(request, {})
-        .catch(console.error);
-      console.log(response);
-    };
-    fetchWordList();
+    (async () => {
+      const client = new UserServiceClient("http://localhost:8080");
+      const woord = new word();
+      const list = new wordlist();
+      woord.setWord("maan");
+      woord.setDescription("boven de aarde");
+
+      list.setWordlistname("test1");
+      list.setDescription("test");
+      list.setWordsList([woord]);
+
+      client.addNewWordlist(list, {}, (err, response) => {
+        if (err) console.log(err.metadata);
+        else console.log(response);
+      });
+    })();
   }, []);
 
   return (
