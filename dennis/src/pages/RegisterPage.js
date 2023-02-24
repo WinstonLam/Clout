@@ -14,32 +14,6 @@ import { bgBlur } from '../utils/cssStyles';
 
 // ----------------------------------------------------------------------
 
-const StyledRoot = styled('div')(({ theme }) => ({
-    ...bgBlur ({color: '#000000', opacity: 0.6}),
-    // margin: -0,
-    display: 'flex',
-    alignItems: 'center',
-    // justifyContent: 'center',
-    position: 'fixed',
-    // padding: 0,
-    // backgroundColor: 'white',
-    width: '100vw',
-    height: '100vh',
-    [theme.breakpoints.up('md')]: {
-        display: 'flex',
-    },
-    zIndex: 2,
-}));
-
-const StyledSection = styled('div')(({ theme }) => ({
-//   width: '10%',
-  maxWidth: 480,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  boxShadow: theme.customShadows.card,
-  backgroundColor: theme.palette.background.default,
-}));
 
 const StyledContent = styled('div')(({ theme }) => ({
     ...bgBlur ({color: '#280003'}),
@@ -57,52 +31,46 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function RegisterPage() {
+export default function RegisterPage({handleClick}) {
   const mdUp = useResponsive('up', 'md');
 
   return (
     <>
-      <Helmet>
-        <title> Register </title>
-      </Helmet>
 
-      <StyledRoot>
+    <Container maxWidth="sm">
+        <StyledContent>
+        <Typography variant="h4" gutterBottom>
+            Register to Lingo
+        </Typography>
 
-        <Container maxWidth="sm">
-          <StyledContent>
-            <Typography variant="h4" gutterBottom>
-              Register to Lingo
+        {/* <Typography variant="body2" sx={{ mb: 5 }}>
+            Don’t have an account? {''}
+            <Link variant="subtitle2">Get started</Link>
+        </Typography> */}
+
+        {/* <Stack direction="row" spacing={2}>
+            <Button fullWidth size="large" color="inherit" variant="outlined">
+            <Iconify icon="eva:google-fill" color="#DF3E30" width={22} height={22} />
+            </Button>
+
+            <Button fullWidth size="large" color="inherit" variant="outlined">
+            <Iconify icon="eva:facebook-fill" color="#1877F2" width={22} height={22} />
+            </Button>
+
+            <Button fullWidth size="large" color="inherit" variant="outlined">
+            <Iconify icon="eva:twitter-fill" color="#1C9CEA" width={22} height={22} />
+            </Button>
+        </Stack> */}
+
+        {/* <Divider sx={{ my: 3 }}>
+            <Typography variant="body2" sx={{ color: '#FFFFFF' }}>
+            OR
             </Typography>
+        </Divider> */}
 
-            {/* <Typography variant="body2" sx={{ mb: 5 }}>
-              Don’t have an account? {''}
-              <Link variant="subtitle2">Get started</Link>
-            </Typography> */}
-
-            {/* <Stack direction="row" spacing={2}>
-              <Button fullWidth size="large" color="inherit" variant="outlined">
-                <Iconify icon="eva:google-fill" color="#DF3E30" width={22} height={22} />
-              </Button>
-
-              <Button fullWidth size="large" color="inherit" variant="outlined">
-                <Iconify icon="eva:facebook-fill" color="#1877F2" width={22} height={22} />
-              </Button>
-
-              <Button fullWidth size="large" color="inherit" variant="outlined">
-                <Iconify icon="eva:twitter-fill" color="#1C9CEA" width={22} height={22} />
-              </Button>
-            </Stack> */}
-
-            {/* <Divider sx={{ my: 3 }}>
-              <Typography variant="body2" sx={{ color: '#FFFFFF' }}>
-                OR
-              </Typography>
-            </Divider> */}
-
-            <LoginForm />
-          </StyledContent>
-        </Container>
-      </StyledRoot>
+        <LoginForm />
+        </StyledContent>
+    </Container>
     </>
   );
 }

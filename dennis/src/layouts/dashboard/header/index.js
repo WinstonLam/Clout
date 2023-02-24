@@ -15,8 +15,10 @@ import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
 import {AppWidgetSummary,} from '../../../sections/@dashboard/app';
-import LoginPage from '../../../pages/LoginPage';
+// import LoginPage from '../../../pages/LoginPage';
 import RegisterPage from '../../../pages/RegisterPage';
+import PopUp from '../../../pages/PopUp';
+
 
 // ----------------------------------------------------------------------
 
@@ -53,21 +55,24 @@ Header.propTypes = {
   onOpenNav: PropTypes.func,
 };
 
-export default function Header({ onOpenNav }) {
+export default function Header() {
 
     const [showComponent, setShowComponent] = useState(false);
 
     const handleClick = () => {
-      setShowComponent(!showComponent);
+        console.log(showComponent);
+        setShowComponent(!showComponent);
+
     }
 
   return (
 
     <StyledRoot>
 
-    {/* {showComponent && <LoginPage />} */}
+      <PopUp loginOpen={showComponent} registerOpen={false} handleClick={handleClick}/>
       {/* {showComponent && <LoginPage />} */}
-      {showComponent && (<LoginPage show={showComponent} onClose={() => setShowComponent(false)} />)}
+      {/* {showComponent && (<LoginPage show={showComponent} onClose={() => setShowComponent(false)} />)} */}
+      
 
       <StyledToolbar>
 

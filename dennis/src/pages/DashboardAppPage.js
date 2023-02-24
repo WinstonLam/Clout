@@ -15,7 +15,7 @@ import {
   AppWidgetSummary,
   HiscoreTable,
 } from '../sections/@dashboard/app';
-import LoginPage from './LoginPage';
+import PopUp from './PopUp';
 
 // ----------------------------------------------------------------------
 
@@ -24,6 +24,12 @@ import LoginPage from './LoginPage';
 export default function DashboardAppPage() {
   
   const theme = useTheme();
+  const [showComponent, setShowComponent] = useState(false);
+
+  const handleClick = () => {
+    <PopUp show={showComponent} onClose={() => setShowComponent(false)} />
+    setShowComponent(!showComponent);
+  }
 
 
   return (
@@ -31,6 +37,9 @@ export default function DashboardAppPage() {
       <Helmet>
         <title> Dashboard | Minimal UI </title>
       </Helmet>
+
+      {/* {showComponent && (<PopUp show={showComponent} onClose={() => setShowComponent(false)} />)} */}
+
 
       <Container sx={{marginTop: '5%'}} maxWidth="xl">
 

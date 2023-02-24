@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 // @mui
-// import styled, { keyframes } from 'styled-components';
-import { styled, keyframes } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
 // hooks
 import useResponsive from '../hooks/useResponsive';
@@ -15,29 +14,16 @@ import { bgBlur } from '../utils/cssStyles';
 
 // ----------------------------------------------------------------------
 
-const StyledRoot = styled('div')(({ theme }) => ({
-    ...bgBlur ({color: '#000000', opacity: 0.6}),
-    display: 'flex',
-    alignItems: 'center',
-    position: 'fixed',
-    width: '100vw',
-    height: '100vh',
-    [theme.breakpoints.up('md')]: {
-        display: 'flex',
-    },
-    zIndex: 2,
-}));
 
-const flyIn = keyframes`
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
+const StyledSection = styled('div')(({ theme }) => ({
+//   width: '10%',
+  maxWidth: 480,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  boxShadow: theme.customShadows.card,
+  backgroundColor: theme.palette.background.default,
+}));
 
 const StyledContent = styled('div')(({ theme }) => ({
     ...bgBlur ({color: '#280003'}),
@@ -50,23 +36,17 @@ const StyledContent = styled('div')(({ theme }) => ({
     justifyContent: 'center',
     flexDirection: 'column',
     padding: theme.spacing(12, 12),
-    margin: 'auto',
-  animation: `${flyIn} 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards`,
+    margin: 'auto', // center the div horizontally
 }));
 
 // ----------------------------------------------------------------------
 
-
-export default function LoginPage({show, onClose}) {
+export default function LoginPage({handleClick}) {
   const mdUp = useResponsive('up', 'md');
 
   return (
     <>
-      <Helmet>
-        <title> Login </title>
-      </Helmet>
 
-      <StyledRoot>
         <Container maxWidth="sm">
           {/* <div style={{ ...styles.floatingDiv, ...(isVisible && styles.visible) }}> */}
           <StyledContent>
@@ -99,11 +79,12 @@ export default function LoginPage({show, onClose}) {
               </Typography>
             </Divider>
 
+            <button onClick={handleClick}>Hoi</button>
+
             <LoginForm />
           </StyledContent>
           {/* </div> */}
         </Container>
-      </StyledRoot>
     </>
   );
 }
