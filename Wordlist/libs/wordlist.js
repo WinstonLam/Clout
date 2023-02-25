@@ -22,13 +22,14 @@ async function post (inputWordlist) {
 
       let queryValues = ''
       for (const word of inputWordlist.request.words) {
-        queryValues += `'${word.word} ' , '${word.description}', ${resultWordList.recordset[0].Id}`
+        queryValues += `('${word.word} ' , '${word.description}', ${resultWordList.recordset[0].Id}),`
       }
-      const query = `insert into words values ( ${queryValues} )`
+      queryValues = queryValues.slice(0, -1)
+      const query = `insert into words values ${queryValues}`
 
-      const result = await databaseCon.query(query)
+      await databaseCon.query(query)
 
-      return { statusCode: 200, responseBody: 'Saving wordlist to dataBase succesful' + result }
+      return { statusCode: 200, responseBody: 'Saving wordlist to dataBase succesful' }
     }
   } catch (error) {
     console.log('error in saving list:' + error.message)
