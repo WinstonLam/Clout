@@ -1,11 +1,21 @@
 version: "2"
 services:
-  node:
-    image: "jurrewolff/gameservice"
-    environment:
-      - NODE_ENV="production"
-      - NODE_OPTIONS="--max-old-space-size=4096"
+  # node:
+  #   image: "jurrewolff/gameservice"
+  #   environment:
+  #     - NODE_ENV="production"
+  #     - NODE_OPTIONS="--max-old-space-size=4096"
+  #   ports:
+  #     - "127.0.0.1:45287:45287"
+  #   command: "npm start"
+  sql-gen:
     ports:
-      - "127.0.0.1:45287:45287"
-    command: "npm start"
+        - '1433:1433'
+    container_name: sqlgen
+    image: 'djewey/sql-gen:initial'
+  wordlist:
+    ports:
+        - '5000:5000'
+    container_name: wordserive
+    image: 'djewey/wordlist:initial'
 
