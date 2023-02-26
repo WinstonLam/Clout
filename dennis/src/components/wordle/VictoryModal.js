@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-export default function Modal({ isCorrect, solution, turn }) {
+export default function VictoryModal({ isCorrect, solution, turn }) {
   return (
     <div className="modal">
       {isCorrect && (
@@ -18,5 +18,5 @@ export default function Modal({ isCorrect, solution, turn }) {
         </div>
       )}
     </div>
-  )
+  );
 }

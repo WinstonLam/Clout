@@ -1,35 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import useWordle from '../../hooks/useWordle'
+import React, { useEffect, useState } from 'react';
+import useWordle from '../../hooks/useWordle';
 
 // components
-import Grid from './Grid'
-import Keypad from './Keypad'
-import Modal from './Modal'
+import Grid from './Grid';
+import Keypad from './Keypad';
+import VictoryModal from './VictoryModal';
+import GuessModal from './GuessModal';
 
-export default function Wordle({ solution }) {
-  const { currentGuess, guesses, turn, isCorrect, usedKeys, handleKeyup } = useWordle(solution)
-  const [showModal, setShowModal] = useState(false)
-  
+export default function Wordle({ solution, setSolution }) {
+  const { currentGuess, guesses, turn, isCorrect, usedKeys, handleKeyup, setTurn, setIsCorrect } = useWordle(solution);
+  const [victoryModal, setVictoryModal] = useState(false);
+  const [guessModal, setGuessModal] = useState(false);
+
   useEffect(() => {
-    window.addEventListener('keyup', handleKeyup)
+    window.addEventListener('keyup', handleKeyup);
 
     if (isCorrect) {
-      setTimeout(() => setShowModal(true), 2000)
-      window.removeEventListener('keyup', handleKeyup)
+      // On correct guess, get new word to continue the game
+      setGuessModal(true);
+      setTimeout(() => setGuessModal(false), 3000);
+      setIsCorrect(false);
+      // here normally the next word is get from the server
+      setTurn(0);
+      setTimeout(() => setSolution('mode'), 3100);
+
+      // window.removeEventListener('keyup', handleKeyup)
     }
     if (turn > 5) {
-      setTimeout(() => setShowModal(true), 2000)
-      window.removeEventListener('keyup', handleKeyup)
+      setTimeout(() => setVictoryModal(true), 2000);
+      window.removeEventListener('keyup', handleKeyup);
     }
 
-    return () => window.removeEventListener('keyup', handleKeyup)
-  }, [handleKeyup, isCorrect, turn])
+    return () => window.removeEventListener('keyup', handleKeyup);
+  }, [handleKeyup, isCorrect, turn, setSolution]);
 
   return (
     <div>
       <Grid guesses={guesses} currentGuess={currentGuess} turn={turn} />
       <Keypad usedKeys={usedKeys} />
-      {showModal && <Modal isCorrect={isCorrect} turn={turn} solution={solution} />}
+      {guessModal && <GuessModal solution={solution} turn={turn} />}
+      {victoryModal && <VictoryModal isCorrect={isCorrect} turn={turn} solution={solution} />}
     </div>
-  )
+  );
 }
