@@ -52,8 +52,8 @@ export default function PopUp({open, openLogin}) {
     setRegister(!register);
     console.log(`${login} and ${register} after function`);
 
-
   }
+
 
 
   
@@ -65,8 +65,8 @@ export default function PopUp({open, openLogin}) {
       </Helmet>
 
       <div className={`${!(open) ? "active" : ""} show`}>
-        {login && <LoginPage onSwitch={switchScreen}/>}
-        {register && <RegisterPage onSwitch={switchScreen}/>}
+        {login && <LoginPage onSwitch={switchScreen} onClose={openLogin}/>}
+        {register && <RegisterPage onSwitch={switchScreen} onClose={openLogin}/>}
       </div>
     </>
   );

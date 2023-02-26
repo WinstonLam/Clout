@@ -33,7 +33,7 @@ const Main = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function DashboardLayout() {
-  const [open, setOpen] = useState(false);
+  const [user, setUser] = useState(null);
 //   const [openLogin, setOpenLogin] = useState(false);
 
 //   function handleLoginClick () {
@@ -44,7 +44,7 @@ export default function DashboardLayout() {
 
   return (
     <StyledRoot>
-      <Header/>
+      <Header userObject={user}/>
 
       {/* <Nav openNav={open} onCloseNav={() => setOpen(false)} /> */}
 

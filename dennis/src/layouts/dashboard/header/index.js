@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 // @mui
@@ -49,15 +50,30 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   },
 }));
 
+const buttonStyle = ({
+    backgroundColor:"#FFA500",
+    "&:hover": {
+        background: "#FF8C00"
+      },
+    color:"black",
+    marginTop:"100",
+    position: "absolute",
+    width:"5%",
+    // paddingTop:10,
+    zIndex:2,
+
+});
+
 // ----------------------------------------------------------------------
 
 Header.propTypes = {
   onOpenNav: PropTypes.func,
 };
 
-export default function Header() {
+export default function Header({userObject}) {
 
     const [showComponent, setShowComponent] = useState(false);
+    const navigate = useNavigate();
 
     // Opens and closes the popup
     const openScreen = () => {
@@ -65,6 +81,10 @@ export default function Header() {
         setShowComponent(!showComponent);
 
     }
+
+    const navigatePlay = () => {
+        navigate('/play', { replace: true });
+      };
 
   return (
 
@@ -79,7 +99,8 @@ export default function Header() {
 
         <Container maxWidth="xxl">
             <AppWidgetSummary height={3} width={5} color="redblack" title="Lingo" />
-            <Button onClick={openScreen} variant="contained" size="large" align="center">Login</Button>
+            {!userObject && <Button onClick={openScreen} variant="contained" size="large" align="center">Login</Button>}
+            <Button onClick={navigatePlay} size="large" sx={buttonStyle}>Play!</Button>
         </Container>
 
         <Box sx={{ flexGrow: 1 }} />
@@ -92,9 +113,9 @@ export default function Header() {
             sm: 1,
           }}
         >
-          {/* <LanguagePopover />
+          {/* <LanguagePopover /> */}
           <NotificationsPopover />
-          <AccountPopover /> */}
+          <AccountPopover />
         </Stack>
       </StyledToolbar>
     </StyledRoot>

@@ -20,7 +20,6 @@ import PopUp from './PopUp';
 // ----------------------------------------------------------------------
 
 
-
 export default function DashboardAppPage() {
   
   const theme = useTheme();

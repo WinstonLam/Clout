@@ -41,7 +41,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function LoginPage({onSwitch}) {
+export default function LoginPage({onSwitch, onClose}) {
   const mdUp = useResponsive('up', 'md');
 
   return (
@@ -79,9 +79,8 @@ export default function LoginPage({onSwitch}) {
               </Typography>
             </Divider>
 
-            <button onClick={onSwitch}>Hoi</button>
-
-            <LoginForm />
+            <LoginForm onClose={onClose} buttonName={"Login"}/>
+            <Button onClick={onSwitch}>Register</Button>
           </StyledContent>
           {/* </div> */}
         </Container>

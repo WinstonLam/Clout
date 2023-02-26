@@ -9,6 +9,7 @@ import UserPage from './pages/UserPage';
 import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
+import PlayPage from './pages/PlayPage';
 
 // ----------------------------------------------------------------------
 
@@ -25,10 +26,15 @@ export default function Router() {
         { path: 'blog', element: <BlogPage /> },
       ],
     },
-    // {
-    //   path: 'login',
-    // //   element: <LoginPage />,
-    // },
+    {
+      path: '',
+      element: <DashboardLayout />,
+      children: [
+        { element: <Navigate to="play" />, index: true },
+        { path: 'play', element: <PlayPage /> },
+      ],
+    //   element: <LoginPage />,
+    },
     // {
     //   element: <SimpleLayout />,
     //   children: [

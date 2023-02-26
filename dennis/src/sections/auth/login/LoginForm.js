@@ -9,7 +9,7 @@ import RegisterForm from './RegisterForm';
 import Iconify from '../../../components/iconify';
 // ----------------------------------------------------------------------
 
-export default function LoginForm({onSwitch}) {
+export default function LoginForm({onSwitch, buttonName, onClose}) {
 
   const [success, setSuccess] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -20,9 +20,15 @@ export default function LoginForm({onSwitch}) {
   };
 
 
-  const sendInformation = () => {
+  const loginFunc = () => {
 
-    if (success) onSwitch();
+    if (success) onClose();
+
+  }
+
+  const registerFunc = () => {
+
+    if (success) onClose();
 
   }
 
@@ -45,17 +51,26 @@ export default function LoginForm({onSwitch}) {
             ),
           }}
         />
+        {(buttonName === 'Register') &&
+                    <TextField
+                    name="password"
+                    label="Confirm Password"
+                    type={showPassword ? 'text' : 'password'}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                            <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />}
       </Stack>
 
-      {/* <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <Checkbox name="remember" label="Remember me" />
-        <Link variant="subtitle2" underline="hover">
-          Forgot password?
-        </Link>
-      </Stack> */}
-
-      <LoadingButton sx={{marginTop: 5}}fullWidth size="large" type="submit" variant="contained" onClick={sendInformation}>
-        Register
+      <LoadingButton sx={{marginTop: 5}}fullWidth size="large" type="submit" variant="contained" 
+        onClick={(buttonName === "Register") ? loginFunc : registerFunc}>
+        {buttonName}
       </LoadingButton>
     </>
   );
