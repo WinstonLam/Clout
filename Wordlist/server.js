@@ -1,10 +1,10 @@
 // dependencies
-const grpc = require("@grpc/grpc-js");
-const protoLoader = require("@grpc/proto-loader");
-const wordList = require("./libs/wordlist");
+const grpc = require('@grpc/grpc-js')
+const protoLoader = require('@grpc/proto-loader')
+const wordList = require('./libs/wordlist')
 
 // add /Wordlist if wanting to debug
-const PROTO_FILE = "./protos/service_def.proto";
+const PROTO_FILE = './Wordlist/protos/service_def.proto'
 // options needed for loading Proto file
 const options = {
   keepCase: true,
@@ -20,24 +20,55 @@ const pkgDefs = protoLoader.loadSync(PROTO_FILE, options)
 const userProto = grpc.loadPackageDefinition(pkgDefs)
 
 // create gRPC server
-const server = new grpc.Server();
+const server = new grpc.Server()
 
-// implement UserService
-server.addService(userProto.UserService.service, {
-  // implment GetUser
-  getWordlist,
-  addNewWordlist
-
+// all the services for the proto file
+server.addService(userProto.WordlistService.service, {
+  loadAllWordlists,
+  addNewWordlist,
+  getWordsOfWordList
+  // getWordExceptIDs
 })
-async function getWordlist (input, callback) {
+
+async function loadAllWordlists (input, callback) {
   try {
-    const data = await wordList.get()
+    const data = await wordList.getWordListByUserID(input)
     callback(null, data)
   } catch (error) {
-    callback(error, null)
+    const errorObject = {
+      statusCode: 400,
+      responseBody: error.message
+    }
+    callback(null, errorObject)
   }
 }
-async function addNewWordlist(input, callback) {
+// async function getWordExceptIDs (input, callback) {
+//   try {
+//     const data = await wordList.getWordsOfWordList(input)
+//     callback(null, data)
+//   } catch (error) {
+//     const errorObject = {
+//       statusCode: 400,
+//       responseBody: error.message
+//     }
+//     callback(null, errorObject)
+//   }
+// }
+
+async function getWordsOfWordList (input, callback) {
+  try {
+    const data = await wordList.getWordsOfWordList(input)
+    callback(null, data)
+  } catch (error) {
+    const errorObject = {
+      statusCode: 400,
+      responseBody: error.message
+    }
+    callback(null, errorObject)
+  }
+}
+
+async function addNewWordlist (input, callback) {
   try {
     console.log(input.request)
     const response = await wordList.post(input)
@@ -54,7 +85,7 @@ async function addNewWordlist(input, callback) {
 // start the Server
 server.bindAsync(
   // port to serve on
-  "0.0.0.0:5000",
+  '0.0.0.0:5000',
   // authentication settings
   grpc.ServerCredentials.createInsecure(),
   // server start callback
@@ -66,4 +97,4 @@ server.bindAsync(
       server.start()
     }
   }
-);
+)
