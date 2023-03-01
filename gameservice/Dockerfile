@@ -3,7 +3,7 @@ EXPOSE 45287
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY ./package*.json ./
 RUN npm install --only=production
 
 COPY app.js ./

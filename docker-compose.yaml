@@ -1,7 +1,7 @@
 version: "2"
 services:
   node:
-    image: "jurrewolff/gameservice"
+    image: "gameservice"
     environment:
       - NODE_ENV="production"
       - NODE_OPTIONS="--max-old-space-size=4096"

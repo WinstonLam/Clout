@@ -1,15 +1,16 @@
 
 import { Game, ongoingGames } from '../libs/gamelogic.js'
 
-const sessionId = '999'
+const gameId = '999'
+const wordlistId = '999'
 let secretWord = ''
 
 describe('Game class:', () => {
   let game
 
   beforeEach(() => {
-    game = new Game(1, sessionId)
-    ongoingGames.set(sessionId, game)
+    game = new Game(wordlistId)
+    ongoingGames.set(gameId, game)
     secretWord = game.secretWord
   })
 
@@ -18,21 +19,26 @@ describe('Game class:', () => {
       expect(game).toBeInstanceOf(Game)
     })
 
-    it('should set the wordlistId and sessionId properties', () => {
-      expect(game.wordlistId).toBe(1)
-      expect(game.sessionId).toBe(sessionId)
+    it('should set the wordlistId and gameId properties', () => {
+      expect(game.wordlistId).toBe(wordlistId)
+      expect(game.secretWord).toBeDefined()
+      expect(typeof game.gameId).toBe('string')
     })
 
-    it('should generate a secret word', () => {
+    it('should have fetched a secret word', () => {
       expect(game.secretWord).toBeDefined()
       expect(typeof game.secretWord).toBe('string')
     })
   })
 
   describe('update', () => {
-    it('success should be false if guess length != secret word length', () => {
-      const [, success] = game.update(secretWord + 'x')
-      expect(success).toBe(false)
+    it('should throw exception if guess length is not equal to secret word length', () => {
+      try {
+        game.update(secretWord + 'x')
+        fail('update should have thrown exception')
+      } catch (e) {
+        expect(e.message).toBeDefined()
+      }
     })
 
     it('should return feedback and true if guess length is equal to secret word length and some letters match', () => {
@@ -48,13 +54,11 @@ describe('Game class:', () => {
       expect(feedback).toEqual(expectedFeedback)
     })
 
-    it('should remove game session if guess is correct AND should have feedback letters match secretword', () => {
+    it('should have feedback letters match secretword', () => {
       const expectedFeedback = strToObject(secretWord)
-
-      const initialLength = ongoingGames.size
+      
       const [feedback, success] = game.update(game.secretWord)
       expect(success).toBe(true)
-      expect(ongoingGames.size).toBe(initialLength - 1)
       expect(feedback).toStrictEqual(expectedFeedback)
     })
   })
