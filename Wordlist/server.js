@@ -26,8 +26,8 @@ const server = new grpc.Server()
 server.addService(userProto.WordlistService.service, {
   loadAllWordlists,
   addNewWordlist,
-  getWordsOfWordList
-  // getWordExceptIDs
+  getWordsOfWordList,
+  getWordExceptIDs
 })
 
 async function loadAllWordlists (input, callback) {
@@ -42,18 +42,18 @@ async function loadAllWordlists (input, callback) {
     callback(null, errorObject)
   }
 }
-// async function getWordExceptIDs (input, callback) {
-//   try {
-//     const data = await wordList.getWordsOfWordList(input)
-//     callback(null, data)
-//   } catch (error) {
-//     const errorObject = {
-//       statusCode: 400,
-//       responseBody: error.message
-//     }
-//     callback(null, errorObject)
-//   }
-// }
+async function getWordExceptIDs (input, callback) {
+  try {
+    const data = await wordList.getWordExceptIDs(input)
+    callback(null, data)
+  } catch (error) {
+    const errorObject = {
+      statusCode: 400,
+      responseBody: error.message
+    }
+    callback(null, errorObject)
+  }
+}
 
 async function getWordsOfWordList (input, callback) {
   try {
