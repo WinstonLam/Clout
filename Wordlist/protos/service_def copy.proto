@@ -13,7 +13,6 @@ message Id {
 
 message Wordlists {
     repeated WordlistInfo wordlistInfo = 1;
-    Response serverInfo = 2;
 }
 
 message WordlistInfo {
@@ -22,7 +21,6 @@ message WordlistInfo {
     int32 userID = 3;
     int32 wordlistID = 4;
     repeated Word words = 5;
-    Response serverInfo = 6;
 }
 
 message Word {
@@ -39,5 +37,4 @@ service WordlistService {
     rpc loadAllWordlists (Id) returns (Wordlists) {}
     rpc addNewWordlist (WordlistInfo) returns (Response) {}
     rpc getWordsOfWordList (Id) returns (WordlistInfo) {}
-    rpc getWordExceptIDs (Filter) returns (WordlistInfo) {}
 }

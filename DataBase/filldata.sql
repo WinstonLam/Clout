@@ -26,7 +26,8 @@ BEGIN
             (
                 Id int identity primary key,
                 Name nvarchar(50),
-                description nvarchar(50)
+                description nvarchar(50),
+                userID int
             )
         '
         SET @query = FORMATMESSAGE('%s %s', @USEDBquery, @addQuery)
@@ -45,7 +46,8 @@ BEGIN
         ''description - '' + CAST(@Id as nvarchar(10)) + '' test'',
         1)
         Insert Into wordlist values (''testList '' + CAST(@Id as nvarchar(10)),
-        ''description of testList- '' + CAST(@Id as nvarchar(10)))
+        ''description of testList- '' + CAST(@Id as nvarchar(10)),
+        1)
        '
     SET @insertDataQuery = FORMATMESSAGE('%s %s', @USEDBquery ,@insertDataQuery);
     PRINT @insertDataQuery
