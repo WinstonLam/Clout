@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+message Empty {}
+
+message wordlist {
+    string wordlistName = 1;
+    repeated string words = 2;
+ }
+
+message Response {
+    int32 statusCode = 1;
+    string responseBody = 2;
+}
+
+service UserService {
+    rpc getWordlist (Empty) returns (wordlist) {}
+    rpc addNewWordlist (wordlist) returns (Response) {}
+}
