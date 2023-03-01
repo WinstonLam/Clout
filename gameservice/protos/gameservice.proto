@@ -2,17 +2,35 @@ syntax = "proto3";
 
 package gameservice;
 
+message GameInitRequest { int32 wordlist_id = 1; }
+
+message GameInitResponse {
+  bool success = 1;
+  string err_msg = 2;
+  string game_id = 3;
+  int32 secret_word = 4;
+}
+
 message GameUpdateRequest {
-  int32 session_id = 1;
+  string game_id = 1;
   string guess = 2;
-  int32 wordlist_id = 3;
 }
 
 message GameUpdateResponse {
   bool success = 1;
-  map<int32, string> feedback_map = 2;
+  string err_msg = 2;
+  map<int32, string> feedback_map = 3;
+}
+
+message GameDeleteRequest { string game_id = 1; }
+
+message GameDeleteResponse {
+  int32 success = 1;
+  string err_msg = 2;
 }
 
 service LingoGame {
+  rpc initGame(GameInitRequest) returns (GameInitResponse);
   rpc updateGame(GameUpdateRequest) returns (GameUpdateResponse);
+  rpc deleteGame(GameDeleteRequest) returns (GameDeleteResponse);
 }
