@@ -8,6 +8,8 @@
     "@material-ui/icons": "^4.11.3",
     "@mui/material": "^5.11.8",
     "docker": "^1.0.0",
+    "google-protobuf": "^3.21.2",
+    "grpc-web": "^1.4.2",
     "react": "^17.0.2"
   },
   "devDependencies": {
