@@ -5,7 +5,7 @@ const sql = require('mssql')
 const config = {
   user: 'sa',
   password: 'DevOps2023!',
-  server: 'sqlgen',
+  server: 'localhost',
   database: 'LINGO',
   trustServerCertificate: true
 }
@@ -16,8 +16,8 @@ async function query (queryToExecute) {
     const result = await sql.query(queryToExecute)
     return result
   } catch (error) {
-    console.log('error in query execution:' + error)
-    throw new Error('error executing query to db', error)
+    console.log('error in query execution:' + error.message)
+    throw new Error('error executing query to db: ' + error.message)
   }
 }
 
