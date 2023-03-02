@@ -5,7 +5,7 @@ const sql = require('mssql')
 const config = {
   user: 'sa',
   password: 'DevOps2023!',
-  server: 'localhost',
+  server: 'sql-gen',
   database: 'LINGO',
   trustServerCertificate: true
 }

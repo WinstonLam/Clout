@@ -19,6 +19,6 @@ services:
   wordlist:
     ports:
       - '5000:5000'
-    container_name: wordserive
+    container_name: wordlistservice
     image: 'djewey/wordlist:initial'
   

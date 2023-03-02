@@ -7,7 +7,6 @@ COPY package*.json ./
 RUN npm install --only=production
 
 COPY server.js ./
-COPY coreFunctions ./coreFunctions
 COPY libs ./libs
 COPY protos ./protos
 
