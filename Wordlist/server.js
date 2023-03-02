@@ -4,7 +4,7 @@ const protoLoader = require('@grpc/proto-loader')
 const wordList = require('./libs/wordlist')
 
 // add /Wordlist if wanting to debug
-const PROTO_FILE = './Wordlist/protos/service_def.proto'
+const PROTO_FILE = './protos/service_def.proto'
 // options needed for loading Proto file
 const options = {
   keepCase: true,
@@ -17,7 +17,7 @@ const options = {
 const pkgDefs = protoLoader.loadSync(PROTO_FILE, options)
 
 // load Definition into gRPC
-const userProto = grpc.loadPackageDefinition(pkgDefs)
+const userProto = grpc.loadPackageDefinition(pkgDefs).wlservice
 
 // create gRPC server
 const server = new grpc.Server()

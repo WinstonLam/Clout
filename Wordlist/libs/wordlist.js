@@ -1,5 +1,5 @@
 const databaseCon = require('../libs/database')
-async function getWordsOfWordList (input) {
+async function getWordsOfWordList(input) {
   try {
     const result = await databaseCon.query(`select * from words where wordlistID = ${input.request.id};`)
     const resultWordlist = await databaseCon.query(`select * from wordlist where Id = ${input.request.id}`)
@@ -16,7 +16,7 @@ async function getWordsOfWordList (input) {
   }
 }
 
-async function getWordListByUserID (input) {
+async function getWordListByUserID(input) {
   try {
     const result = await databaseCon.query(`select * from wordlist where userID = ${input.request.id}`)
     const returnObject = []
@@ -34,7 +34,7 @@ async function getWordListByUserID (input) {
   }
 }
 
-async function getWordExceptIDs (input) {
+async function getWordExceptIDs(input) {
   try {
     let strFilter = ''
     for (const filterId of input.request.filter) {
@@ -55,7 +55,7 @@ async function getWordExceptIDs (input) {
   }
 }
 
-async function post (inputWordlist) {
+async function post(inputWordlist) {
   try {
     if (inputWordlist.request.words.length !== 0) {
       // const connection = databaseCon.connect()
