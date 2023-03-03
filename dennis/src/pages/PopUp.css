@@ -1,0 +1,18 @@
+.show {
+    position: absolute;
+    /* display: block; */
+    transition: 300ms;
+    opacity: 1;
+    /* margin: auto; */
+    width: 30%;
+    z-index: 2;
+    /* margin: auto; */
+    /* padding-top: 10000; */
+    margin-left: 30%;
+    margin-top: 5%;
+}
+
+.show.active {
+    transform: translateY(100px) scale(0);
+    opacity: 0;
+}

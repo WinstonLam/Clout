@@ -2,18 +2,16 @@ import React, { useState } from "react";
 import "../styles/wordlist.css";
 import WordInput from "./word-input";
 import { TextField } from "@mui/material";
+import { wordlist, word } from "../proto/client_pb";
 import WordListButtons from "./wordlist-buttons";
 
-// server communication functions
-import { createWordList } from "../communication/grpcClient";
-
-function Wordlist() {
+function Wordlist({ client }) {
   const [values, setValues] = useState({
     title: "",
     description: "",
   });
 
-  const [wordlist, setWordlist] = useState({
+  const [wordlistState, setWordlist] = useState({
     word1: "",
     definition1: "",
     word2: "",
@@ -35,6 +33,25 @@ function Wordlist() {
     word10: "",
     definition10: "",
   });
+
+  function onSubmit() {
+    console.log(client);
+    const list = new wordlist();
+    list.setWordlistname(values.title);
+    list.setDescription(values.description);
+    const words = [];
+    for (let i = 1; i <= 10; i++) {
+      const newWord = new word();
+      newWord.setWord(wordlist[`word${i}`]);
+      newWord.setDescription(wordlist[`definition${i}`]);
+      words.push(newWord);
+    }
+    list.setWordsList(words);
+    client.addNewWordlist(list, {}, (err, response) => {
+      if (err) console.log(err.metadata);
+      else console.log(response);
+    });
+  }
 
   return (
     <div className="container">
@@ -63,119 +80,119 @@ function Wordlist() {
         <div className="wordlist-wrapper">
           <div className="wordlist">
             <WordInput
-              wordlist={wordlist}
-              word={wordlist.word1}
-              definition={wordlist.definition1}
+              wordlist={wordlistState}
+              word={wordlistState.word1}
+              definition={wordlistState.definition1}
               onChangeWord={(e) =>
-                setWordlist({ ...wordlist, word1: e.target.value })
+                setWordlist({ ...wordlistState, word1: e.target.value })
               }
               onChangeDefinition={(e) =>
-                setWordlist({ ...wordlist, definition1: e.target.value })
+                setWordlist({ ...wordlistState, definition1: e.target.value })
               }
             />
             <WordInput
-              wordlist={wordlist}
-              word={wordlist.word2}
-              definition={wordlist.definition2}
+              wordlist={wordlistState}
+              word={wordlistState.word2}
+              definition={wordlistState.definition2}
               onChangeWord={(e) =>
-                setWordlist({ ...wordlist, word2: e.target.value })
+                setWordlist({ ...wordlistState, word2: e.target.value })
               }
               onChangeDefinition={(e) =>
-                setWordlist({ ...wordlist, definition2: e.target.value })
+                setWordlist({ ...wordlistState, definition2: e.target.value })
               }
             />
             <WordInput
-              wordlist={wordlist}
-              word={wordlist.word3}
-              definition={wordlist.definition3}
+              wordlist={wordlistState}
+              word={wordlistState.word3}
+              definition={wordlistState.definition3}
               onChangeWord={(e) =>
-                setWordlist({ ...wordlist, word3: e.target.value })
+                setWordlist({ ...wordlistState, word3: e.target.value })
               }
               onChangeDefinition={(e) =>
-                setWordlist({ ...wordlist, definition3: e.target.value })
+                setWordlist({ ...wordlistState, definition3: e.target.value })
               }
             />
             <WordInput
-              wordlist={wordlist}
-              word={wordlist.word4}
-              definition={wordlist.definition4}
+              wordlist={wordlistState}
+              word={wordlistState.word4}
+              definition={wordlistState.definition4}
               onChangeWord={(e) =>
-                setWordlist({ ...wordlist, word4: e.target.value })
+                setWordlist({ ...wordlistState, word4: e.target.value })
               }
               onChangeDefinition={(e) =>
-                setWordlist({ ...wordlist, definition4: e.target.value })
+                setWordlist({ ...wordlistState, definition4: e.target.value })
               }
             />
             <WordInput
-              wordlist={wordlist}
-              word={wordlist.word5}
-              definition={wordlist.definition5}
+              wordlist={wordlistState}
+              word={wordlistState.word5}
+              definition={wordlistState.definition5}
               onChangeWord={(e) =>
-                setWordlist({ ...wordlist, word5: e.target.value })
+                setWordlist({ ...wordlistState, word5: e.target.value })
               }
               onChangeDefinition={(e) =>
-                setWordlist({ ...wordlist, definition5: e.target.value })
+                setWordlist({ ...wordlistState, definition5: e.target.value })
               }
             />
             <WordInput
-              wordlist={wordlist}
-              word={wordlist.word6}
-              definition={wordlist.definition6}
+              wordlist={wordlistState}
+              word={wordlistState.word6}
+              definition={wordlistState.definition6}
               onChangeWord={(e) =>
-                setWordlist({ ...wordlist, word6: e.target.value })
+                setWordlist({ ...wordlistState, word6: e.target.value })
               }
               onChangeDefinition={(e) =>
-                setWordlist({ ...wordlist, definition6: e.target.value })
+                setWordlist({ ...wordlistState, definition6: e.target.value })
               }
             />
             <WordInput
-              wordlist={wordlist}
-              word={wordlist.word7}
-              definition={wordlist.definition7}
+              wordlist={wordlistState}
+              word={wordlistState.word7}
+              definition={wordlistState.definition7}
               onChangeWord={(e) =>
-                setWordlist({ ...wordlist, word7: e.target.value })
+                setWordlist({ ...wordlistState, word7: e.target.value })
               }
               onChangeDefinition={(e) =>
-                setWordlist({ ...wordlist, definition7: e.target.value })
+                setWordlist({ ...wordlistState, definition7: e.target.value })
               }
             />
             <WordInput
-              wordlist={wordlist}
-              word={wordlist.word8}
-              definition={wordlist.definition8}
+              wordlist={wordlistState}
+              word={wordlistState.word8}
+              definition={wordlistState.definition8}
               onChangeWord={(e) =>
-                setWordlist({ ...wordlist, word8: e.target.value })
+                setWordlist({ ...wordlistState, word8: e.target.value })
               }
               onChangeDefinition={(e) =>
-                setWordlist({ ...wordlist, definition8: e.target.value })
+                setWordlist({ ...wordlistState, definition8: e.target.value })
               }
             />
             <WordInput
-              wordlist={wordlist}
-              word={wordlist.word9}
-              definition={wordlist.definition9}
+              wordlist={wordlistState}
+              word={wordlistState.word9}
+              definition={wordlistState.definition9}
               onChangeWord={(e) =>
-                setWordlist({ ...wordlist, word9: e.target.value })
+                setWordlist({ ...wordlistState, word9: e.target.value })
               }
               onChangeDefinition={(e) =>
-                setWordlist({ ...wordlist, definition9: e.target.value })
+                setWordlist({ ...wordlistState, definition9: e.target.value })
               }
             />
             <WordInput
-              wordlist={wordlist}
-              word={wordlist.word10}
-              definition={wordlist.definition10}
+              wordlist={wordlistState}
+              word={wordlistState.word10}
+              definition={wordlistState.definition10}
               onChangeWord={(e) =>
-                setWordlist({ ...wordlist, word10: e.target.value })
+                setWordlist({ ...wordlistState, word10: e.target.value })
               }
               onChangeDefinition={(e) =>
-                setWordlist({ ...wordlist, definition10: e.target.value })
+                setWordlist({ ...wordlistState, definition10: e.target.value })
               }
             />
           </div>
         </div>
         <div className="wordlist-footer">
-          <WordListButtons createWordlist={createWordList(wordlist)} />
+          <WordListButtons onSubmit={onSubmit} />
         </div>
       </div>
     </div>

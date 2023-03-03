@@ -1,0 +1,9 @@
+.wordlist-buttons-wrapper{
+    margin-top: 10px;
+    width: 100%;
+}
+
+.wordlist-buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
