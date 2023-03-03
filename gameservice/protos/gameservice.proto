@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package gameservice;
+
+message GameInitRequest { int32 wordlist_id = 1; }
+
+message GameInitResponse {
+  bool success = 1;
+  string err_msg = 2;
+  string game_id = 3;
+  string secret_word = 4;
+}
+
+message GameUpdateRequest {
+  string game_id = 1;
+  string guess = 2;
+}
+
+message GameUpdateResponse {
+  bool success = 1;
+  string err_msg = 2;
+  map<int32, string> feedback_map = 3;
+}
+
+message GameDeleteRequest { string game_id = 1; }
+
+message GameDeleteResponse {
+  int32 success = 1;
+  string err_msg = 2;
+}
+
+message NextWordRequest { string game_id = 1; }
+
+message NextWordResponse {
+  int32 success = 1;
+  string err_msg = 2;
+  string secret_word = 3;
+}
+
+service LingoGame {
+  rpc initGame(GameInitRequest) returns (GameInitResponse);
+  rpc updateGame(GameUpdateRequest) returns (GameUpdateResponse);
+  rpc deleteGame(GameDeleteRequest) returns (GameDeleteResponse);
+  rpc nextWord(NextWordRequest) returns (NextWordResponse);
+}

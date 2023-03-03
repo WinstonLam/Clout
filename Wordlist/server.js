@@ -1,7 +1,7 @@
 // dependencies
-const grpc = require("@grpc/grpc-js");
-const protoLoader = require("@grpc/proto-loader");
-const wordList = require("./Resources/wordlist");
+const grpc = require('@grpc/grpc-js')
+const protoLoader = require('@grpc/proto-loader')
+const wordList = require('./libs/wordlist')
 
 // add /Wordlist if wanting to debug
 const PORT = 5000;
