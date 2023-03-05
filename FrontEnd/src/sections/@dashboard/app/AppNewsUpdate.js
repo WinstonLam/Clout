@@ -19,9 +19,11 @@ AppNewsUpdate.propTypes = {
 
 export default function AppNewsUpdate({ height, color, sx, title, subheader, list, ...other }) {
   const navigate = useNavigate();
-  const navigateWordlist = () => {
-    navigate('/wordlist', { replace: true });
+
+  const handleNavigate = (route) => {
+    navigate(`/${route}`, { replace: true });
   };
+
   return (
     <Card
       sx={{
@@ -47,10 +49,15 @@ export default function AppNewsUpdate({ height, color, sx, title, subheader, lis
       <Divider />
 
       <Box sx={{ p: 2, textAlign: 'center' }}>
-        <Button onClick={navigateWordlist} variant="contained" size="large" align="center">
+        <Button onClick={() => handleNavigate('wordlist')} variant="contained" size="large" align="center">
           Make your own list!
         </Button>
-        <Button variant="contained" size="large" endIcon={<Iconify icon={'eva:arrow-ios-forward-fill'} />}>
+        <Button
+          onClick={() => handleNavigate('wordlist-overview')}
+          variant="contained"
+          size="large"
+          endIcon={<Iconify icon={'eva:arrow-ios-forward-fill'} />}
+        >
           View all
         </Button>
       </Box>

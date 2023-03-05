@@ -43,20 +43,20 @@ function WordlistPage({ client }) {
 
   function onSubmit() {
     console.log(client);
-    const list = new wordlist();
-    list.setWordlistname(values.title);
-    list.setDescription(values.description);
+    const wordlist = new WordlistInfo();
+    wordlist.setWordlistname(values.title);
+    wordlist.setDescription(values.description);
     const words = [];
     for (let i = 1; i <= 10; i++) {
-      const newWord = new word();
+      const newWord = new Word();
       newWord.setWord(wordlist[`word${i}`]);
       newWord.setDescription(wordlist[`definition${i}`]);
       words.push(newWord);
     }
-    list.setWordsList(words);
-    client.addNewWordlist(list, {}, (err, response) => {
-      if (err) console.log(err.metadata);
-      else console.log(response);
+    wordlist.setWordsList(words);
+    client.addNewWordlist(wordlist, {}, (err, response) => {
+      if (err) console.log('failed', err.metadata);
+      else console.log('succes', response);
     });
   }
 

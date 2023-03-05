@@ -12,6 +12,7 @@ import DashboardAppPage from './pages/DashboardAppPage';
 import PlayPage from './pages/PlayPage';
 
 import Wordlist from './pages/WordlistPage';
+import WordlistOverviewPage from './pages/WordlistOverviewPage';
 import { WordlistServiceClient } from './clientprotos/wordlist/WordlistServiceClientPb.ts';
 
 // ----------------------------------------------------------------------
@@ -45,6 +46,7 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'wordlist', element: <Wordlist client={client} /> },
+        { path: 'wordlist-overview', element: <WordlistOverviewPage client={client} /> },
         { path: '*', element: <Navigate to="/404" /> },
       ],
     },

@@ -90,11 +90,17 @@ const useWordle = (solution) => {
         console.log('you already tried that word.');
         return;
       }
-      // check word is 5 chars
-      if (currentGuess.length !== 5) {
-        console.log('word must be 5 chars.');
+      // check word is atleast 1 char
+      if (currentGuess.length === 0) {
+        console.log('no word entered.');
         return;
       }
+
+      // // check word is 5 chars
+      // if (currentGuess.length !== 5) {
+      //   console.log('word must be 5 chars.');
+      //   return;
+      // }
       const formatted = formatGuess();
       addNewGuess(formatted);
     }
