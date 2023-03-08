@@ -2,7 +2,7 @@ name: GameService code updated
 
 on:
   push:
-    branches: ["Development", "master", "feature/gamesergvice-test-workflow"]
+    branches: ["Development", "master", "feature/dockerhub-workflow"]
     paths:
       - "gameservice/**.js"
 
