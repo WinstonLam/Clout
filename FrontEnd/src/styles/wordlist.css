@@ -27,7 +27,7 @@
   align-items: center;
 }
 
-.wordlist-wrapper {
+.wordlist-maker-wrapper {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
@@ -36,7 +36,7 @@
   overflow-y: scroll;
 }
 
-.wordlist{
+.wordlist-maker{
   margin-top: 10px;
 }
 

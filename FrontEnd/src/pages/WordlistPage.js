@@ -49,11 +49,12 @@ function WordlistPage({ client }) {
     const words = [];
     for (let i = 1; i <= 10; i++) {
       const newWord = new Word();
-      newWord.setWord(wordlist[`word${i}`]);
-      newWord.setDescription(wordlist[`definition${i}`]);
+      newWord.setWord(wordlistState[`word${i}`]);
+      newWord.setDescription(wordlistState[`definition${i}`]);
       words.push(newWord);
     }
     wordlist.setWordsList(words);
+    console.log(wordlist);
     client.addNewWordlist(wordlist, {}, (err, response) => {
       if (err) console.log('failed', err.metadata);
       else console.log('succes', response);
@@ -82,8 +83,8 @@ function WordlistPage({ client }) {
             style={{ width: '100%' }}
           />
         </div>
-        <div className="wordlist-wrapper">
-          <div className="wordlist">
+        <div className="wordlist-maker-wrapper">
+          <div className="wordlist-maker">
             <WordInput
               wordlist={wordlistState}
               word={wordlistState.word1}
