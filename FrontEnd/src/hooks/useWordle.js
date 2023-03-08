@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-const useWordle = (solution) => {
+const useWordle = (solution, setGuess) => {
+  console.log(solution);
   const [turn, setTurn] = useState(0);
   const [currentGuess, setCurrentGuess] = useState('');
   const [guesses, setGuesses] = useState([...Array(6)]); // each guess is an array
@@ -108,10 +109,12 @@ const useWordle = (solution) => {
       setCurrentGuess((prev) => prev.slice(0, -1));
       return;
     }
-    if (/^[A-Za-z]$/.test(key)) {
-      if (currentGuess.length < 5) {
-        setCurrentGuess((prev) => prev + key);
+    if (/^[a-zA-Z0-9-]*$/.test(key)) {
+      if (currentGuess.length === solution.length) {
+        return;
       }
+      setCurrentGuess((prev) => prev + key);
+      setGuess(currentGuess + key);
     }
   };
 

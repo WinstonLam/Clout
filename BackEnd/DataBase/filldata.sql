@@ -42,7 +42,7 @@ BEGIN
 
     -- INSERT DATA INTO TABLE
     SET @insertDataQuery = '
-        Insert Into words values (''word - '' + CAST(@Id as nvarchar(10)),
+        Insert Into words values (''word-'' + CAST(@Id as nvarchar(10)),
         ''description - '' + CAST(@Id as nvarchar(10)) + '' test'',
         1)
         Insert Into wordlist values (''testList '' + CAST(@Id as nvarchar(10)),

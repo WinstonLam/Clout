@@ -49,7 +49,7 @@ function WordlistPage({ client }) {
     const words = [];
     for (let i = 1; i <= 10; i++) {
       const newWord = new Word();
-      newWord.setWord(wordlistState[`word${i}`]);
+      newWord.setWord(wordlistState[`word${i}`].replace(/\s/g, ''));
       newWord.setDescription(wordlistState[`definition${i}`]);
       words.push(newWord);
     }

@@ -38,7 +38,6 @@ export default function WordListCard({ title, description, id }) {
             <div className="wordlist-card-description">{description}</div>
           </div>
           <div className="wordlist-card-div3">
-            plays: 3
             <Button onClick={() => handleNavigate('play')} variant="contained" size="large" align="center">
               play
             </Button>

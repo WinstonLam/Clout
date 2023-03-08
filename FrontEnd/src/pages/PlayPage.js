@@ -22,7 +22,8 @@ import PopUp from './PopUp';
 export default function PlayPage({ client }) {
   const { state } = useLocation();
   const { wordlistId } = state;
-  const [solution, setSolution] = useState('sicko');
+  const [solution, setSolution] = useState('');
+  const [gameId, setGameId] = useState('');
 
   // on page load init the game
   useEffect(() => {
@@ -34,8 +35,9 @@ export default function PlayPage({ client }) {
     client.initGame(gameId, null, (err, response) => {
       if (err) console.log('failed', err);
       else {
-        console.log('succes', response.secretWord);
-        // setSolution(response.getWord());
+        console.log('succes init game', response);
+        setGameId(response.array[2]);
+        setSolution(response.array[3]);
       }
     });
   }, []);
@@ -60,7 +62,13 @@ export default function PlayPage({ client }) {
         <Grid container spacing={5}>
           <div className="App">
             <h1>Wordle (Lingo)</h1>
-            <Wordle solution={solution} setSolution={setSolution} />
+            <Wordle
+              solution={solution}
+              setSolution={setSolution}
+              client={client}
+              wordlistId={wordlistId}
+              gameId={gameId}
+            />
             {/* {solution && <Wordle solution={solution} />} */}
           </div>
         </Grid>
