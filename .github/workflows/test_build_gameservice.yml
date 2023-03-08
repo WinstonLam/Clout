@@ -3,8 +3,8 @@ name: GameService code updated
 on:
   push:
     branches: ["Development", "master", "feature/dockerhub-workflow"]
-    paths:
-      - "gameservice/**.js"
+    # paths:
+    #   - "gameservice/**.js"
 
 env:
   IMAGE_NAME: gameservice
