@@ -4,7 +4,7 @@ on:
   push:
     branches: ["Development", "master", "feature/dockerhub-workflow"]
     # paths:
-    #   - "gameservice/**.js"
+    #   - "BackEnd/Services/GameService/**.js"
 
 env:
   IMAGE_NAME: gameservice
@@ -30,7 +30,7 @@ jobs:
         cache: 'npm'
 
     - run: npm ci
-      working-directory: ./gameservice
+      working-directory: ./BackEnd/Services/GameService
 
         #    - run: npm test
         #working-directory: ./gameservice
@@ -51,9 +51,9 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
     - name: Build docker
-      run: |
-        docker build . -t $IMAGE_NAME
+      run: docker build . -t $IMAGE_NAME
+      working-directory: ./BackEnd/Services/GameService
 
     - name: Push image to docker hub Container Registry
-      run: |
-          docker push $REPO_NAME/$IMAGE_NAME
+      run: docker push $REPO_NAME/$IMAGE_NAME
+      working-directory: ./BackEnd/Services/GameService
