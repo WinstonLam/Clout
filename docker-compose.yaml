@@ -1,12 +1,19 @@
 version: "3"
 services:
-  envoy:
+  envoy-wordlist:
     image: envoyproxy/envoy-dev:e4955aed5694f9935d674419dbb364e744f697b4
     volumes:
-      - ./envoy.yaml:/etc/envoy/envoy.yaml
+      - ./Envoys/wordlistEnvoy.yaml:/etc/envoy/envoy.yaml
     ports:
       - "9901:9901"
       - "8080:8080"
+  envoy-gameservice:
+    image: envoyproxy/envoy-dev:e4955aed5694f9935d674419dbb364e744f697b4
+    volumes:
+      - ./Envoys/gameserviceEnvoy.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - "9902:9902"
+      - "8081:8081"
   redis:
     image: bitnami/redis
     volumes:

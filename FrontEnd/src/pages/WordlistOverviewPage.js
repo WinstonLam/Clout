@@ -19,13 +19,15 @@ export default function WordlistOverviewPage({ client }) {
   const [wordlist, setWordlist] = useState([]);
 
   useEffect(() => {
+    console.log(client);
     const id = new Id();
+    // hardcoded id
     id.setId(1);
     client.loadAllWordlists(id, null, (err, response) => {
       if (err) console.log('failed', err.metadata);
       else {
         console.log('succes', response);
-        setWordlist(response);
+        setWordlist(response.array[0]);
       }
     });
   }, []);
@@ -35,14 +37,10 @@ export default function WordlistOverviewPage({ client }) {
       <div className="wordlist-wrapper">
         <div className="wordlist-inner">
           <div className="wordlist-inner-content">
-            <WordListCard />
-            <WordListCard />
-            <WordListCard />
-            <WordListCard />
-            <WordListCard />
-            <WordListCard />
-            <WordListCard />
-            <WordListCard />
+            {/* make wordlist cards for all the wordlists */}
+            {wordlist.map((wordlist) => (
+              <WordListCard title={wordlist[0]} description={wordlist[1]} id={wordlist[3]} />
+            ))}
           </div>
         </div>
       </div>

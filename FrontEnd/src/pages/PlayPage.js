@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 // import { DataGrid } from '@mui/x-data-grid';
 import { Helmet } from 'react-helmet-async';
@@ -11,24 +11,34 @@ import { Grid, Container, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Wordle from '../components/wordle/Wordle';
 
+import { GameInitRequest } from '../clientprotos/gameservice/gameservice_pb';
+
 // sections
 import { AppNewsUpdate, AppWebsiteVisits, AppWidgetSummary, HiscoreTable } from '../sections/@dashboard/app';
 import PopUp from './PopUp';
 
 // ----------------------------------------------------------------------
 
-export default function PlayPage() {
+export default function PlayPage({ client }) {
+  const { state } = useLocation();
+  const { wordlistId } = state;
   const [solution, setSolution] = useState('sicko');
 
-  // useEffect(() => {
-  //     fetch('http://localhost:3001/solutions')
-  //     .then(res => res.json())
-  //     .then(json => {
-  //         // random int between 0 & 14
-  //         const randomSolution = json[Math.floor(Math.random()*json.length)]
-  //         setSolution(randomSolution.word)
-  //     })
-  // }, [setSolution])
+  // on page load init the game
+  useEffect(() => {
+    console.log(`Wordlist to be played is: ${wordlistId}`);
+
+    const gameId = new GameInitRequest();
+    gameId.setWordlistId(wordlistId);
+
+    client.initGame(gameId, null, (err, response) => {
+      if (err) console.log('failed', err);
+      else {
+        console.log('succes', response.secretWord);
+        // setSolution(response.getWord());
+      }
+    });
+  }, []);
 
   const theme = useTheme();
   const [showComponent, setShowComponent] = useState(false);
