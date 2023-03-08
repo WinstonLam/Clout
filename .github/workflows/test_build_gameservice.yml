@@ -51,7 +51,7 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
     - name: Build docker
-      run: docker build . -t $IMAGE_NAME
+      run: docker build . -t $REPO_NAME/$IMAGE_NAME
       working-directory: ./BackEnd/Services/GameService
 
     - name: Push image to docker hub Container Registry
