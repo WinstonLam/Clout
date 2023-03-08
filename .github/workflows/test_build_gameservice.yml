@@ -2,9 +2,9 @@ name: GameService code updated
 
 on:
   push:
-    branches: ["Development", "master", "feature/dockerhub-workflow"]
-    # paths:
-    #   - "BackEnd/Services/GameService/**.js"
+    branches: ["Development", "master"]
+    paths:
+      - "BackEnd/Services/GameService/**.js"
 
 env:
   IMAGE_NAME: gameservice
@@ -32,8 +32,8 @@ jobs:
     - run: npm ci
       working-directory: ./BackEnd/Services/GameService
 
-        #    - run: npm test
-        #working-directory: ./gameservice
+    - run: npm test
+      working-directory: ./BackEnd/Services/GameService
 
   push:
 
