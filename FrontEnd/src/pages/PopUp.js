@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet-async';
 // @mui
 // import styled, { keyframes } from 'styled-components';
 import { styled, keyframes } from '@mui/material/styles';
-import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
+import { Link, Container, Typography, Divider, Stack, Button, Grid } from '@mui/material';
+
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
@@ -64,10 +65,13 @@ export default function PopUp({open, openLogin}) {
         <title> Login </title>
       </Helmet>
 
-      <div className={`${!(open) ? "active" : ""} show`}>
-        {login && <LoginPage onSwitch={switchScreen} onClose={openLogin}/>}
-        {register && <RegisterPage onSwitch={switchScreen} onClose={openLogin}/>}
-      </div>
+      <Grid item xs={12} md={6} lg={7}>
+        <div className={`${!(open) ? "active" : ""} show`}>
+          {login && <LoginPage onSwitch={switchScreen} onClose={openLogin}/>}
+          {register && <RegisterPage onSwitch={switchScreen} onClose={openLogin}/>}
+        </div>
+      </Grid>
+
     </>
   );
 }
