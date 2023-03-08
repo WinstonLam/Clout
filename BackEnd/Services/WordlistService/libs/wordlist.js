@@ -1,8 +1,8 @@
 const databaseCon = require('../libs/database')
 async function getWordsOfWordList(input) {
   try {
-    const result = await databaseCon.query(`select * from words where wordlistID = ${input.request.id};`)
-    const resultWordlist = await databaseCon.query(`select * from wordlist where Id = ${input.request.id}`)
+    const result = await databaseCon.queryMySQL(`select * from words where wordlistID = ${input.request.id};`)
+    const resultWordlist = await databaseCon.queryMySQL(`select * from wordlist where Id = ${input.request.id}`)
 
     const returnObject = {
       wordlistName: resultWordlist.recordset[0].Name,
@@ -18,7 +18,7 @@ async function getWordsOfWordList(input) {
 
 async function getWordListByUserID(input) {
   try {
-    const result = await databaseCon.query(`select * from wordlist where userID = ${input.request.id}`)
+    const result = await databaseCon.queryMySQL(`select * from wordlist where userID = ${input.request.id}`)
     const returnObject = []
     for (const objResult of result.recordset) {
       returnObject.push({
@@ -41,7 +41,7 @@ async function getWordExceptIDs(input) {
       strFilter += filterId.id + ','
     }
     strFilter = strFilter.slice(0, -1)
-    const result = await databaseCon.query(`select TOP 1 * from words
+    const result = await databaseCon.queryMySQL(`select TOP 1 * from words
     where [wordlistID] = ${input.request.wordlistID}
     AND [Id] NOT IN (${strFilter})
     ORDER BY NEWID()
@@ -64,7 +64,7 @@ async function post(inputWordlist) {
         '${inputWordlist.request.wordlistName} ',
         '${inputWordlist.request.description}',
         '${inputWordlist.request.userID}')`
-      const resultWordList = await databaseCon.query(queryWordList)
+      const resultWordList = await databaseCon.queryMySQL(queryWordList)
 
       let queryValues = ''
       for (const word of inputWordlist.request.words) {
@@ -73,7 +73,7 @@ async function post(inputWordlist) {
       queryValues = queryValues.slice(0, -1)
       const query = `insert into words values ${queryValues}`
 
-      await databaseCon.query(query)
+      await databaseCon.queryMySQL(query)
 
       return { statusCode: 200, responseBody: 'Saving wordlist to dataBase succesful' }
     }
