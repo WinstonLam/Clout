@@ -38,9 +38,22 @@ function initGame(call, callback) {
 
   response.success = true
   response.game_id = game.gameId
-  response.secret_word = game.secretWord
 
-  callback(null, response)
+  game.secretWord.then((words) => {
+    if (words[0]) {
+      game.secretWord = words[0].word
+      game.completedWordIds.push(words[0].Id)
+      console.log(`secret word for game '${game.gameId}' is '${game.secretWord}'`)
+
+      response.secret_word = words[0].word
+      console.log(typeof words[0].word)
+      callback(null, response)
+    } else { // TODO - Proper error handling
+      console.log(`wordlist service returned no words for wordlist with id '${game.wordlistId}''`)
+    }
+  }).catch((err) => {
+    console.log(`error setting secret word: ${err}`)
+  })
 }
 
 function updateGame(call, callback) {

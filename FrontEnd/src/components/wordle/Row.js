@@ -15,7 +15,6 @@ export default function Row({ guess, currentGuess, solution }) {
 
   if (currentGuess) {
     const letters = currentGuess.split('');
-    console.log(letters);
     return (
       <div className="row current">
         {letters.map((letter, i) => (
@@ -23,7 +22,7 @@ export default function Row({ guess, currentGuess, solution }) {
             {letter}
           </div>
         ))}
-        {[...Array(5 - letters.length)].map((_, i) => (
+        {[...Array(solution.length - letters.length)].map((_, i) => (
           <div key={i} />
         ))}
       </div>
@@ -33,7 +32,7 @@ export default function Row({ guess, currentGuess, solution }) {
   // if solution consist of more than 5 letters, then expand the grid
   return (
     <div className="row">
-      {[...Array(Math.max(solution.length, 5))].map((_, i) => (
+      {[...Array(Math.max(solution.length))].map((_, i) => (
         <div key={i} />
       ))}
     </div>

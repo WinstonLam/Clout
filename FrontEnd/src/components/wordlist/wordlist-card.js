@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import '../../styles/wordlistcard.css';
 import { Paper, Button } from '@mui/material';
 
-export default function WordListCard() {
+export default function WordListCard({ title, description, id }) {
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
-    navigate(`/${path}`);
+    navigate(`/${path}`, { state: { wordlistId: id } });
   };
 
   return (
@@ -34,11 +34,10 @@ export default function WordListCard() {
             </div>
           </div>
           <div className="wordlist-card-div2">
-            <div className="wordlist-card-title">Title</div>
-            <div className="wordlist-card-description">description</div>
+            <div className="wordlist-card-title">{title}</div>
+            <div className="wordlist-card-description">{description}</div>
           </div>
           <div className="wordlist-card-div3">
-            plays: 3
             <Button onClick={() => handleNavigate('play')} variant="contained" size="large" align="center">
               play
             </Button>

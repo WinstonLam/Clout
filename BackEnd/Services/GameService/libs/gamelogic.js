@@ -8,22 +8,8 @@ export class Game {
   constructor(wordlistId) {
     this.wordlistId = wordlistId
     this.gameId = uuidv4()
-    this.secretWord = null
+    this.secretWord = getWordExceptIds(this.wordlistId, null)
     this.completedWordIds = []
-
-    getWordExceptIds(wordlistId, null) // Wordlist service returns a list which is always 0 or 1 word
-    .then((words) => {
-        if (words[0]) {
-          this.secretWord = words[0].word
-          this.completedWordIds.push(words[0].Id)
-          console.log(`secret word for game '${this.gameId}' is '${this.secretWord}'`)
-        } else { // TODO - Proper error handling
-          console.log(`wordlist service returned no words for wordlist with id '${wordlistId}''`)
-        }
-      })
-      .catch((err) => {
-        console.log(`error setting secret word: ${err}`)
-      })
   }
 
   update(guess) {

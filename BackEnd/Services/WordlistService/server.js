@@ -4,7 +4,6 @@ const protoLoader = require("@grpc/proto-loader");
 const wordList = require("./libs/wordlist");
 
 // add /Wordlist if wanting to debug
-const PORT = 5000;
 const PROTO_FILE = "./protos/wordlist.proto";
 // options needed for loading Proto file
 const options = {
@@ -23,17 +22,70 @@ const userProto = grpc.loadPackageDefinition(pkgDefs).wlservice;
 // create gRPC server
 const server = new grpc.Server();
 
-// implement UserService
+// all the services for the proto file
 server.addService(userProto.WordlistService.service, {
-  // implment GetUser
-  getWordlist,
+  loadAllWordlists,
   addNewWordlist,
+  getWordsOfWordList,
+  getWordExceptIDs,
 });
+
+async function loadAllWordlists(input, callback) {
+  try {
+    const data = await wordList.getWordListByUserID(input);
+    callback(null, data);
+  } catch (error) {
+    const errorObject = {
+      statusCode: 400,
+      responseBody: error.message,
+    };
+    callback(null, errorObject);
+  }
+}
+async function getWordExceptIDs(input, callback) {
+  try {
+    const data = await wordList.getWordExceptIDs(input);
+    callback(null, data);
+  } catch (error) {
+    const errorObject = {
+      statusCode: 400,
+      responseBody: error.message,
+    };
+    callback(null, errorObject);
+  }
+}
+
+async function getWordsOfWordList(input, callback) {
+  try {
+    const data = await wordList.getWordsOfWordList(input);
+    callback(null, data);
+  } catch (error) {
+    const errorObject = {
+      statusCode: 400,
+      responseBody: error.message,
+    };
+    callback(null, errorObject);
+  }
+}
+
+async function addNewWordlist(input, callback) {
+  try {
+    console.log(input.request);
+    const response = await wordList.post(input);
+    callback(null, response);
+  } catch (error) {
+    const errorObject = {
+      statusCode: 400,
+      responseBody: error.message,
+    };
+    callback(null, errorObject);
+  }
+}
 
 // start the Server
 server.bindAsync(
   // port to serve on
-  `0.0.0.0:${PORT}`,
+  "0.0.0.0:5000",
   // authentication settings
   grpc.ServerCredentials.createInsecure(),
   // server start callback
@@ -46,31 +98,3 @@ server.bindAsync(
     }
   }
 );
-
-async function getWordlist(input, callback) {
-  try {
-    const data = await wordList.get();
-    // const returnObject = {
-    //   wordlistName: data.wordListName,
-    //   words: data.words
-    // }
-
-    callback(null, data);
-  } catch (error) {
-    callback(error, null);
-  }
-}
-
-function addNewWordlist(input, callback) {
-  try {
-    console.log(input.request);
-    const response = wordList.post(input);
-    callback(null, response);
-  } catch (error) {
-    const errorObject = {
-      statusCode: 400,
-      responseBody: error.message,
-    };
-    callback(errorObject, null);
-  }
-}
