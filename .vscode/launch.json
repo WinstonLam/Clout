@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\Wordlist\\server.js"
+            "program": "${workspaceFolder}\\BackEnd\\Services\\WordlistService\\server.js"
         }
     ]
 }
