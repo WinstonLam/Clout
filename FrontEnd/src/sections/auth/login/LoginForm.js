@@ -29,12 +29,13 @@ const InputField = styled('div')(({ theme }) => ({
   // animation: `${animation} 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards`,
 }));
 
-export default function LoginForm({onSwitch, buttonName, onClose}) {
+export default function LoginForm({onSwitch, buttonName, onClose, setUser}) {
 
   const [success, setSuccess] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  
+
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conPassword, setConPassword] = useState("");
@@ -55,13 +56,17 @@ export default function LoginForm({onSwitch, buttonName, onClose}) {
     attributeList.push(userName);
 
     event.preventDefault();
-    UserPool.signUp("Hyper445", password, attributeList, null, (err, data) => {
+    UserPool.signUp(username, password, attributeList, null, (err, data) => {
 
       if (err) {
         console.error(err);
       } else {
+        localStorage.setItem('user', JSON.stringify(data));
+        setUser(data);
         onClose();
       }
+
+      
       console.log(data);
 
     })
@@ -77,12 +82,17 @@ export default function LoginForm({onSwitch, buttonName, onClose}) {
   return (
     <>
       <Stack spacing={3}>
-        
+        <TextField 
+          onChange={(event) => setUsername(event.target.value)}
+          name="username" 
+          label="Username" 
+        />
+        {(buttonName === 'Register') &&
         <TextField 
           onChange={(event) => setEmail(event.target.value)}
           name="email" 
           label="Email address" 
-        />
+        />}
         <TextField
         onChange={(event) => setPassword(event.target.value)}
           name="password"

@@ -37,7 +37,7 @@ const user = {
 
 // ----------------------------------------------------------------------
 
-export default function DashboardLayout() {
+export default function DashboardLayout({user, setUser}) {
   // const [user, setUser] = useState(null);
 //   const [openLogin, setOpenLogin] = useState(false);
 
@@ -49,12 +49,12 @@ export default function DashboardLayout() {
 
   return (
     <StyledRoot>
-      <Header/>
+      <Header user={user} setUser={setUser}/>
 
       {/* <Nav openNav={open} onCloseNav={() => setOpen(false)} /> */}
 
       <Main>
-        <Outlet user={user}/>
+        <Outlet />
       </Main>
     </StyledRoot>
   );

@@ -40,7 +40,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 
-export default function PopUp({open, openLogin}) {
+export default function PopUp({setUser, open, openLogin}) {
   const mdUp = useResponsive('up', 'md');
 
   const [register, setRegister] = useState(false);
@@ -67,8 +67,8 @@ export default function PopUp({open, openLogin}) {
 
       <Grid item xs={12} md={6} lg={7}>
         <div className={`${!(open) ? "active" : ""} show`}>
-          {login && <LoginPage onSwitch={switchScreen} onClose={openLogin}/>}
-          {register && <RegisterPage onSwitch={switchScreen} onClose={openLogin}/>}
+          {login && <LoginPage setUser={setUser} onSwitch={switchScreen} onClose={openLogin}/>}
+          {register && <RegisterPage setUser={setUser} onSwitch={switchScreen} onClose={openLogin}/>}
         </div>
       </Grid>
 

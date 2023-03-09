@@ -43,7 +43,7 @@ export default function DashboardAppPage({user}) {
       <Container sx={{marginTop: '5%'}} maxWidth="xl">
 
         <Grid container spacing={5}>
-          <Grid item xs={12} md={(user === null) ? 6 : 12} lg={(user === null) ? 7 : 12}>
+          <Grid item xs={12} md={(user === null) ? 12 : 6} lg={(user === null) ? 12 : 7}>
             <HiscoreTable
               height={3} width={5} color="redblack"
             />
