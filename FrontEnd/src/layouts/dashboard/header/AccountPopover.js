@@ -24,11 +24,17 @@ const MENU_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function AccountPopover() {
+export default function AccountPopover({setUser}) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    localStorage.setItem('user', null);
+    setUser(null);
+    setOpen(null);
   };
 
   const handleClose = () => {
@@ -97,7 +103,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </Popover>

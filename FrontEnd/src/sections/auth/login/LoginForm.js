@@ -44,7 +44,7 @@ export default function LoginForm({onSwitch, buttonName, onClose, setUser}) {
     setShowRegister(!showRegister);
   };
 
-  const loginFunc = (event) => {
+  const registerFunc = (event) => {
 
     const attributeList = [];
 
@@ -73,8 +73,9 @@ export default function LoginForm({onSwitch, buttonName, onClose, setUser}) {
 
   }
 
-  const registerFunc = () => {
+  const loginFunc = () => {
 
+    UserPool.signIn();
     if (success) onClose();
 
   }
@@ -127,7 +128,7 @@ export default function LoginForm({onSwitch, buttonName, onClose, setUser}) {
       </Stack>
 
       <LoadingButton sx={{marginTop: 5}}fullWidth size="large" type="submit" variant="contained" 
-        onClick={(buttonName === "Register") ? loginFunc : loginFunc}>
+        onClick={(buttonName === "Register") ? registerFunc : loginFunc}>
         {buttonName}
       </LoadingButton>
     </>

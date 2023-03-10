@@ -62,7 +62,6 @@ const buttonStyle = ({
     marginTop:20,
     position: "absolute",
     width:"5%",
-    // paddingTop:10,
     zIndex:1,
     marginLeft: 1,
     
@@ -96,18 +95,12 @@ export default function Header({user, setUser}) {
     <StyledRoot>
 
       <PopUp setUser={setUser} open={showComponent} openLogin={openScreen}/>
-      {/* {showComponent && <LoginPage />} */}
-      {/* {showComponent && (<LoginPage show={showComponent} onClose={() => setShowComponent(false)} />)} */}
       
 
       <StyledToolbar>
 
-        {/* <AppWidgetSummary height={3} width={5} color="redblack" title="Lingo"> */}
-        {user && <p2>Welcome back {user.user.username}!</p2>}
+        {user && <p>Welcome back {user.user.username}!</p>}
         {!user && <Button onClick={openScreen} variant="contained" size="large" align="center">Login</Button>}
-        {/* </AppWidgetSummary> */}
-        {/* {user && <p2>Welcome back {user.user.username}!</p2>}
-        {!user && <Button onClick={openScreen} variant="contained" size="large" align="center">Login</Button>} */}
 
         <Button onClick={navigatePlay} size="large" sx={buttonStyle}>Play!</Button>
 
@@ -121,9 +114,10 @@ export default function Header({user, setUser}) {
             sm: 1,
           }}
         >
-          {/* <LanguagePopover /> */}
-          <NotificationsPopover />
-          <AccountPopover />
+          <>
+          {user && <NotificationsPopover /> }
+          {user && <AccountPopover setUser={setUser} />}
+          </>
         </Stack>
       </StyledToolbar>
     </StyledRoot>

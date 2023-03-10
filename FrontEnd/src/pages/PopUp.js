@@ -21,7 +21,6 @@ import './PopUp.css';
 
 // ----------------------------------------------------------------------
 
-
 const StyledContent = styled('div')(({ theme }) => ({
     ...bgBlur ({color: '#280003'}),
     maxWidth: 580,
@@ -48,10 +47,8 @@ export default function PopUp({setUser, open, openLogin}) {
 
   const switchScreen = () => {
 
-    console.log(`${login} and ${register}`);
     setLogin(!login);
     setRegister(!register);
-    console.log(`${login} and ${register} after function`);
 
   }
 
@@ -65,12 +62,14 @@ export default function PopUp({setUser, open, openLogin}) {
         <title> Login </title>
       </Helmet>
 
-      <Grid item xs={12} md={6} lg={7}>
-        <div className={`${!(open) ? "active" : ""} show`}>
-          {login && <LoginPage setUser={setUser} onSwitch={switchScreen} onClose={openLogin}/>}
-          {register && <RegisterPage setUser={setUser} onSwitch={switchScreen} onClose={openLogin}/>}
-        </div>
-      </Grid>
+        <Grid item xs={12} md={6} lg={7}>
+          <div className={`${!(open) ? "active" : ""} show`}>
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+            <div className={"closeDiv"} onClick={openLogin}><></></div>
+            {login && <LoginPage setUser={setUser} onSwitch={switchScreen} onClose={openLogin}/>}
+            {register && <RegisterPage setUser={setUser} onSwitch={switchScreen} onClose={openLogin}/>}
+          </div>
+        </Grid>
 
     </>
   );

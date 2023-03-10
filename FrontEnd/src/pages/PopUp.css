@@ -16,3 +16,8 @@
     transform: translateY(100px) scale(0);
     opacity: 0;
 }
+
+.closeDiv {
+    width: 100%;
+    height: 100%;
+}

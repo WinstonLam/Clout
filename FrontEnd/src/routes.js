@@ -32,6 +32,8 @@ export default function Router() {
     }
   }, []);
 
+  console.log(user);
+
   const routes = useRoutes([
     {
       path: '/',
