@@ -4,7 +4,7 @@
   "description": "De woordenlijst microservice voor het Lingo spel",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js"
   },
   "author": "Douwe Schepers",
@@ -15,6 +15,21 @@
     "express": "^4.18.2",
     "mssql": "^9.1.1",
     "mysql": "^2.18.1",
-    "tedious": "^15.1.2"
+    "tedious": "^15.1.2",
+    "jest": "^29.4.3"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>",
+      "./"
+    ],
+    "modulePaths": [
+      "<rootDir>",
+      "/home/some/other/path"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
   }
 }
