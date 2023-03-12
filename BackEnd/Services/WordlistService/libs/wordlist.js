@@ -1,14 +1,14 @@
 const databaseCon = require('../libs/database')
 async function getWordsOfWordList(input) {
   try {
-    const result = await databaseCon.query(`select * from words where wordlistID = ${input.request.id};`)
-    const resultWordlist = await databaseCon.query(`select * from wordlist where Id = ${input.request.id}`)
+    const result = await databaseCon.queryMySQL(`select * from words where wordlistID = ${input.request.id};`)
+    const resultWordlist = await databaseCon.queryMySQL(`select * from wordlist where Id = ${input.request.id}`)
 
     const returnObject = {
-      wordlistName: resultWordlist.recordset[0].Name,
-      description: resultWordlist.recordset[0].description,
-      userID: resultWordlist.recordset[0].userID,
-      words: result.recordset
+      wordlistName: resultWordlist[0][0].Name,
+      description: resultWordlist[0][0].description,
+      userID: resultWordlist[0][0].userID,
+      words: result[0]
     }
     return returnObject
   } catch (error) {
@@ -18,9 +18,9 @@ async function getWordsOfWordList(input) {
 
 async function getWordListByUserID(input) {
   try {
-    const result = await databaseCon.query(`select * from wordlist where userID = ${input.request.id}`)
+    const result = await databaseCon.queryMySQL(`select * from wordlist where userID = ${input.request.id}`)
     const returnObject = []
-    for (const objResult of result.recordset) {
+    for (const objResult of result[0]) {
       returnObject.push({
         wordlistName: objResult.Name,
         description: objResult.description,
@@ -41,13 +41,14 @@ async function getWordExceptIDs(input) {
       strFilter += filterId.id + ','
     }
     strFilter = strFilter.slice(0, -1)
-    const result = await databaseCon.query(`select TOP 1 * from words
-    where [wordlistID] = ${input.request.wordlistID}
-    AND [Id] NOT IN (${strFilter})
-    ORDER BY NEWID()
+    const result = await databaseCon.queryMySQL(` select * from words
+    where \`wordlistID\` = ${input.request.wordlistID}
+    AND \`Id\` NOT IN (${strFilter})
+    ORDER BY RAND()
+    limit 1
     `)
     const returnObject = {
-      words: result.recordset
+      words: result[0]
     }
     return returnObject
   } catch (error) {
@@ -60,20 +61,20 @@ async function post(inputWordlist) {
     if (inputWordlist.request.words.length !== 0) {
       // const connection = databaseCon.connect()
       // const result = await databaseCon.query(`insert into words values( $inputWordlist )`)
-      const queryWordList = `Insert Into wordlist OUTPUT INSERTED.[Id] values (
+      const queryWordList = `Insert Into wordlist(\`Name\`, \`description\`, \`userID\`) values (
         '${inputWordlist.request.wordlistName} ',
         '${inputWordlist.request.description}',
         '${inputWordlist.request.userID}')`
-      const resultWordList = await databaseCon.query(queryWordList)
+      const resultWordList = await databaseCon.queryMySQL(queryWordList)
 
       let queryValues = ''
       for (const word of inputWordlist.request.words) {
-        queryValues += `('${word.word} ' , '${word.description}', ${resultWordList.recordset[0].Id}),`
+        queryValues += `('${word.word} ' , '${word.description}', ${resultWordList[0].insertId}),`
       }
       queryValues = queryValues.slice(0, -1)
-      const query = `insert into words values ${queryValues}`
+      const query = `insert into words (\`word\`, \`description\`, \`wordlistID\` ) values ${queryValues}`
 
-      await databaseCon.query(query)
+      await databaseCon.queryMySQL(query)
 
       return { statusCode: 200, responseBody: 'Saving wordlist to dataBase succesful' }
     }
