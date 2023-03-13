@@ -1,10 +1,11 @@
-const wordlist = require('../libs/wordlist')
-const database = require('../libs/database')
+const { getWordListByUserID } = require('../libs/wordlist').default
+const database = require('../libs/database').default
 
 describe('Wordlist Service:', () => {
+  jest.mock('mysql2/promise')
   describe('getWordListByUserID', () => {
     it('should return a wordlist object based on an user ID', () => {
-      jest.mock(database, () => () => false)
+      // jest.mock(database, () => () => false)
       database.queryMySQL = jest.fn().mockReturnValueOnce({
         wordlistName: 'Wordlist name',
         description: 'description',
@@ -15,7 +16,7 @@ describe('Wordlist Service:', () => {
 
       })
       const requestObject = { input: { request: { id: 1 } } }
-      const wordlistsOfUser = wordlist.getWordListByUserID(requestObject)
+      const wordlistsOfUser = getWordListByUserID(requestObject)
       expect(wordlistsOfUser).toConatin('wordlistName')
     })
   })
