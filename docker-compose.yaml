@@ -29,7 +29,7 @@ services:
     image: "wordlist"
   sql-gen:
     ports:
-      - "1433:3306"
+      - "3306:3306"
     container_name: sqlgen
     image: "database"
   gameservice:

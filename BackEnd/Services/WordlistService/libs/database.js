@@ -1,4 +1,5 @@
 const mysql = require('mysql2/promise')
+// const mysql = require('mysql2').createConnectionPromise
 const sql = require('mssql')
 
 // config for your database
@@ -34,10 +35,7 @@ async function queryMySQL (queryToExecute) {
       host: 'localhost',
       database: 'LINGO',
       user: 'root',
-      password: 'DevOps2023!',
-      options: {
-        encrypt: false
-      }
+      password: 'DevOps2023!'
     })
     await connection.connect()
     const result = await connection.execute(queryToExecute)
