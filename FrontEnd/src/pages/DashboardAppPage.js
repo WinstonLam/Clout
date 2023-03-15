@@ -20,7 +20,7 @@ import PopUp from './PopUp';
 // ----------------------------------------------------------------------
 
 
-export default function DashboardAppPage() {
+export default function DashboardAppPage({user}) {
   
   const theme = useTheme();
   const [showComponent, setShowComponent] = useState(false);
@@ -34,7 +34,7 @@ export default function DashboardAppPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard | Minimal UI </title>
+        <title> Dashboard </title>
       </Helmet>
 
       {/* {showComponent && (<PopUp show={showComponent} onClose={() => setShowComponent(false)} />)} */}
@@ -43,18 +43,18 @@ export default function DashboardAppPage() {
       <Container sx={{marginTop: '5%'}} maxWidth="xl">
 
         <Grid container spacing={5}>
-
-          <Grid item xs={12} md={6} lg={7}>
+          <Grid item xs={12} md={(user === null) ? 12 : 6} lg={(user === null) ? 12 : 7}>
             <HiscoreTable
-              height={3} width={5} color="redblack" title="Welcome back Hyper!"
+              height={3} width={5} color="redblack"
             />
           </Grid>
 
-          <Grid item xs={0} md={0} lg={1}>
+          {/* <Grid item xs={0} md={0} lg={1}>
             <></>
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} md={5} lg={4}>
+          <Grid item xs={12} md={6} lg={5}>
+            {user &&
             <AppWebsiteVisits
               color="redblack"
               title="Recent scores"
@@ -92,10 +92,10 @@ export default function DashboardAppPage() {
                   data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
                 },
               ]}
-            />
+            />}
           </Grid>
 
-
+          {/* Load wordlists here */}
           <Grid item xs={12} md={12} lg={12}>
             <AppNewsUpdate
               height={0.001} 

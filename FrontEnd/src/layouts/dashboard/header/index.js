@@ -19,6 +19,7 @@ import {AppWidgetSummary,} from '../../../sections/@dashboard/app';
 // import LoginPage from '../../../pages/LoginPage';
 import RegisterPage from '../../../pages/RegisterPage';
 import PopUp from '../../../pages/PopUp';
+// import Typography from 'src/theme/overrides/Typography';
 
 
 // ----------------------------------------------------------------------
@@ -40,6 +41,7 @@ const StyledRoot = styled(AppBar)(({ theme }) => ({
     width: '100%',
   },
   zIndex: 1,
+  alignContent: "center",
 }));
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -48,6 +50,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     minHeight: HEADER_DESKTOP,
     padding: theme.spacing(0, 5),
   },
+  // alignContent: "center",
 }));
 
 const buttonStyle = ({
@@ -56,11 +59,12 @@ const buttonStyle = ({
         background: "#FF8C00"
       },
     color:"black",
-    marginTop:"100",
+    marginTop:20,
     position: "absolute",
     width:"5%",
-    // paddingTop:10,
-    zIndex:2,
+    zIndex:1,
+    marginLeft: 1,
+    
 
 });
 
@@ -70,7 +74,7 @@ Header.propTypes = {
   onOpenNav: PropTypes.func,
 };
 
-export default function Header({userObject}) {
+export default function Header({user, setUser}) {
 
     const [showComponent, setShowComponent] = useState(false);
     const navigate = useNavigate();
@@ -90,18 +94,15 @@ export default function Header({userObject}) {
 
     <StyledRoot>
 
-      <PopUp open={showComponent} openLogin={openScreen}/>
-      {/* {showComponent && <LoginPage />} */}
-      {/* {showComponent && (<LoginPage show={showComponent} onClose={() => setShowComponent(false)} />)} */}
+      <PopUp setUser={setUser} open={showComponent} openLogin={openScreen}/>
       
 
       <StyledToolbar>
 
-        <Container maxWidth="xxl">
-            <AppWidgetSummary height={3} width={5} color="redblack" title="Lingo" />
-            {!userObject && <Button onClick={openScreen} variant="contained" size="large" align="center">Login</Button>}
-            <Button onClick={navigatePlay} size="large" sx={buttonStyle}>Play!</Button>
-        </Container>
+        {user && <p>Welcome back {user.user.username}!</p>}
+        {!user && <Button onClick={openScreen} variant="contained" size="large" align="center">Login</Button>}
+
+        <Button onClick={navigatePlay} size="large" sx={buttonStyle}>Play!</Button>
 
         <Box sx={{ flexGrow: 1 }} />
 
@@ -113,9 +114,10 @@ export default function Header({userObject}) {
             sm: 1,
           }}
         >
-          {/* <LanguagePopover /> */}
-          <NotificationsPopover />
-          <AccountPopover />
+          <>
+          {user && <NotificationsPopover /> }
+          {user && <AccountPopover setUser={setUser} />}
+          </>
         </Stack>
       </StyledToolbar>
     </StyledRoot>
