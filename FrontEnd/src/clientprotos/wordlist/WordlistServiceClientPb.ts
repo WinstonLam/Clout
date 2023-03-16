@@ -11,10 +11,9 @@
 // source: wordlist.proto
 
 
-/* eslint-disable */
 // @ts-nocheck
 
-
+/* eslint-disable */
 import * as grpcWeb from 'grpc-web';
 
 import * as wordlist_pb from './wordlist_pb';

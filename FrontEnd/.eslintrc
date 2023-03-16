@@ -10,6 +10,14 @@
     "plugin:react-hooks/recommended",
     "prettier"
   ],
+  "overrides" : [
+    {
+       "files": "**/*.ts",
+       "env": {
+        "es2020": true
+      }
+    }
+  ],
   "plugins": [
     "react",
     "react-hooks",
@@ -25,6 +33,12 @@
     }
   },
   "rules": {
+
+    "no-empty-function": 0,
+    "lines-around-directive": 0,
+    "strict": 0,
+    "getter-return": 0,
+
     "no-new": 0,
     "no-alert": 0,
     "no-shadow": 0,

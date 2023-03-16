@@ -30,10 +30,15 @@ const Main = styled('div')(({ theme }) => ({
   },
 }));
 
+const user = {
+  Name: "Hyper445",
+  Hiscore: "100",
+}
+
 // ----------------------------------------------------------------------
 
-export default function DashboardLayout() {
-  const [user, setUser] = useState(null);
+export default function DashboardLayout({user, setUser}) {
+  // const [user, setUser] = useState(null);
 //   const [openLogin, setOpenLogin] = useState(false);
 
 //   function handleLoginClick () {
@@ -44,7 +49,7 @@ export default function DashboardLayout() {
 
   return (
     <StyledRoot>
-      <Header userObject={user}/>
+      <Header user={user} setUser={setUser}/>
 
       {/* <Nav openNav={open} onCloseNav={() => setOpen(false)} /> */}
 

@@ -10,5 +10,4 @@ COPY app.js ./
 COPY libs ./libs
 COPY protos ./protos
 
-CMD ["npm start"]
-
+CMD [ "node", "app.js" ]

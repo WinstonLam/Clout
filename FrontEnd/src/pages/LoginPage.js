@@ -41,7 +41,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function LoginPage({onSwitch, onClose}) {
+export default function LoginPage({setUser, onSwitch, onClose}) {
   const mdUp = useResponsive('up', 'md');
 
   return (
@@ -56,9 +56,10 @@ export default function LoginPage({onSwitch, onClose}) {
 
             <Typography variant="body2" sx={{ mb: 5 }}>
               Don’t have an account? {''}
-              <Link variant="subtitle2">Get started</Link>
+              {/* <Link variant="subtitle2">Get started</Link> */}
+              <Button onClick={onSwitch}>Register</Button>
             </Typography>
-
+{/* 
             <Stack direction="row" spacing={2}>
               <Button fullWidth size="large" color="inherit" variant="outlined">
                 <Iconify icon="eva:google-fill" color="#DF3E30" width={22} height={22} />
@@ -77,10 +78,9 @@ export default function LoginPage({onSwitch, onClose}) {
               <Typography variant="body2" sx={{ color: '#FFFFFF' }}>
                 OR
               </Typography>
-            </Divider>
+            </Divider> */}
 
-            <LoginForm onClose={onClose} buttonName={"Login"}/>
-            <Button onClick={onSwitch}>Register</Button>
+            <LoginForm setUser={setUser} onClose={onClose} buttonName={"Login"}/>
           </StyledContent>
           {/* </div> */}
         </Container>

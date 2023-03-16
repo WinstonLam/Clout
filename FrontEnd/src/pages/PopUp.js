@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet-async';
 // @mui
 // import styled, { keyframes } from 'styled-components';
 import { styled, keyframes } from '@mui/material/styles';
-import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
+import { Link, Container, Typography, Divider, Stack, Button, Grid } from '@mui/material';
+
 // hooks
 import useResponsive from '../hooks/useResponsive';
 // components
@@ -19,7 +20,6 @@ import RegisterPage from './RegisterPage';
 import './PopUp.css';
 
 // ----------------------------------------------------------------------
-
 
 const StyledContent = styled('div')(({ theme }) => ({
     ...bgBlur ({color: '#280003'}),
@@ -39,7 +39,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 
-export default function PopUp({open, openLogin}) {
+export default function PopUp({setUser, open, openLogin}) {
   const mdUp = useResponsive('up', 'md');
 
   const [register, setRegister] = useState(false);
@@ -47,10 +47,8 @@ export default function PopUp({open, openLogin}) {
 
   const switchScreen = () => {
 
-    console.log(`${login} and ${register}`);
     setLogin(!login);
     setRegister(!register);
-    console.log(`${login} and ${register} after function`);
 
   }
 
@@ -64,10 +62,15 @@ export default function PopUp({open, openLogin}) {
         <title> Login </title>
       </Helmet>
 
-      <div className={`${!(open) ? "active" : ""} show`}>
-        {login && <LoginPage onSwitch={switchScreen} onClose={openLogin}/>}
-        {register && <RegisterPage onSwitch={switchScreen} onClose={openLogin}/>}
-      </div>
+        <Grid item xs={12} md={6} lg={7}>
+          <div className={`${!(open) ? "active" : ""} show`}>
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+            <div className={"closeDiv"} onClick={openLogin}><></></div>
+            {login && <LoginPage setUser={setUser} onSwitch={switchScreen} onClose={openLogin}/>}
+            {register && <RegisterPage setUser={setUser} onSwitch={switchScreen} onClose={openLogin}/>}
+          </div>
+        </Grid>
+
     </>
   );
 }

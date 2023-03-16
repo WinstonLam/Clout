@@ -5,8 +5,8 @@ const wordList = require("./libs/wordlist");
 const dotenv = require("dotenv")
 
 // add /Wordlist if wanting to debug
-// add /BackEnd/Services/WordlistService/
-const PROTO_FILE = "./protos/wordlist.proto"
+// /BackEnd/Services/WordlistService
+const PROTO_FILE = "./protos/wordlist.proto";
 // options needed for loading Proto file
 const options = {
   keepCase: true,
