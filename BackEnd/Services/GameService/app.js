@@ -142,6 +142,9 @@ function nextWord(call, callback) {
 function main() {
   // TODO - gRPC authentication, proper address:port config, full proto spec
   // and implementations. Also communicate about the interface and potentially update code
+
+  console.log(`starting gameservice server at ${serverAddress}:${serverPort}`)
+
   const server = new grpc.Server()
   server.addService(lingoGameService, { updateGame, initGame, deleteGame, nextWord })
   server.bindAsync(serverAddress + ':' + serverPort, grpc.ServerCredentials.createInsecure(), () => {
