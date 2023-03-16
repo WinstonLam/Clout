@@ -4,7 +4,7 @@ import protoLoader from "@grpc/proto-loader";
 // TODO - This network config only works in docker environments. Proper config
 //        management needs to be implemented to support cloud technologies.
 //        Suggestions: Environment variables, configuration files or ???
-const wordlistServerAddress = "wordlist";
+const wordlistServerAddress = "load-balancer-wordlistservice-b675fba73130ad4c.elb.us-east-1.amazonaws.com";
 const wordlistServerPort = "5000";
 
 const PROTO_PATH = "./protos/wordlist.proto";
