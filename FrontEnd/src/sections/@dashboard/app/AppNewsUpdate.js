@@ -50,7 +50,7 @@ export default function AppNewsUpdate({ height, color, sx, title, subheader, lis
 
       <Box sx={{ p: 2, textAlign: 'center' }}>
         <Button onClick={() => handleNavigate('wordlist')} variant="contained" size="large" align="center">
-          Kut met peren
+          Make your own list!
         </Button>
         <Button
           onClick={() => handleNavigate('wordlist-overview')}
