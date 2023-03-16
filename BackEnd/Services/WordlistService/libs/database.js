@@ -31,7 +31,7 @@ async function queryMySQL (queryToExecute) {
   try {
     // change to configMysql for cloud connection
     const connection = await mysql.createConnection({
-      host: 'localhost',
+      host: 'sql-gen',
       database: 'LINGO',
       user: 'root',
       password: 'DevOps2023!',
