@@ -1,5 +1,6 @@
 version: "3"
 services:
+  
   envoy-wordlist:
     image: envoyproxy/envoy-dev:e4955aed5694f9935d674419dbb364e744f697b4
     volumes:
@@ -7,6 +8,7 @@ services:
     ports:
       - "9901:9901"
       - "8080:8080"
+  
   envoy-gameservice:
     image: envoyproxy/envoy-dev:e4955aed5694f9935d674419dbb364e744f697b4
     volumes:
@@ -14,6 +16,7 @@ services:
     ports:
       - "9902:9902"
       - "8081:8081"
+  
   redis:
     image: bitnami/redis
     volumes:
@@ -22,16 +25,19 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
     ports:
       - "6379:6379"
+  
   wordlist:
     ports:
       - "5000:5000"
     container_name: wordlist
     image: "wordlist"
+  
   sql-gen:
     ports:
       - "1433:3306"
     container_name: sqlgen
     image: "database"
+  
   gameservice:
     image: "gameservice"
     environment:
@@ -39,4 +45,4 @@ services:
       - NODE_OPTIONS="--max-old-space-size=4096"
     ports:
       - "127.0.0.1:45287:45287"
-    command: "npm start"
+
