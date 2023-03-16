@@ -2,9 +2,11 @@
 const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
 const wordList = require("./libs/wordlist");
+const dotenv = require("dotenv")
 
 // add /Wordlist if wanting to debug
-const PROTO_FILE = "./BackEnd/Services/WordlistService/protos/wordlist.proto";
+// add /BackEnd/Services/WordlistService/
+const PROTO_FILE = "./protos/wordlist.proto"
 // options needed for loading Proto file
 const options = {
   keepCase: true,
@@ -93,6 +95,8 @@ server.bindAsync(
     if (error) {
       console.log(error);
     } else {
+      require('dotenv').config()
+      // dotenv.config();
       console.log(`listening on port ${port}`);
       server.start();
     }

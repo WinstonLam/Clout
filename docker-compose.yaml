@@ -23,6 +23,7 @@ services:
     ports:
       - "6379:6379"
   wordlist:
+    env_file: .env
     ports:
       - "5000:5000"
     container_name: wordlist
@@ -30,7 +31,7 @@ services:
   sql-gen:
     ports:
       - "3306:3306"
-    container_name: sqlgen
+    container_name: sql-gen
     image: "database"
   gameservice:
     image: "gameservice"

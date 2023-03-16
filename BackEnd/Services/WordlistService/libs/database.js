@@ -1,5 +1,4 @@
 const mysql = require('mysql2/promise')
-// const mysql = require('mysql2').createConnectionPromise
 const sql = require('mssql')
 
 // config for your database
@@ -32,10 +31,10 @@ async function queryMySQL (queryToExecute) {
   try {
     // change to configMysql for cloud connection
     const connection = await mysql.createConnection({
-      host: 'localhost',
-      database: 'LINGO',
-      user: 'root',
-      password: 'DevOps2023!'
+      host: process.env.database_docker_name,
+      database: process.env.database_name,
+      user: process.env.database_user,
+      password: process.env.database_password
     })
     await connection.connect()
     const result = await connection.execute(queryToExecute)
