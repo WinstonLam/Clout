@@ -33,4 +33,5 @@ jobs:
           aws-secret-access-key: ${{ secrets.S3_ACCES_KEY }}
           aws-region: us-east-1
       - name: Deploy to S3
+        working-directory: ./FrontEnd
         run: aws s3 sync build/ s3://lingofrontend --delete

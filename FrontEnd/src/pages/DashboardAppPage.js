@@ -98,7 +98,7 @@ export default function DashboardAppPage({user}) {
           {/* Load wordlists here */}
           <Grid item xs={12} md={12} lg={12}>
             <AppNewsUpdate
-              height={0.001} 
+              height={0.001}
               color="redblack"
               title="New Lists!"
               list={[...Array(1)].map((_, index) => ({
