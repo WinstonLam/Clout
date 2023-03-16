@@ -5,9 +5,11 @@ import { styled } from '@mui/material/styles';
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Hub, Auth } from 'aws-amplify';
 import RegisterForm from './RegisterForm'; 
 import UserPool from "./UserPool"
 import { bgBlur } from '../../../utils/cssStyles';
+
 
 // components
 import Iconify from '../../../components/iconify';
@@ -29,6 +31,18 @@ const InputField = styled('div')(({ theme }) => ({
   // animation: `${animation} 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards`,
 }));
 
+function listenToAutoSignInEvent() {
+    Hub.listen('auth', ({ payload }) => {
+        const { event } = payload;
+        if (event === 'autoSignIn') {
+            const user = payload.data;
+            // assign user
+        } else if (event === 'autoSignIn_failure') {
+            // redirect to sign in page
+        }
+    })
+}
+
 export default function LoginForm({onSwitch, buttonName, onClose, setUser}) {
 
   const [success, setSuccess] = useState(true);
@@ -44,41 +58,47 @@ export default function LoginForm({onSwitch, buttonName, onClose, setUser}) {
     setShowRegister(!showRegister);
   };
 
-  const registerFunc = (event) => {
-
-    const attributeList = [];
-
-    const userName = {
-      Name: "email",
-      Value: email
+  async function confirmSignUp() {
+    try {
+      await Auth.confirmSignUp(username, 714423);
+    } catch (error) {
+        console.log('error confirming sign up', error);
     }
+  }
 
-    attributeList.push(userName);
-
-    event.preventDefault();
-    UserPool.signUp(username, password, attributeList, null, (err, data) => {
-
-      if (err) {
-        console.error(err);
-      } else {
-        localStorage.setItem('user', JSON.stringify(data));
-        setUser(data);
+  async function registerFunc() {
+    try {
+        const { user } = await Auth.signUp({
+            username,
+            password,
+            attributes: {
+                email,          // optional
+                // phone_number,   // optional - E.164 number convention
+                // other custom attributes 
+            },
+            autoSignIn: { // optional - enables auto sign in after user is confirmed
+                enabled: true,
+            }
+        });
+        console.log(user);
+        localStorage.setItem('user', JSON.stringify(user));
+        setUser(user);
         onClose();
-      }
+    } catch (error) {
+        console.log('error signing up:', error);
+    }
+}
 
-      
-      console.log(data);
-
-    })
-
-  }
-
-  const loginFunc = () => {
-
-    UserPool.signIn();
-    if (success) onClose();
-
-  }
+    async function loginFunc() {
+        try {
+            const user = await Auth.signIn(username, password);
+            localStorage.setItem('user', JSON.stringify(user));
+            setUser(user);
+            onClose();
+        } catch (error) {
+            console.log('error signing in', error);
+        }
+    }
 
   return (
     <>

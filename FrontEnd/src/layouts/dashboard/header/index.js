@@ -99,7 +99,7 @@ export default function Header({user, setUser}) {
 
       <StyledToolbar>
 
-        {user && <p>Welcome back {user.user.username}!</p>}
+        {user && <p>Welcome back {user.username}!</p>}
         {!user && <Button onClick={openScreen} variant="contained" size="large" align="center">Login</Button>}
 
         <Button onClick={navigatePlay} size="large" sx={buttonStyle}>Play!</Button>

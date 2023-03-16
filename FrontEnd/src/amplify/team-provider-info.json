@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-lingologin-dev-170637-authRole",
+      "UnauthRoleArn": "arn:aws:iam::823054780436:role/amplify-lingologin-dev-170637-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::823054780436:role/amplify-lingologin-dev-170637-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-lingologin-dev-170637-deployment",
+      "UnauthRoleName": "amplify-lingologin-dev-170637-unauthRole",
+      "StackName": "amplify-lingologin-dev-170637",
+      "StackId": "arn:aws:cloudformation:us-east-1:823054780436:stack/amplify-lingologin-dev-170637/88e08940-c414-11ed-b645-0e239e727623",
+      "AmplifyAppId": "d1qsss2coejme9"
+    },
+    "categories": {
+      "api": {
+        "lingologin": {}
+      },
+      "auth": {
+        "lingologin8f0d5424": {}
+      }
+    }
+  }
+}
