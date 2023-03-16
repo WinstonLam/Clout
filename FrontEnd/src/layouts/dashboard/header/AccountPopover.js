@@ -1,3 +1,4 @@
+import { Auth } from 'aws-amplify';
 import { useState } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
@@ -23,18 +24,23 @@ const MENU_OPTIONS = [
 ];
 
 // ----------------------------------------------------------------------
+async function handleLogout(setOpen, setUser) {
+    try {
+        await Auth.signOut();
+        localStorage.setItem('user', null);
+        setUser(null);
+        setOpen(null);
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+  }
+
 
 export default function AccountPopover({setUser}) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
-  };
-
-  const handleLogout = () => {
-    localStorage.setItem('user', null);
-    setUser(null);
-    setOpen(null);
   };
 
   const handleClose = () => {
@@ -103,7 +109,7 @@ export default function AccountPopover({setUser}) {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
+        <MenuItem onClick={() => handleLogout(setOpen, setUser)} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </Popover>
