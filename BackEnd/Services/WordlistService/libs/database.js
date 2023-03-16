@@ -34,10 +34,7 @@ async function queryMySQL (queryToExecute) {
       host: 'sql-gen',
       database: 'LINGO',
       user: 'root',
-      password: 'DevOps2023!',
-      options: {
-        encrypt: false
-      }
+      password: 'DevOps2023!'
     })
     await connection.connect()
     const result = await connection.execute(queryToExecute)
