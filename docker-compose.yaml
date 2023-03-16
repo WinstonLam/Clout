@@ -30,19 +30,18 @@ services:
     ports:
       - "5000:5000"
     container_name: wordlist
-    image: "wordlist"
-
+    image: "jurrewolff/wordlistservice"
+  
   sql-gen:
     ports:
       - "3306:3306"
     container_name: sqlgen
-    image: "database"
-
+    image: "jurrewolff/database"
+  
   gameservice:
-    image: "gameservice"
+    container_name: gameservice
+    image: "jurrewolff/gameservice"
     environment:
       - NODE_ENV="production"
-      - NODE_OPTIONS="--max-old-space-size=4096"
     ports:
-      - "127.0.0.1:45287:45287"
-
+      - "45287:45287"
