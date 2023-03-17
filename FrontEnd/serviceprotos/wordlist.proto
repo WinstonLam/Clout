@@ -9,6 +9,8 @@ message Filter {
   repeated Id filter = 2;
 }
 
+message UserId { string userID = 1; }
+
 message Id { int32 id = 1; }
 
 message Wordlists {
@@ -19,7 +21,7 @@ message Wordlists {
 message WordlistInfo {
   string wordlistName = 1;
   string description = 2;
-  int32 userID = 3;
+  string userID = 3;
   int32 wordlistID = 4;
   repeated Word words = 5;
   Response serverInfo = 6;
@@ -37,7 +39,7 @@ message Response {
 }
 
 service WordlistService {
-  rpc loadAllWordlists(Id) returns (Wordlists) {}
+  rpc loadAllWordlists(UserId) returns (Wordlists) {}
   rpc addNewWordlist(WordlistInfo) returns (Response) {}
   rpc getWordsOfWordList(Id) returns (WordlistInfo) {}
   rpc getWordExceptIDs(Filter) returns (WordlistInfo) {}

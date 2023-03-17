@@ -59,8 +59,8 @@ export default function Router() {
       element: <SimpleLayout />,
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
-        { path: 'wordlist', element: <Wordlist client={wordlistclient} /> },
-        { path: 'wordlist-overview', element: <WordlistOverviewPage client={wordlistclient} /> },
+        { path: 'wordlist', element: <Wordlist client={wordlistclient} user={user} /> },
+        { path: 'wordlist-overview', element: <WordlistOverviewPage client={wordlistclient} user={user} /> },
 
         { path: '*', element: <Navigate to="/404" /> },
       ],

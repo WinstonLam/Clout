@@ -37,7 +37,9 @@ export default function PlayPage({ client }) {
       else {
         console.log('succes init game', response);
         setGameId(response.array[2]);
-        setSolution(response.array[3]);
+        // console log response.array[3] stripped of whitespace
+
+        setSolution(response.array[3].replace(/\s/g, ''));
       }
     });
   }, []);

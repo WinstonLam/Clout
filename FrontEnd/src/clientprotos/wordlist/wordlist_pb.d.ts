@@ -1,5 +1,6 @@
-/* eslint-disable */
-import * as jspb from 'google-protobuf';
+import * as jspb from 'google-protobuf'
+
+
 
 export class Empty extends jspb.Message {
   serializeBinary(): Uint8Array;
@@ -11,7 +12,8 @@ export class Empty extends jspb.Message {
 }
 
 export namespace Empty {
-  export type AsObject = {};
+  export type AsObject = {
+  }
 }
 
 export class Filter extends jspb.Message {
@@ -33,9 +35,27 @@ export class Filter extends jspb.Message {
 
 export namespace Filter {
   export type AsObject = {
-    wordlistid: number;
-    filterList: Array<Id.AsObject>;
-  };
+    wordlistid: number,
+    filterList: Array<Id.AsObject>,
+  }
+}
+
+export class UserId extends jspb.Message {
+  getUserid(): string;
+  setUserid(value: string): UserId;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UserId.AsObject;
+  static toObject(includeInstance: boolean, msg: UserId): UserId.AsObject;
+  static serializeBinaryToWriter(message: UserId, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UserId;
+  static deserializeBinaryFromReader(message: UserId, reader: jspb.BinaryReader): UserId;
+}
+
+export namespace UserId {
+  export type AsObject = {
+    userid: string,
+  }
 }
 
 export class Id extends jspb.Message {
@@ -52,8 +72,8 @@ export class Id extends jspb.Message {
 
 export namespace Id {
   export type AsObject = {
-    id: number;
-  };
+    id: number,
+  }
 }
 
 export class Wordlists extends jspb.Message {
@@ -77,9 +97,9 @@ export class Wordlists extends jspb.Message {
 
 export namespace Wordlists {
   export type AsObject = {
-    wordlistinfoList: Array<WordlistInfo.AsObject>;
-    serverinfo?: Response.AsObject;
-  };
+    wordlistinfoList: Array<WordlistInfo.AsObject>,
+    serverinfo?: Response.AsObject,
+  }
 }
 
 export class WordlistInfo extends jspb.Message {
@@ -89,8 +109,8 @@ export class WordlistInfo extends jspb.Message {
   getDescription(): string;
   setDescription(value: string): WordlistInfo;
 
-  getUserid(): number;
-  setUserid(value: number): WordlistInfo;
+  getUserid(): string;
+  setUserid(value: string): WordlistInfo;
 
   getWordlistid(): number;
   setWordlistid(value: number): WordlistInfo;
@@ -115,13 +135,13 @@ export class WordlistInfo extends jspb.Message {
 
 export namespace WordlistInfo {
   export type AsObject = {
-    wordlistname: string;
-    description: string;
-    userid: number;
-    wordlistid: number;
-    wordsList: Array<Word.AsObject>;
-    serverinfo?: Response.AsObject;
-  };
+    wordlistname: string,
+    description: string,
+    userid: string,
+    wordlistid: number,
+    wordsList: Array<Word.AsObject>,
+    serverinfo?: Response.AsObject,
+  }
 }
 
 export class Word extends jspb.Message {
@@ -144,10 +164,10 @@ export class Word extends jspb.Message {
 
 export namespace Word {
   export type AsObject = {
-    word: string;
-    description: string;
-    id: number;
-  };
+    word: string,
+    description: string,
+    id: number,
+  }
 }
 
 export class Response extends jspb.Message {
@@ -167,7 +187,8 @@ export class Response extends jspb.Message {
 
 export namespace Response {
   export type AsObject = {
-    statuscode: number;
-    responsebody: string;
-  };
+    statuscode: number,
+    responsebody: string,
+  }
 }
+

@@ -11,9 +11,10 @@
 // source: wordlist.proto
 
 
+/* eslint-disable */
 // @ts-nocheck
 
-/* eslint-disable */
+
 import * as grpcWeb from 'grpc-web';
 
 import * as wordlist_pb from './wordlist_pb';
@@ -41,26 +42,26 @@ export class WordlistServiceClient {
   methodDescriptorloadAllWordlists = new grpcWeb.MethodDescriptor(
     '/wlservice.WordlistService/loadAllWordlists',
     grpcWeb.MethodType.UNARY,
-    wordlist_pb.Id,
+    wordlist_pb.UserId,
     wordlist_pb.Wordlists,
-    (request: wordlist_pb.Id) => {
+    (request: wordlist_pb.UserId) => {
       return request.serializeBinary();
     },
     wordlist_pb.Wordlists.deserializeBinary
   );
 
   loadAllWordlists(
-    request: wordlist_pb.Id,
+    request: wordlist_pb.UserId,
     metadata: grpcWeb.Metadata | null): Promise<wordlist_pb.Wordlists>;
 
   loadAllWordlists(
-    request: wordlist_pb.Id,
+    request: wordlist_pb.UserId,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.RpcError,
                response: wordlist_pb.Wordlists) => void): grpcWeb.ClientReadableStream<wordlist_pb.Wordlists>;
 
   loadAllWordlists(
-    request: wordlist_pb.Id,
+    request: wordlist_pb.UserId,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.RpcError,
                response: wordlist_pb.Wordlists) => void) {

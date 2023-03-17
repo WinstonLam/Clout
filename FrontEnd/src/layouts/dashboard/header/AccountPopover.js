@@ -25,18 +25,17 @@ const MENU_OPTIONS = [
 
 // ----------------------------------------------------------------------
 async function handleLogout(setOpen, setUser) {
-    try {
-        await Auth.signOut();
-        localStorage.setItem('user', null);
-        setUser(null);
-        setOpen(null);
-    } catch (error) {
-        console.log('error signing out: ', error);
-    }
+  try {
+    await Auth.signOut();
+    localStorage.setItem('user', null);
+    setUser(null);
+    setOpen(null);
+  } catch (error) {
+    console.log('error signing out: ', error);
   }
+}
 
-
-export default function AccountPopover({setUser}) {
+export default function AccountPopover({ setUser, user }) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -90,16 +89,16 @@ export default function AccountPopover({setUser}) {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {user.username}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {user.attributes.email}
           </Typography>
         </Box>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        {/* <Divider sx={{ borderStyle: 'dashed' }} /> */}
 
-        <Stack sx={{ p: 1 }}>
+        {/* <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
             <MenuItem key={option.label} onClick={handleClose}>
               {option.label}
@@ -107,7 +106,7 @@ export default function AccountPopover({setUser}) {
           ))}
         </Stack>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        <Divider sx={{ borderStyle: 'dashed' }} /> */}
 
         <MenuItem onClick={() => handleLogout(setOpen, setUser)} sx={{ m: 1 }}>
           Logout

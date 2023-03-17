@@ -121,8 +121,16 @@ export default function Header({ user, setUser }) {
         }}
       >
         <>
-          {user && <NotificationsPopover />}
-          {user && <AccountPopover setUser={setUser} />}
+          {/* {user && <NotificationsPopover />} */}
+          {user && (
+            <Box sx={{ alignItems: 'center', display: 'flex', width: '100%', justifyContent: 'center' }}>
+              <AccountPopover
+                sx={{ heigth: '150px', display: 'flex', justifyContent: 'center' }}
+                setUser={setUser}
+                user={user}
+              />
+            </Box>
+          )}
         </>
       </Stack>
     </StyledRoot>
