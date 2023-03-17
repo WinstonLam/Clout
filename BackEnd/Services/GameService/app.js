@@ -4,8 +4,8 @@ import protoLoader from '@grpc/proto-loader'
 import { Game, ongoingGames } from './libs/gamelogic.js'
 import { getWordExceptIds } from './libs/wordlist-client.js'
 
-const serverAddress = '0.0.0.0'
-const serverPort = '45287'
+const serverAddress = process.env.GAMESERVICE_ADDRESS
+const serverPort = process.env.GAMESERVICE_PORT
 
 const PROTO_PATH = './protos/gameservice.proto'
 const packageDefinition = protoLoader.loadSync(
@@ -21,14 +21,14 @@ const gameserviceProto = grpc.loadPackageDefinition(packageDefinition).gameservi
 const lingoGameService = gameserviceProto.LingoGame.service
 
 // RPC methods
-function initGame(call, callback) {
+function initGame (call, callback) {
   const request = call.request
   const wordlistId = request.wordlist_id
   const response = {}
 
   const game = new Game(wordlistId)
   if (!game) {
-    response.err_msg = "failed to create game"
+    response.err_msg = 'failed to create game'
     response.success = false
     callback(null, response)
     return
@@ -56,7 +56,7 @@ function initGame(call, callback) {
   })
 }
 
-function updateGame(call, callback) {
+function updateGame (call, callback) {
   const request = call.request
   const gameId = request.game_id
   const guess = request.guess
@@ -82,7 +82,7 @@ function updateGame(call, callback) {
   callback(null, response)
 }
 
-function deleteGame(call, callback) {
+function deleteGame (call, callback) {
   const request = call.request
   const gameId = request.game_id
   const response = {}
@@ -98,7 +98,7 @@ function deleteGame(call, callback) {
   callback(null, response)
 }
 
-function nextWord(call, callback) {
+function nextWord (call, callback) {
   const request = call.request
   const gameId = request.game_id
   const response = {}
@@ -139,7 +139,7 @@ function nextWord(call, callback) {
     })
 }
 
-function main() {
+function main () {
   // TODO - gRPC authentication, proper address:port config, full proto spec
   // and implementations. Also communicate about the interface and potentially update code
 

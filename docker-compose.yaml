@@ -27,6 +27,14 @@ services:
       - "6379:6379"
 
   wordlist:
+    environment:
+      - NODE_ENV="production"
+      - WORDLIST_ADDRESS=0.0.0.0
+      - WORDLIST_PORT=5000
+      - DB_NAME=LINGO
+      - DB_PASS=DevOps2023!
+      - DB_USER=root
+      - DB_REMOTE_ADDRESS=sql-gen
     ports:
       - "5000:5000"
     container_name: wordlist
@@ -43,5 +51,9 @@ services:
     image: "jurrewolff/gameservice"
     environment:
       - NODE_ENV="production"
+      - WORDLIST_REMOTE_ADDRESS=wordlist
+      - WORDLIST_PORT=5000
+      - GAMESERVICE_ADDRESS=0.0.0.0
+      - GAMESERVICE_PORT=45287
     ports:
       - "45287:45287"
