@@ -8,9 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-
 HiscoreTable.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 function createData(name, calories, fat, carbs, protein) {
@@ -25,9 +24,10 @@ const rows = [
   createData('Jurre', 'Noob', 100000, 49, 3.9),
 ];
 
-export default function HiscoreTable({title, height, color, sx}) {
+export default function HiscoreTable({ title, height, color, sx }) {
   return (
-    <TableContainer component={Paper}
+    <TableContainer
+      component={Paper}
       sx={{
         my: 15,
         py: height,
@@ -37,30 +37,30 @@ export default function HiscoreTable({title, height, color, sx}) {
         color: '#000000',
         bgcolor: (theme) => theme.palette[color].orange,
         ...sx,
-      }}>
-      <Table sx={{ minWidth: 650 , height: 200, opacity:1, color:"#00000"}} aria-label="simple table">
-        <TableBody sx={{
-          my: 0,
-          bgcolor: (theme) => theme.palette[color].white,
-          color: '#FFFFFF',
-          ...sx,
-        }}>
+      }}
+    >
+      <Table sx={{ minWidth: 650, height: 200, opacity: 1, color: '#00000' }} aria-label="simple table">
+        <TableBody
+          sx={{
+            my: 0,
+            bgcolor: (theme) => theme.palette[color].white,
+            color: '#FFFFFF',
+            ...sx,
+          }}
+        >
           <TableRow>
-            <TableCell >Hiscores</TableCell>
+            <TableCell>Hiscores</TableCell>
             <TableCell align="center">Wordlist</TableCell>
             <TableCell align="center">Score</TableCell>
           </TableRow>
         </TableBody>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell sx={{ fontWeight: "bold" }} component="th" scope="row">
+          {rows.map((row, idx) => (
+            <TableRow key={idx} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableCell sx={{ fontWeight: 'bold' }} component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="center" >{row.calories}</TableCell>
+              <TableCell align="center">{row.calories}</TableCell>
               <TableCell align="center">{row.fat}</TableCell>
               {/* <TableCell align="right">{row.carbs}</TableCell>
               <TableCell align="right">{row.protein}</TableCell> */}

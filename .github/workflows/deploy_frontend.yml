@@ -14,14 +14,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name : Install node
+      - name: Install node
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: "16"
 
       - name: Npm Install dependencies
         working-directory: ./FrontEnd
         run: npm install
+
+      - name: Npm install aws amplify
+        working-directory: ./FrontEnd
+        run: npm install aws-amplify
 
       - name: Npm Build project
         working-directory: ./FrontEnd

@@ -39,7 +39,6 @@ export default function Wordle({ solution, setSolution, client, gameId }) {
             setGuessModal(true);
             setTimeout(() => setGuessModal(false), 3000);
             setIsCorrect(false);
-            // here normally the next word is get from the server
             setTurn(0);
             client.nextWord(nextWord, {}, (err, response) => {
               if (err) console.log('failed', err);
