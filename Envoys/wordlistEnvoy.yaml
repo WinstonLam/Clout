@@ -51,5 +51,5 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: wordlist
+                      address: load-balancer-wordlistservice-b675fba73130ad4c.elb.us-east-1.amazonaws.com
                       port_value: 5000

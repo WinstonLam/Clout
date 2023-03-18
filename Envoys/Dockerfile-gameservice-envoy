@@ -1,0 +1,5 @@
+FROM envoyproxy/envoy:dev-345752d60cda2f2c1c47e36cdd30752b3f9d6880
+COPY gameserviceEnvoy.yaml /etc/envoy/envoy.yaml
+RUN chmod go+r /etc/envoy/envoy.yaml
+
+EXPOSE 8081
