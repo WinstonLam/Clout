@@ -41,8 +41,7 @@ static_resources:
   clusters:
     - name: echo_service
       connect_timeout: 0.25s
-      type: logical_dns
-      http2_protocol_options: {}
+      type: strict_dns
       lb_policy: round_robin
       load_assignment:
         cluster_name: echo_service
@@ -51,5 +50,5 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: load-balancer-wordlistservice-b675fba73130ad4c.elb.us-east-1.amazonaws.com
+                      address: "load-balancer-wordlistservice-b675fba73130ad4c.elb.us-east-1.amazonaws.com"
                       port_value: 5000
