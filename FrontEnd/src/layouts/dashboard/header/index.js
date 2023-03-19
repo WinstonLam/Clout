@@ -19,6 +19,9 @@ import { AppWidgetSummary } from '../../../sections/@dashboard/app';
 // import LoginPage from '../../../pages/LoginPage';
 import RegisterPage from '../../../pages/RegisterPage';
 import PopUp from '../../../pages/PopUp';
+
+import Home from '../../../images/itemicon_home.png';
+
 // import Typography from 'src/theme/overrides/Typography';
 
 // ----------------------------------------------------------------------
@@ -91,6 +94,8 @@ export default function Header({ user, setUser }) {
   return (
     <StyledRoot>
       <PopUp setUser={setUser} open={showComponent} openLogin={openScreen} />
+      {/* eslint-disable-next-line */}
+      <Button sx={{width:10, marginLeft:6, marginTop: 4, position:'absolute'}} onClick={() => handleNavigate('')}><img src={require('../../../images/itemicon_home.png')} alt="home"/></Button>
 
       <Box sx={{ p: 2, justifyContent: 'center', display: 'flex' }}>
         <Box sx={{ alignItems: 'center', display: 'flex', width: '30%', justifyContent: 'space-evenly' }}>

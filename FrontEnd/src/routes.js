@@ -48,7 +48,7 @@ export default function Router() {
     },
     {
       path: '',
-      element: <DashboardLayout user={user} />,
+      element: <DashboardLayout user={user}  setUser={setUser}/>,
       children: [
         { element: <Navigate to="play" />, index: true },
         { path: 'play', element: <PlayPage client={gameclient} /> },
@@ -56,7 +56,7 @@ export default function Router() {
       //   element: <LoginPage />,
     },
     {
-      element: <SimpleLayout />,
+      element: <DashboardLayout user={user} setUser={setUser} />,
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'wordlist', element: <Wordlist client={wordlistclient} user={user} /> },

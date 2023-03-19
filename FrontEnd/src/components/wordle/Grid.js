@@ -8,7 +8,7 @@ export default function Grid({ guesses, currentGuess, turn, solution }) {
     <div>
       {guesses.map((g, i) => {
         if (turn === i) {
-          console.log("solution in row", solution);
+          console.log("solution in grid", solution);
           return <Row key={i} currentGuess={currentGuess} solution={solution} />;
         }
         return <Row key={i} guess={g} solution={solution} />;

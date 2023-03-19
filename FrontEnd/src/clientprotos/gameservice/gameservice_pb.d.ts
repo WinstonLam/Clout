@@ -170,6 +170,9 @@ export class NextWordResponse extends jspb.Message {
   getSecretWord(): string;
   setSecretWord(value: string): NextWordResponse;
 
+  getWordDescription(): string;
+  setWordDescription(value: string): NextWordResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): NextWordResponse.AsObject;
   static toObject(includeInstance: boolean, msg: NextWordResponse): NextWordResponse.AsObject;
@@ -183,6 +186,7 @@ export namespace NextWordResponse {
     success: number,
     errMsg: string,
     secretWord: string,
+    wordDescription: string,
   }
 }
 

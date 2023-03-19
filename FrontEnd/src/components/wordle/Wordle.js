@@ -40,17 +40,21 @@ export default function Wordle({ solution, description, setSolution, setDescript
           if (response.array[0] === true) {
             setGuessModal(true);
             setTimeout(() => setGuessModal(false), 3000);
+            
             setIsCorrect(false);
             // setTurn(0);
             resetGame();
             client.nextWord(nextWord, {}, (err, response) => {
               if (err) console.log('failed', err);
               else {
-                console.log(response.array[2] === undefined);
                 console.log('succes nextWord request');
-                if (response.array[2] !== undefined) {
-                    setDescription(response.array[2]);
-                    setTimeout(() => setSolution(response.array[2].replace(/\s/g, '')), 3100);
+                console.log(response.array[0]);
+                console.log(response.array);
+                if (response.array[0] !== null) {
+                    console.log(response.array[3]);
+                    setDescription(response.array[3]);
+                    setTimeout(() => setGuessModal(false), 2000);
+                    setTimeout(() => setSolution(response.array[2].replace(/\s/g, '')), 2000);
                 // setTimeout(() => setDescription(response.array[3]), 3100);
                 // setSolution(response.array[3].replace(/\s/g, ''));
                 } else {

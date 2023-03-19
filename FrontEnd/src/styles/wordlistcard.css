@@ -9,6 +9,7 @@
 }
 .wordlist-content {
     margin-top: -6%;
+    border-radius: 100;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
@@ -28,11 +29,20 @@
 .wordlist-card-div2 {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     grid-area: 1 / 2 / 2 / 5;
     height: 150px;
 }
+
+.wordlist-card-title {
+    /* position:fixed; */
+    font-weight: 1000;
+    margin-top: 15%;
+}
+
+
+
 .wordlist-card-div3 { grid-area: 1 / 5 / 2 / 6;
     margin-top: 20px;
     display: flex;
