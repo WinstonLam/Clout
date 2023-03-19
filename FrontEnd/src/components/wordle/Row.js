@@ -1,6 +1,11 @@
 import React from 'react';
 
 export default function Row({ guess, currentGuess, solution }) {
+
+//   console.log("solution in row", solution)
+//   console.log("currentGuess", currentGuess);
+//   console.log("guess", guess);
+
   if (guess) {
     return (
       <div className="row past">
@@ -14,6 +19,7 @@ export default function Row({ guess, currentGuess, solution }) {
   }
 
   if (currentGuess) {
+    if (currentGuess.length > solution.length) currentGuess = currentGuess.slice(0, solution.length);
     const letters = currentGuess.split('');
     return (
       <div className="row current">
@@ -28,7 +34,6 @@ export default function Row({ guess, currentGuess, solution }) {
       </div>
     );
   }
-
   // if solution consist of more than 5 letters, then expand the grid
   return (
     <div className="row">

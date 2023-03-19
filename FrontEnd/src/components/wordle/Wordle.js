@@ -9,9 +9,11 @@ import GuessModal from './GuessModal';
 
 import { GameUpdateRequest, NextWordRequest } from '../../clientprotos/gameservice/gameservice_pb';
 
-export default function Wordle({ solution, setSolution, client, gameId }) {
+
+export default function Wordle({ solution, description, setSolution, setDescription, client, gameId }) {
   const [guess, setGuess] = useState('');
-  const { currentGuess, guesses, turn, isCorrect, usedKeys, handleKeyup, setTurn, setIsCorrect } = useWordle(
+  const [reset, setReset] = useState('');
+  const { currentGuess, guesses, turn, isCorrect, usedKeys, handleKeyup, setTurn, setIsCorrect, resetGame } = useWordle(
     solution,
     setGuess
   );
@@ -38,14 +40,26 @@ export default function Wordle({ solution, setSolution, client, gameId }) {
           if (response.array[0] === true) {
             setGuessModal(true);
             setTimeout(() => setGuessModal(false), 3000);
+            
             setIsCorrect(false);
-            setTurn(0);
+            // setTurn(0);
+            resetGame();
             client.nextWord(nextWord, {}, (err, response) => {
               if (err) console.log('failed', err);
               else {
                 console.log('succes nextWord request');
-                setTimeout(() => setSolution(response.array[2]), 3100);
+                console.log(response.array[0]);
+                console.log(response.array);
+                if (response.array[0] !== null) {
+                    console.log(response.array[3]);
+                    setDescription(response.array[3]);
+                    setTimeout(() => setGuessModal(false), 2000);
+                    setTimeout(() => setSolution(response.array[2].replace(/\s/g, '')), 2000);
+                // setTimeout(() => setDescription(response.array[3]), 3100);
                 // setSolution(response.array[3].replace(/\s/g, ''));
+                } else {
+                    setGuessModal(true);
+                }
               }
             });
 
@@ -53,7 +67,8 @@ export default function Wordle({ solution, setSolution, client, gameId }) {
           } else {
             console.log('guess is not correct according to server');
             setIsCorrect(false);
-            setTurn(0);
+            // setTurn(0);
+            resetGame();
           }
         }
       });
@@ -68,6 +83,7 @@ export default function Wordle({ solution, setSolution, client, gameId }) {
 
   return (
     <div>
+      <p>{description}</p>
       <Grid guesses={guesses} currentGuess={currentGuess} turn={turn} solution={solution} />
       <Keypad usedKeys={usedKeys} />
       {guessModal && <GuessModal solution={solution} turn={turn} />}

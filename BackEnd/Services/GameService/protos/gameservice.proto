@@ -9,6 +9,7 @@ message GameInitResponse {
   string err_msg = 2;
   string game_id = 3;
   string secret_word = 4;
+  string word_description = 5;
 }
 
 message GameUpdateRequest {
@@ -35,6 +36,7 @@ message NextWordResponse {
   int32 success = 1;
   string err_msg = 2;
   string secret_word = 3;
+  string word_description = 4;
 }
 
 service LingoGame {

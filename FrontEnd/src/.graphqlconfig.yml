@@ -1,0 +1,12 @@
+projects:
+  lingologin:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - loginApi
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: .

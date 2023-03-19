@@ -27,6 +27,7 @@ export default function WordlistOverviewPage({ client, user }) {
       const Userid = new UserId();
 
       Userid.setUserid(user.attributes.sub);
+      console.log("User id =", Userid);
       client.loadAllWordlists(Userid, null, (err, response) => {
         if (err) console.log('failed', err.metadata);
         else {

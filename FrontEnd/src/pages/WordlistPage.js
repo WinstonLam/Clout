@@ -57,6 +57,7 @@ function WordlistPage({ client, user }) {
     }
     wordlist.setWordsList(words);
     console.log(wordlist);
+    console.log("Sent wordlist with user id:", user.attributes.sub);
     client.addNewWordlist(wordlist, {}, (err, response) => {
       if (err) console.log('failed', err.metadata);
       else console.log('succes', response);

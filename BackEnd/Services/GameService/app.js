@@ -43,9 +43,12 @@ function initGame (call, callback) {
     if (words[0]) {
       game.secretWord = words[0].word
       game.completedWordIds.push(words[0].Id)
+      game.wordDescription = words[0].description
       console.log(`secret word for game '${game.gameId}' is '${game.secretWord}'`)
 
       response.secret_word = words[0].word
+      response.word_description = words[0].description
+      
       console.log(typeof words[0].word)
       callback(null, response)
     } else { // TODO - Proper error handling
@@ -117,6 +120,9 @@ function nextWord (call, callback) {
         const nextWord = words[0]
 
         game.secretWord = nextWord.word
+        game.wordDescription = nextWord.description
+
+        response.word_description = nextWord.description
         response.secret_word = nextWord.word
         response.success = true
 

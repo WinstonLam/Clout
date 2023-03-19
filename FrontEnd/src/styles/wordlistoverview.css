@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .wordlist-wrapper{
@@ -13,9 +13,9 @@
     align-items: center;
     justify-content: space-evenly;
     
-    background-color: rgba(255, 255, 255, 0.217);
+    background-color: rgba(255, 255, 255, 0.73);
     height: 90%;
-    width: 90%;
+    width: 50%;
     border-radius: 2rem;
     margin-top: 10%;
     border : 1px solid #6d6d6d;

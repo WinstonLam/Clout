@@ -24,17 +24,6 @@ const MENU_OPTIONS = [
 ];
 
 // ----------------------------------------------------------------------
-async function handleLogout(setOpen, setUser) {
-  try {
-    await Auth.signOut();
-    localStorage.setItem('user', null);
-    setUser(null);
-    setOpen(null);
-  } catch (error) {
-    console.log('error signing out: ', error);
-  }
-}
-
 export default function AccountPopover({ setUser, user }) {
   const [open, setOpen] = useState(null);
 
@@ -45,6 +34,18 @@ export default function AccountPopover({ setUser, user }) {
   const handleClose = () => {
     setOpen(null);
   };
+
+  async function handleLogout(setOpen, setUser) {
+    try {
+      await Auth.signOut();
+      localStorage.setItem('user', null);
+      setUser(null);
+      setOpen(null);
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  }
+  
 
   return (
     <>

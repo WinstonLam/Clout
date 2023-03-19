@@ -19,8 +19,8 @@ import { LingoGameClient } from './clientprotos/gameservice/GameserviceServiceCl
 // ----------------------------------------------------------------------
 
 export default function Router() {
-  const wordlistclient = new WordlistServiceClient('http://wordlist-envoy-loadbalancer-acb73d8140495a18.elb.us-east-1.amazonaws.com:8082');
-  const gameclient = new LingoGameClient('http://load-balancer-envoy-0c53f4c11019d57a.elb.us-east-1.amazonaws.com:8081');
+  const wordlistclient = new WordlistServiceClient('http://localhost:8080');
+  const gameclient = new LingoGameClient('http://localhost:8081');
 
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Router() {
     },
     {
       path: '',
-      element: <DashboardLayout user={user} />,
+      element: <DashboardLayout user={user}  setUser={setUser}/>,
       children: [
         { element: <Navigate to="play" />, index: true },
         { path: 'play', element: <PlayPage client={gameclient} /> },
@@ -56,7 +56,7 @@ export default function Router() {
       //   element: <LoginPage />,
     },
     {
-      element: <SimpleLayout />,
+      element: <DashboardLayout user={user} setUser={setUser} />,
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'wordlist', element: <Wordlist client={wordlistclient} user={user} /> },

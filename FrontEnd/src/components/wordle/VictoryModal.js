@@ -7,7 +7,7 @@ export default function VictoryModal({ isCorrect, solution, turn }) {
         <div>
           <h1>You Win!</h1>
           <p className="solution">{solution}</p>
-          <p>You found the solution in {turn} guesses :)</p>
+          <p>You found the solution in {turn + 1} {(turn + 1 === 1) ? 'guess! :)' : 'guesses! :)'}</p>
         </div>
       )}
       {!isCorrect && (
