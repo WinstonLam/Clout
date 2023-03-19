@@ -356,7 +356,8 @@ proto.gameservice.GameInitResponse.toObject = function(includeInstance, msg) {
     success: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
     errMsg: jspb.Message.getFieldWithDefault(msg, 2, ""),
     gameId: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    secretWord: jspb.Message.getFieldWithDefault(msg, 4, "")
+    secretWord: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    wordDescription: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -408,6 +409,10 @@ proto.gameservice.GameInitResponse.deserializeBinaryFromReader = function(msg, r
     case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setSecretWord(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setWordDescription(value);
       break;
     default:
       reader.skipField();
@@ -463,6 +468,13 @@ proto.gameservice.GameInitResponse.serializeBinaryToWriter = function(message, w
   if (f.length > 0) {
     writer.writeString(
       4,
+      f
+    );
+  }
+  f = message.getWordDescription();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
       f
     );
   }
@@ -538,6 +550,24 @@ proto.gameservice.GameInitResponse.prototype.getSecretWord = function() {
  */
 proto.gameservice.GameInitResponse.prototype.setSecretWord = function(value) {
   return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional string word_description = 5;
+ * @return {string}
+ */
+proto.gameservice.GameInitResponse.prototype.getWordDescription = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.gameservice.GameInitResponse} returns this
+ */
+proto.gameservice.GameInitResponse.prototype.setWordDescription = function(value) {
+  return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 

@@ -9,6 +9,7 @@ export class Game {
     this.wordlistId = wordlistId
     this.gameId = uuidv4()
     this.secretWord = getWordExceptIds(this.wordlistId, null)
+    this.wordDescription = "";
     this.completedWordIds = []
   }
 
@@ -17,7 +18,7 @@ export class Game {
       throw new Error('secret word has not been set yet')
     }
 
-    if (guess.length !== this.secretWord.length) {
+    if (guess.length !== this.secretWord.length - 1) {
       throw new Error('guess length does not equal secret word length')
     }
 
