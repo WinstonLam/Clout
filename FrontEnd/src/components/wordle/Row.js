@@ -28,7 +28,6 @@ export default function Row({ guess, currentGuess, solution }) {
       </div>
     );
   }
-
   // if solution consist of more than 5 letters, then expand the grid
   return (
     <div className="row">
