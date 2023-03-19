@@ -57,5 +57,5 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: gameservice
+                      address: 44.215.64.22
                       port_value: 45287

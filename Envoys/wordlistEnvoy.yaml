@@ -47,8 +47,7 @@ static_resources:
   clusters:
     - name: echo_service
       connect_timeout: 0.25s
-      type: logical_dns
-      http2_protocol_options: {}
+      type: strict_dns
       lb_policy: round_robin
       load_assignment:
         cluster_name: echo_service

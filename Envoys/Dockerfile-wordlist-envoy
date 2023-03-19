@@ -1,4 +1,4 @@
-FROM envoyproxy/envoy:dev-345752d60cda2f2c1c47e36cdd30752b3f9d6880
+FROM envoyproxy/envoy-dev:e4955aed5694f9935d674419dbb364e744f697b4
 COPY wordlistEnvoy.yaml /etc/envoy/envoy.yaml
 RUN chmod go+r /etc/envoy/envoy.yaml
 
