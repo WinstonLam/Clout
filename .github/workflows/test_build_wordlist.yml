@@ -2,13 +2,18 @@ name: Wordlist service code updated
 
 on:
   push:
-    branches: ["Development", "master"]
+    branches: ["Development", "master"," feature/wordlist_cd_setup"]
     paths:
       - "BackEnd/Services/WordlistService/**.js"
 
 env:
   IMAGE_NAME: wordlistservice
   REPO_NAME: jurrewolff
+  ECS_SERVICE: wordlist_production_service_3 # set this to your Amazon ECS service name
+  ECS_CLUSTER: lingocluster                  # set this to your Amazon ECS cluster name
+  AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
+  TASK_DEFINITION: task_for_wordlist_production.json
+  CONTAINER_NAME: 09440ea76bc645729ac75988ab879c90
 
 jobs:
   # test:
@@ -57,3 +62,27 @@ jobs:
     - name: Push image to docker hub Container Registry
       run: docker push $REPO_NAME/$IMAGE_NAME
       working-directory: ./BackEnd/Services/WordlistService
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.S3_ACCES_ID }}
+        aws-secret-access-key: ${{ secrets.S3_ACCES_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Create new task in ECS
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition:  ${{ env.TASK_DEFINITION }}
+        container-name: ${{ env.CONTAINER_NAME }}
+        image: $REPO_NAME/$IMAGE_NAME
+
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
+        wait-for-service-stability: true
