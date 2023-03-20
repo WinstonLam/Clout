@@ -11,7 +11,6 @@ const configMysql = {
 async function queryMySQL (queryToExecute) {
   try {
     // change to configMysql for cloud connection
-
     const connection = await mysql.createConnection(configMysql)
     await connection.connect()
     const result = await connection.execute(queryToExecute)
