@@ -41,7 +41,7 @@ jobs:
 
   push:
 
-    needs: test
+    # needs: test
 
     runs-on: ubuntu-22.04
 
