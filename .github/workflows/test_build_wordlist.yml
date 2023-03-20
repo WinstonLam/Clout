@@ -76,6 +76,7 @@ jobs:
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition:  ${{ env.TASK_DEFINITION }}
+        container-name: $REPO_NAME/$IMAGE_NAME
         image: $REPO_NAME/$IMAGE_NAME
 
 
