@@ -87,7 +87,7 @@ async function post(inputWordlist) {
 
       return {
         statusCode: 200,
-        responseBody: "Saving wordlist to dataBase succesful",
+        responseBody: "Saving wordlist to dataBase succesful"
       };
     }
   } catch (error) {
