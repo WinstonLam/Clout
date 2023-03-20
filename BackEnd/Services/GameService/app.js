@@ -48,7 +48,7 @@ function initGame (call, callback) {
 
       response.secret_word = words[0].word
       response.word_description = words[0].description
-      
+
       console.log(typeof words[0].word)
       callback(null, response)
     } else { // TODO - Proper error handling
@@ -150,7 +150,7 @@ function main () {
   // and implementations. Also communicate about the interface and potentially update code
 
   console.log(`starting gameservice server at ${serverAddress}:${serverPort}`)
-
+  console.log('extra logging for gameservice!')
   const server = new grpc.Server()
   server.addService(lingoGameService, { updateGame, initGame, deleteGame, nextWord })
   server.bindAsync(serverAddress + ':' + serverPort, grpc.ServerCredentials.createInsecure(), () => {
