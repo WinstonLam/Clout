@@ -95,6 +95,7 @@ server.bindAsync(
       console.log(error)
     } else {
       console.log(`listening on port ${port}`)
+      console.log(`extra logging`)
       server.start()
     }
   }
