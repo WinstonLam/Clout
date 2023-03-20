@@ -15,6 +15,7 @@ env:
   TASK_DEFINITION: task_for_wordlist_production.json
   CONTAINER_NAME: 09440ea76bc645729ac75988ab879c90
 
+
 jobs:
   # test:
 
@@ -75,7 +76,6 @@ jobs:
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition:  ${{ env.TASK_DEFINITION }}
-        container-name: ${{ env.CONTAINER_NAME }}
         image: $REPO_NAME/$IMAGE_NAME
 
 

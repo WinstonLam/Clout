@@ -70,7 +70,6 @@ async function post(inputWordlist) {
     if (inputWordlist.request.words.length !== 0) {
       console.log(inputWordlist.request.userID);
       // const connection = databaseCon.connect()
-      // const result = await databaseCon.query(`insert into words values( $inputWordlist )`)
       const queryWordList = `Insert Into wordlist(\`Name\`, \`description\`, \`userID\`) values (
         '${inputWordlist.request.wordlistName} ',
         '${inputWordlist.request.description}',
