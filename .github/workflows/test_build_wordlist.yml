@@ -2,9 +2,9 @@ name: Wordlist service code updated
 
 on:
   push:
-    branches: ["Development", "master", "feature/wordlist-ci-setup"]
-    # paths:
-    #   - "BackEnd/Services/WordlistService/**.js"
+    branches: ["Development", "master"]
+    paths:
+      - "BackEnd/Services/WordlistService/**.js"
 
 env:
   IMAGE_NAME: wordlistservice
