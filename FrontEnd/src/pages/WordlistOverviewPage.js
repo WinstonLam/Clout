@@ -27,7 +27,7 @@ export default function WordlistOverviewPage({ client, user }) {
       const Userid = new UserId();
 
       Userid.setUserid(user.attributes.sub);
-      console.log("User id =", Userid);
+      console.log('User id =', Userid);
       client.loadAllWordlists(Userid, null, (err, response) => {
         if (err) console.log('failed', err.metadata);
         else {
@@ -41,6 +41,7 @@ export default function WordlistOverviewPage({ client, user }) {
   return (
     <div className="wordlist">
       <div className="wordlist-wrapper">
+        <h1>Your Wordlists</h1>
         <div className="wordlist-inner">
           <div className="wordlist-inner-content">
             {/* make wordlist cards for all the wordlists */}
@@ -63,7 +64,7 @@ export default function WordlistOverviewPage({ client, user }) {
                 ) : (
                   <>
                     <h1>No list created yet</h1>
-                    <Button variant="contained" onClick={() => handleNavigate('/wordlist')} size="large" align="center">
+                    <Button variant="contained" onClick={() => handleNavigate('wordlist')} size="large" align="center">
                       Create Wordlist
                     </Button>
                   </>

@@ -1,34 +1,14 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
 
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Button } from '@mui/material';
+import { Stack, IconButton, InputAdornment, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { Hub, Auth } from 'aws-amplify';
-import RegisterForm from './RegisterForm';
-import UserPool from './UserPool';
-import { bgBlur } from '../../../utils/cssStyles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // components
 import Iconify from '../../../components/iconify';
 // ----------------------------------------------------------------------
-
-const InputField = styled('div')(({ theme }) => ({
-  // ...bgColor ({color: '#280003'}),
-  backgroundColor: 'white',
-  // maxWidth: "80%",
-  color: '#FFFFFF',
-  borderRadius: 10,
-  // paddingTop: 300,
-  height: 10,
-  display: 'flex',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  padding: theme.spacing(12, 12),
-  // margin: 'auto',
-  // animation: `${animation} 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards`,
-}));
 
 function listenToAutoSignInEvent() {
   Hub.listen('auth', ({ payload }) => {
@@ -52,6 +32,14 @@ export default function LoginForm({ onSwitch, buttonName, onClose, setUser }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [conPassword, setConPassword] = useState('');
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#fff',
+      },
+    },
+  });
 
   const handleClick = () => {
     setShowRegister(!showRegister);
@@ -109,35 +97,30 @@ export default function LoginForm({ onSwitch, buttonName, onClose, setUser }) {
       ) : (
         <>
           <Stack spacing={3}>
-            <TextField
-              sx={{ color: 'white' }}
-              onChange={(event) => setUsername(event.target.value)}
-              name="username"
-              label="Username"
-            />
-            {buttonName === 'Register' && (
-              <TextField onChange={(event) => setEmail(event.target.value)} name="email" label="Email address" />
-            )}
-            <TextField
-              onChange={(event) => setPassword(event.target.value)}
-              name="password"
-              label="Password"
-              type={showPassword ? 'text' : 'password'}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                      <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            {buttonName === 'Register' && (
+            <ThemeProvider theme={theme}>
               <TextField
-                onChange={(event) => setConPassword(event.target.value)}
+                color="primary"
+                sx={{ input: { color: 'white' }, color: 'white' }}
+                onChange={(event) => setUsername(event.target.value)}
+                name="username"
+                label="Username"
+              />
+              {buttonName === 'Register' && (
+                <TextField
+                  color="primary"
+                  sx={{ input: { color: 'white' }, color: 'white' }}
+                  onChange={(event) => setEmail(event.target.value)}
+                  name="email"
+                  label="Email address"
+                />
+              )}
+
+              <TextField
+                color="primary"
+                sx={{ input: { color: 'white' } }}
+                onChange={(event) => setPassword(event.target.value)}
                 name="password"
-                label="Confirm Password"
+                label="Password"
                 type={showPassword ? 'text' : 'password'}
                 InputProps={{
                   endAdornment: (
@@ -149,7 +132,27 @@ export default function LoginForm({ onSwitch, buttonName, onClose, setUser }) {
                   ),
                 }}
               />
-            )}
+
+              {buttonName === 'Register' && (
+                <TextField
+                  color="primary"
+                  sx={{ input: { color: 'white' }, color: 'white' }}
+                  onChange={(event) => setConPassword(event.target.value)}
+                  name="password"
+                  label="Confirm Password"
+                  type={showPassword ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                          <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              )}
+            </ThemeProvider>
           </Stack>
 
           <LoadingButton

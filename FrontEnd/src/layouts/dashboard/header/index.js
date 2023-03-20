@@ -95,7 +95,9 @@ export default function Header({ user, setUser }) {
     <StyledRoot>
       <PopUp setUser={setUser} open={showComponent} openLogin={openScreen} />
       {/* eslint-disable-next-line */}
-      <Button sx={{width:10, marginLeft:6, marginTop: 4, position:'absolute'}} onClick={() => handleNavigate('')}><img src={require('../../../images/itemicon_home.png')} alt="home"/></Button>
+      <Button sx={{ width: 10, marginLeft: 6, marginTop: 4, position: 'absolute' }} onClick={() => handleNavigate('')}>
+        <img src={Home} alt="home" />
+      </Button>
 
       <Box sx={{ p: 2, justifyContent: 'center', display: 'flex' }}>
         <Box sx={{ alignItems: 'center', display: 'flex', width: '30%', justifyContent: 'space-evenly' }}>

@@ -8,7 +8,6 @@ const useWordle = (solution, setGuess) => {
   const [isCorrect, setIsCorrect] = useState(false);
   const [usedKeys, setUsedKeys] = useState({}); // {a: 'grey', b: 'green', c: 'yellow'} etc
 
-
   const resetGame = () => {
     setTurn(0);
     setCurrentGuess('');
@@ -89,17 +88,15 @@ const useWordle = (solution, setGuess) => {
   // handle keyup event & track current guess
   // if user presses enter, add the new guess
   const handleKeyup = ({ key }) => {
+    // check if key entered is valid character
+
     if (key === 'Enter') {
       // only add guess if turn is less than 5
       if (turn > 5) {
         console.log('you used all your guesses!');
         return;
       }
-      // do not allow duplicate words
-      if (history.includes(currentGuess)) {
-        console.log('you already tried that word.');
-        return;
-      }
+
       // check word is atleast 1 char
       if (currentGuess.length === 0) {
         console.log('no word entered.');
@@ -118,12 +115,17 @@ const useWordle = (solution, setGuess) => {
       setCurrentGuess((prev) => prev.slice(0, -1));
       return;
     }
+    if (key.length > 1) {
+      return;
+    }
     if (/^[a-zA-Z0-9-]*$/.test(key)) {
+      const checkkey = key;
+      console.log(checkkey);
       if (currentGuess.length === solution.length) {
         return;
       }
-      setCurrentGuess((prev) => prev + key);
-      setGuess(currentGuess + key);
+      setCurrentGuess((prev) => prev + checkkey);
+      setGuess(currentGuess + checkkey);
     }
   };
 
