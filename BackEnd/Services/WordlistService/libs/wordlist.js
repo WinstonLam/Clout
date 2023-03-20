@@ -49,7 +49,7 @@ async function getWordExceptIDs(input) {
     for (const filterId of input.request.filter) {
       strFilter += filterId.id + ",";
     }
-    strFilter = strFilter.slice(0, -1);
+    strFilter = strFilter.slice(0, -1)
     const result = await databaseCon.queryMySQL(` select * from words
     where \`wordlistID\` = ${input.request.wordlistID}
     AND \`Id\` NOT IN (${strFilter})

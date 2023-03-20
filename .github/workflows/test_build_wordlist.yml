@@ -71,19 +71,19 @@ jobs:
         aws-secret-access-key: ${{ secrets.S3_ACCES_KEY }}
         aws-region: ${{ env.AWS_REGION }}
 
-    - name: Create new task in ECS
-      id: task-def
-      uses: aws-actions/amazon-ecs-render-task-definition@v1
-      with:
-        task-definition:  ${{ env.TASK_DEFINITION }}
-        container-name: $REPO_NAME/$IMAGE_NAME
-        image: $REPO_NAME/$IMAGE_NAME
+    # - name: Create new task in ECS
+    #   id: task-def
+    #   uses: aws-actions/amazon-ecs-render-task-definition@v1
+    #   with:
+    #     task-definition:  ${{ env.TASK_DEFINITION }}
+    #     container-name: $REPO_NAME/$IMAGE_NAME
+    #     image: $REPO_NAME/$IMAGE_NAME
 
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        task-definition: task_for_wordlist_production:3
         service: ${{ env.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
