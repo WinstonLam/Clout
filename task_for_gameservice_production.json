@@ -1,0 +1,134 @@
+{
+    "ipcMode": null,
+    "executionRoleArn": "arn:aws:iam::823054780436:role/ecstaskexecution",
+    "containerDefinitions": [
+        {
+            "dnsSearchDomains": null,
+            "environmentFiles": null,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": null,
+                "options": {
+                    "awslogs-group": "/ecs/task_for_gameservice_production",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "entryPoint": [],
+            "portMappings": [
+                {
+                    "hostPort": 45287,
+                    "protocol": "tcp",
+                    "containerPort": 45287
+                }
+            ],
+            "command": [],
+            "linuxParameters": null,
+            "cpu": 512,
+            "environment": [],
+            "resourceRequirements": null,
+            "ulimits": null,
+            "dnsServers": null,
+            "mountPoints": [],
+            "workingDirectory": null,
+            "secrets": [
+                {
+                    "valueFrom": "GAMESERVICE_ADDRESS",
+                    "name": "GAMESERVICE_ADDRESS"
+                },
+                {
+                    "valueFrom": "GAMESERVICE_PORT",
+                    "name": "GAMESERVICE_PORT"
+                },
+                {
+                    "valueFrom": "NODE_ENV",
+                    "name": "NODE_ENV"
+                },
+                {
+                    "valueFrom": "WORDLIST_PORT",
+                    "name": "WORDLIST_PORT"
+                },
+                {
+                    "valueFrom": "WORDLIST_REMOTE_ADDRESS",
+                    "name": "WORDLIST_REMOTE_ADDRESS"
+                }
+            ],
+            "dockerSecurityOptions": null,
+            "memory": null,
+            "memoryReservation": null,
+            "volumesFrom": [],
+            "stopTimeout": null,
+            "image": "jurrewolff/gameservice",
+            "startTimeout": null,
+            "firelensConfiguration": null,
+            "dependsOn": null,
+            "disableNetworking": null,
+            "interactive": null,
+            "healthCheck": null,
+            "essential": true,
+            "links": null,
+            "hostname": null,
+            "extraHosts": null,
+            "pseudoTerminal": null,
+            "user": null,
+            "readonlyRootFilesystem": null,
+            "dockerLabels": null,
+            "systemControls": null,
+            "privileged": null,
+            "name": "gameserviceproduction"
+        }
+    ],
+    "placementConstraints": [],
+    "memory": "128",
+    "taskRoleArn": "arn:aws:iam::823054780436:role/ecstaskexecution",
+    "compatibilities": [
+        "EXTERNAL",
+        "EC2"
+    ],
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:823054780436:task-definition/task_for_gameservice_production:8",
+    "family": "task_for_gameservice_production",
+    "requiresAttributes": [
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "ecs.capability.secrets.ssm.environment-variables"
+        }
+    ],
+    "pidMode": null,
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "networkMode": null,
+    "runtimePlatform": null,
+    "cpu": "1024",
+    "revision": 8,
+    "status": "ACTIVE",
+    "inferenceAccelerators": null,
+    "proxyConfiguration": null,
+    "volumes": []
+}

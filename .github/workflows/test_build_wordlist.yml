@@ -2,7 +2,7 @@ name: Wordlist service code updated
 
 on:
   push:
-    branches: ["Development", "master"," feature/wordlist_cd_setup"]
+    branches: ["Development", "master"]
     paths:
       - "BackEnd/Services/WordlistService/**.js"
 
@@ -13,8 +13,6 @@ env:
   ECS_CLUSTER: lingocluster                  # set this to your Amazon ECS cluster name
   AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
   TASK_DEFINITION: task_for_wordlist_production.json
-  CONTAINER_NAME: 09440ea76bc645729ac75988ab879c90
-
 
 jobs:
   # test:
@@ -70,15 +68,6 @@ jobs:
         aws-access-key-id: ${{ secrets.S3_ACCES_ID }}
         aws-secret-access-key: ${{ secrets.S3_ACCES_KEY }}
         aws-region: ${{ env.AWS_REGION }}
-
-    # - name: Create new task in ECS
-    #   id: task-def
-    #   uses: aws-actions/amazon-ecs-render-task-definition@v1
-    #   with:
-    #     task-definition:  ${{ env.TASK_DEFINITION }}
-    #     container-name: $REPO_NAME/$IMAGE_NAME
-    #     image: $REPO_NAME/$IMAGE_NAME
-
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
