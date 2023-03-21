@@ -1,20 +1,38 @@
 version: "3"
 services:
+
+  # envoy-wordlist:
+  #   image: envoyproxy/envoy-dev:e4955aed5694f9935d674419dbb364e744f697b4
+  #   volumes:
+  #     - ./Envoys/wordlistEnvoy.yaml:/etc/envoy/envoy.yaml
+  #   ports:
+  #     - "9901:9901"
+  #     - "8080:8080"
+
+  # envoy-gameservice:
+  #   image: envoyproxy/envoy-dev:e4955aed5694f9935d674419dbb364e744f697b4
+  #   volumes:
+  #     - ./Envoys/gameserviceEnvoy.yaml:/etc/envoy/envoy.yaml
+  #   ports:
+  #     - "9902:9902"
+  #     - "8081:8081"
+
   envoy-wordlist:
-    image: envoyproxy/envoy-dev:e4955aed5694f9935d674419dbb364e744f697b4
-    volumes:
-      - ./Envoys/wordlistEnvoy.yaml:/etc/envoy/envoy.yaml
+    container_name: envoy-wordlist
+    image: jurrewolff/wordlist-envoy
     ports:
       - "9901:9901"
       - "8080:8080"
+
   envoy-gameservice:
-    image: envoyproxy/envoy-dev:e4955aed5694f9935d674419dbb364e744f697b4
-    volumes:
-      - ./Envoys/gameserviceEnvoy.yaml:/etc/envoy/envoy.yaml
+    container_name: envoy-gameservice
+    image: jurrewolff/gameservice-envoy
     ports:
       - "9902:9902"
       - "8081:8081"
+
   redis:
+    container_name: redis
     image: bitnami/redis
     volumes:
       - ./data:/bitnami/redis/data
@@ -22,21 +40,35 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
     ports:
       - "6379:6379"
+
   wordlist:
+    environment:
+      - NODE_ENV="production"
+      - WORDLIST_ADDRESS=0.0.0.0
+      - WORDLIST_PORT=5000
+      - DB_NAME=LINGO
+      - DB_PASS=DevOps2023!
+      - DB_USER=root
+      - DB_REMOTE_ADDRESS=sql-gen
     ports:
       - "5000:5000"
     container_name: wordlist
-    image: "wordlist"
+    image: "jurrewolff/wordlistservice"
+  
   sql-gen:
     ports:
-      - "1433:3306"
+      - "3306:3306"
     container_name: sqlgen
-    image: "database"
+    image: "jurrewolff/database"
+  
   gameservice:
-    image: "gameservice"
+    container_name: gameservice
+    image: "jurrewolff/gameservice"
     environment:
       - NODE_ENV="production"
-      - NODE_OPTIONS="--max-old-space-size=4096"
+      - WORDLIST_REMOTE_ADDRESS=wordlist
+      - WORDLIST_PORT=5000
+      - GAMESERVICE_ADDRESS=0.0.0.0
+      - GAMESERVICE_PORT=45287
     ports:
-      - "127.0.0.1:45287:45287"
-    command: "npm start"
+      - "45287:45287"

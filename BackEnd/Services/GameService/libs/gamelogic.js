@@ -1,23 +1,24 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
 import { getWordExceptIds } from './wordlist-client.js'
 
 export const ongoingGames = new Map()
 
 export class Game {
-  constructor(wordlistId) {
+  constructor (wordlistId) {
     this.wordlistId = wordlistId
     this.gameId = uuidv4()
     this.secretWord = getWordExceptIds(this.wordlistId, null)
+    this.wordDescription = "";
     this.completedWordIds = []
   }
 
-  update(guess) {
+  update (guess) {
     if (!this.secretWord) {
       throw new Error('secret word has not been set yet')
     }
 
-    if (guess.length !== this.secretWord.length) {
+    if (guess.length !== this.secretWord.length - 1) {
       throw new Error('guess length does not equal secret word length')
     }
 

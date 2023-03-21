@@ -9,12 +9,14 @@ import GuessModal from './GuessModal';
 
 import { GameUpdateRequest, NextWordRequest } from '../../clientprotos/gameservice/gameservice_pb';
 
-export default function Wordle({ solution, setSolution, client, gameId }) {
+export default function Wordle({ solution, description, setSolution, setDescription, client, gameId }) {
   const [guess, setGuess] = useState('');
-  const { currentGuess, guesses, turn, isCorrect, usedKeys, handleKeyup, setTurn, setIsCorrect } = useWordle(
+  const [reset, setReset] = useState('');
+  const { currentGuess, guesses, turn, isCorrect, usedKeys, handleKeyup, setTurn, setIsCorrect, resetGame } = useWordle(
     solution,
     setGuess
   );
+  const [gameover, setGameover] = useState(false);
   const [victoryModal, setVictoryModal] = useState(false);
 
   const [guessModal, setGuessModal] = useState(false);
@@ -34,19 +36,48 @@ export default function Wordle({ solution, setSolution, client, gameId }) {
         if (err) console.log('failed', err);
         else {
           console.log('succes updateGame request');
+          console.log(response.array[0]);
+
           // On correct guess, get new word to continue the game
           if (response.array[0] === true) {
             setGuessModal(true);
             setTimeout(() => setGuessModal(false), 3000);
+
             setIsCorrect(false);
-            // here normally the next word is get from the server
-            setTurn(0);
+            // setTurn(0);
+            resetGame();
             client.nextWord(nextWord, {}, (err, response) => {
               if (err) console.log('failed', err);
               else {
                 console.log('succes nextWord request');
-                setTimeout(() => setSolution(response.array[2]), 3100);
-                // setSolution(response.array[3].replace(/\s/g, ''));
+                console.log(response.array[0]);
+                console.log(response.array);
+                if (response.array[0] === null) {
+                  console.log('game is over');
+                  setGameover(true);
+                  setTimeout(() => setVictoryModal(true), 2000);
+                  window.removeEventListener('keyup', handleKeyup);
+                  // navigate home after 5 seconds
+                  setTimeout(() => {
+                    window.location.href = '/';
+                  }, 5000);
+                } else {
+                  console.log(response.array[3]);
+                  setDescription(response.array[3]);
+                  setTimeout(() => setGuessModal(false), 2000);
+                  setTimeout(() => setSolution(response.array[2].replace(/\s/g, '')), 2000);
+                }
+
+                // if (response.array[0] !== null) {
+                //   console.log(response.array[3]);
+                //   setDescription(response.array[3]);
+                //   setTimeout(() => setGuessModal(false), 2000);
+                //   setTimeout(() => setSolution(response.array[2].replace(/\s/g, '')), 2000);
+                //   // setTimeout(() => setDescription(response.array[3]), 3100);
+                //   // setSolution(response.array[3].replace(/\s/g, ''));
+                // } else {
+                //   setGuessModal(true);
+                // }
               }
             });
 
@@ -54,7 +85,8 @@ export default function Wordle({ solution, setSolution, client, gameId }) {
           } else {
             console.log('guess is not correct according to server');
             setIsCorrect(false);
-            setTurn(0);
+            // setTurn(0);
+            resetGame();
           }
         }
       });
@@ -69,10 +101,11 @@ export default function Wordle({ solution, setSolution, client, gameId }) {
 
   return (
     <div>
+      <p>{description}</p>
       <Grid guesses={guesses} currentGuess={currentGuess} turn={turn} solution={solution} />
       <Keypad usedKeys={usedKeys} />
       {guessModal && <GuessModal solution={solution} turn={turn} />}
-      {victoryModal && <VictoryModal isCorrect={isCorrect} turn={turn} solution={solution} />}
+      {victoryModal && <VictoryModal isCorrect={isCorrect} gameOver={gameover} turn={turn} solution={solution} />}
     </div>
   );
 }

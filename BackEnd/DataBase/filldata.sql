@@ -1,4 +1,3 @@
-delimiter //
 DROP DATABASE IF EXISTS `LINGO`;
 CREATE DATABASE `LINGO`;
 USE `LINGO`;
@@ -15,7 +14,7 @@ CREATE Table `wordlist`
         Id int auto_increment primary key NOT NULL,
         Name varchar(50),
         description varchar(50),
-        userID int
+        userID varchar(100)
     );
 CREATE procedure LINGO.whileLoop()
 wholeblock:BEGIN
@@ -24,10 +23,10 @@ wholeblock:BEGIN
 
   WHILE x <= 10 DO
     INSERT INTO `words` (word, description, wordlistID)
-        VALUES (CONCAT('word ', x) , CONCAT('description -test ', x) ,1);
+        VALUES (CONCAT('word', x) , CONCAT('description -test ', x) ,1);
         INSERT INTO `wordlist` (Name, description,userID)
-        VALUES (CONCAT('testList',x), CONCAT('description of testList- ',x),1);
+        VALUES (CONCAT('testList',x), CONCAT('description of testList- ',x),'1');
         SET x = x + 1;
   END WHILE;
-END//
+END;
 call whileloop()

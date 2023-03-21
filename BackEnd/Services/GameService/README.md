@@ -22,5 +22,4 @@ services:
       - NODE_OPTIONS="--max-old-space-size=4096"
     ports:
       - "45287:45287"
-    command: "npm start"
 ```

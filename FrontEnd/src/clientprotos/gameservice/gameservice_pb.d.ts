@@ -1,5 +1,6 @@
-/* eslint-disable */
-import * as jspb from 'google-protobuf';
+import * as jspb from 'google-protobuf'
+
+
 
 export class GameInitRequest extends jspb.Message {
   getWordlistId(): number;
@@ -15,8 +16,8 @@ export class GameInitRequest extends jspb.Message {
 
 export namespace GameInitRequest {
   export type AsObject = {
-    wordlistId: number;
-  };
+    wordlistId: number,
+  }
 }
 
 export class GameInitResponse extends jspb.Message {
@@ -32,6 +33,9 @@ export class GameInitResponse extends jspb.Message {
   getSecretWord(): string;
   setSecretWord(value: string): GameInitResponse;
 
+  getWordDescription(): string;
+  setWordDescription(value: string): GameInitResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GameInitResponse.AsObject;
   static toObject(includeInstance: boolean, msg: GameInitResponse): GameInitResponse.AsObject;
@@ -42,11 +46,12 @@ export class GameInitResponse extends jspb.Message {
 
 export namespace GameInitResponse {
   export type AsObject = {
-    success: boolean;
-    errMsg: string;
-    gameId: string;
-    secretWord: string;
-  };
+    success: boolean,
+    errMsg: string,
+    gameId: string,
+    secretWord: string,
+    wordDescription: string,
+  }
 }
 
 export class GameUpdateRequest extends jspb.Message {
@@ -66,9 +71,9 @@ export class GameUpdateRequest extends jspb.Message {
 
 export namespace GameUpdateRequest {
   export type AsObject = {
-    gameId: string;
-    guess: string;
-  };
+    gameId: string,
+    guess: string,
+  }
 }
 
 export class GameUpdateResponse extends jspb.Message {
@@ -91,10 +96,10 @@ export class GameUpdateResponse extends jspb.Message {
 
 export namespace GameUpdateResponse {
   export type AsObject = {
-    success: boolean;
-    errMsg: string;
-    feedbackMapMap: Array<[number, string]>;
-  };
+    success: boolean,
+    errMsg: string,
+    feedbackMapMap: Array<[number, string]>,
+  }
 }
 
 export class GameDeleteRequest extends jspb.Message {
@@ -111,8 +116,8 @@ export class GameDeleteRequest extends jspb.Message {
 
 export namespace GameDeleteRequest {
   export type AsObject = {
-    gameId: string;
-  };
+    gameId: string,
+  }
 }
 
 export class GameDeleteResponse extends jspb.Message {
@@ -132,9 +137,9 @@ export class GameDeleteResponse extends jspb.Message {
 
 export namespace GameDeleteResponse {
   export type AsObject = {
-    success: number;
-    errMsg: string;
-  };
+    success: number,
+    errMsg: string,
+  }
 }
 
 export class NextWordRequest extends jspb.Message {
@@ -151,8 +156,8 @@ export class NextWordRequest extends jspb.Message {
 
 export namespace NextWordRequest {
   export type AsObject = {
-    gameId: string;
-  };
+    gameId: string,
+  }
 }
 
 export class NextWordResponse extends jspb.Message {
@@ -165,6 +170,9 @@ export class NextWordResponse extends jspb.Message {
   getSecretWord(): string;
   setSecretWord(value: string): NextWordResponse;
 
+  getWordDescription(): string;
+  setWordDescription(value: string): NextWordResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): NextWordResponse.AsObject;
   static toObject(includeInstance: boolean, msg: NextWordResponse): NextWordResponse.AsObject;
@@ -175,8 +183,10 @@ export class NextWordResponse extends jspb.Message {
 
 export namespace NextWordResponse {
   export type AsObject = {
-    success: number;
-    errMsg: string;
-    secretWord: string;
-  };
+    success: number,
+    errMsg: string,
+    secretWord: string,
+    wordDescription: string,
+  }
 }
+

@@ -1,58 +1,67 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
+import { Stack, IconButton, InputAdornment, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 // components
 import Iconify from '../../../components/iconify';
 
 // ----------------------------------------------------------------------
 
 export default function RegisterForm() {
-
   const [showPassword, setShowPassword] = useState(false);
 
-//   const handleClick = () => {
-//     navigate('/dashboard', { replace: true });
-//   };
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#fff',
+      },
+    },
+  });
 
   return (
     <>
       <Stack spacing={3}>
-        
-        <TextField sx={{color:"white"}} name="username" label="Username" />
+        <ThemeProvider theme={theme}>
+          <TextField color="primary" sx={{ input: { color: 'white' } }} name="username" label="Username" focused />
 
-        <TextField sx={{color:"white"}} name="email" label="Email address" />
+          <TextField color="primary" sx={{ input: { color: 'white' } }} name="email" label="Email address" focused />
 
-        <TextField
-          name="password"
-          label="Password"
-          type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
+          <TextField
+            color="primary"
+            sx={{ input: { color: 'white' } }}
+            name="password"
+            label="Password"
+            type={showPassword ? 'text' : 'password'}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
 
-        <TextField
-          name="conpassword"
-          label="Confirm Password"
-          type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
+          <TextField
+            color="primary"
+            sx={{ input: { color: 'white' } }}
+            name="conpassword"
+            label="Confirm Password"
+            type={showPassword ? 'text' : 'password'}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </ThemeProvider>
       </Stack>
 
       {/* <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
@@ -62,10 +71,10 @@ export default function RegisterForm() {
         </Link>
       </Stack> */}
 
-      <LoadingButton sx={{marginTop: 5}}fullWidth size="large" type="submit" variant="contained">
+      <LoadingButton sx={{ marginTop: 5 }} fullWidth size="large" type="submit" variant="contained">
         Register
       </LoadingButton>
-      <LoadingButton sx={{marginTop: 1}}fullWidth size="large" type="submit" variant="contained">
+      <LoadingButton sx={{ marginTop: 1 }} fullWidth size="large" type="submit" variant="contained">
         Back to login
       </LoadingButton>
     </>

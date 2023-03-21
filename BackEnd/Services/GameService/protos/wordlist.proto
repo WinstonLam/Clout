@@ -19,7 +19,7 @@ message Wordlists {
 message WordlistInfo {
   string wordlistName = 1;
   string description = 2;
-  int32 userID = 3;
+  string userID = 3;
   int32 wordlistID = 4;
   repeated Word words = 5;
   Response serverInfo = 6;

@@ -36,13 +36,18 @@ static_resources:
                         expose_headers: custom-header-1,grpc-status,grpc-message
                 http_filters:
                   - name: envoy.filters.http.grpc_web
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.grpc_web.v3.GrpcWeb                  
                   - name: envoy.filters.http.cors
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.cors.v3.Cors                  
                   - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
   clusters:
     - name: echo_service
       connect_timeout: 0.25s
-      type: logical_dns
-      http2_protocol_options: {}
+      type: strict_dns
       lb_policy: round_robin
       load_assignment:
         cluster_name: echo_service
@@ -51,5 +56,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: wordlist
+                      # address: load-balancer-wordlistservice-b675fba73130ad4c.elb.us-east-1.amazonaws.com
+                      # address: wordlist
+                      address: 52.21.81.81
                       port_value: 5000

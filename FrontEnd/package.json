@@ -13,7 +13,9 @@
     "lint:fix": "eslint --fix --ext .js,.jsx ./src",
     "clear-all": "rm -rf build node_modules",
     "re-start": "rm -rf build node_modules && yarn install && yarn start",
-    "re-build": "rm -rf build node_modules && yarn install && yarn build"
+    "re-build": "rm -rf build node_modules && yarn install && yarn build",
+    "deploy": "aws s3 sync build/ s3://lingofrontend",
+    "prod": "npm run build && npm run deploy"
   },
   "eslintConfig": {
     "extends": [
@@ -46,7 +48,9 @@
     "@iconify/react": "^4.0.0",
     "@mui/lab": "^5.0.0-alpha.103",
     "@mui/material": "^5.10.9",
+    "amazon-cognito-identity-js": "^6.1.2",
     "apexcharts": "^3.36.0",
+    "aws-amplify": "^5.0.20",
     "change-case": "^4.1.2",
     "date-fns": "^2.29.3",
     "google-protobuf": "^3.21.2",

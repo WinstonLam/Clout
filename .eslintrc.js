@@ -4,12 +4,21 @@ module.exports = {
     es2021: true
   },
   extends: 'standard',
-  overrides: [
+  overrides : [
+    {
+       "files": "**/*.ts",
+       "env": {
+        "es2020": true
+      }
+    }
   ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
   rules: {
+    "strict": "off",
+    "getter-return": "off",
+    "no-empty-function": "off"
   }
 }

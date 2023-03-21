@@ -1,0 +1,78 @@
+name: Wordlist service code updated
+
+on:
+  push:
+    branches: ["Development", "master"]
+    paths:
+      - "BackEnd/Services/WordlistService/**.js"
+
+env:
+  IMAGE_NAME: wordlistservice
+  REPO_NAME: jurrewolff
+  ECS_SERVICE: wordlist_production_service_3 # set this to your Amazon ECS service name
+  ECS_CLUSTER: lingocluster                  # set this to your Amazon ECS cluster name
+  AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
+  TASK_DEFINITION: task_for_wordlist_production.json
+
+jobs:
+  # test:
+
+  #   runs-on: ubuntu-22.04
+
+  #   strategy:
+  #     matrix:
+  #       node-version: [18.x]
+  #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+  #   steps:
+  #   - uses: actions/checkout@v3
+
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
+  #       cache: 'npm'
+
+  #   - run: npm ci
+  #     working-directory: ./BackEnd/Services/WordlistService
+
+  #   - run: npm test
+  #     working-directory: ./BackEnd/Services/WordlistService
+
+  push:
+
+    # needs: test
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Login to Container Registry
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: Build docker
+      run: docker build . -t $REPO_NAME/$IMAGE_NAME
+      working-directory: ./BackEnd/Services/WordlistService
+
+    - name: Push image to docker hub Container Registry
+      run: docker push $REPO_NAME/$IMAGE_NAME
+      working-directory: ./BackEnd/Services/WordlistService
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.S3_ACCES_ID }}
+        aws-secret-access-key: ${{ secrets.S3_ACCES_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ env.TASK_DEFINITION }}
+        service: ${{ env.ECS_SERVICE }}
+        cluster: ${{ env.ECS_CLUSTER }}
+        wait-for-service-stability: true

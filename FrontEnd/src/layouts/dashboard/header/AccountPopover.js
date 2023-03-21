@@ -1,3 +1,4 @@
+import { Auth } from 'aws-amplify';
 import { useState } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
@@ -23,8 +24,7 @@ const MENU_OPTIONS = [
 ];
 
 // ----------------------------------------------------------------------
-
-export default function AccountPopover() {
+export default function AccountPopover({ setUser, user }) {
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -34,6 +34,18 @@ export default function AccountPopover() {
   const handleClose = () => {
     setOpen(null);
   };
+
+  async function handleLogout(setOpen, setUser) {
+    try {
+      await Auth.signOut();
+      localStorage.setItem('user', null);
+      setUser(null);
+      setOpen(null);
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  }
+  
 
   return (
     <>
@@ -78,16 +90,16 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {user.username}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {user.attributes.email}
           </Typography>
         </Box>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        {/* <Divider sx={{ borderStyle: 'dashed' }} /> */}
 
-        <Stack sx={{ p: 1 }}>
+        {/* <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
             <MenuItem key={option.label} onClick={handleClose}>
               {option.label}
@@ -95,9 +107,9 @@ export default function AccountPopover() {
           ))}
         </Stack>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        <Divider sx={{ borderStyle: 'dashed' }} /> */}
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={() => handleLogout(setOpen, setUser)} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </Popover>

@@ -4,15 +4,20 @@
     transition: 300ms;
     opacity: 1;
     /* margin: auto; */
-    width: 30%;
+    width: 100%;
     z-index: 2;
     /* margin: auto; */
     /* padding-top: 10000; */
-    margin-left: 30%;
-    margin-top: 5%;
+    margin-left: 0%;
+    margin-top: 10%;
 }
 
 .show.active {
     transform: translateY(100px) scale(0);
     opacity: 0;
+}
+
+.closeDiv {
+    width: 100%;
+    height: 100%;
 }

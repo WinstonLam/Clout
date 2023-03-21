@@ -1,4 +1,5 @@
 import { Navigate, useRoutes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import SimpleLayout from './layouts/simple';
@@ -18,16 +19,28 @@ import { LingoGameClient } from './clientprotos/gameservice/GameserviceServiceCl
 // ----------------------------------------------------------------------
 
 export default function Router() {
-  const wordlistclient = new WordlistServiceClient('http://localhost:8080');
-  const gameclient = new LingoGameClient('http://localhost:8081');
+  const wordlistclient = new WordlistServiceClient('http://wordlist-envoy-loadbalancer-acb73d8140495a18.elb.us-east-1.amazonaws.com:8082');
+  const gameclient = new LingoGameClient('http://load-balancer-envoy-0c53f4c11019d57a.elb.us-east-1.amazonaws.com:8081');
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const userStorage = localStorage.getItem('user');
+    if (userStorage) {
+      const userObject = JSON.parse(userStorage);
+      setUser(userObject);
+      // setUser(null);
+    }
+  }, []);
+
+  console.log(user);
 
   const routes = useRoutes([
     {
       path: '/',
-      element: <DashboardLayout />,
+      element: <DashboardLayout user={user} setUser={setUser} />,
       children: [
         { element: <Navigate to="home" />, index: true },
-        { path: 'home', element: <DashboardAppPage /> },
+        { path: 'home', element: <DashboardAppPage user={user} /> },
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
@@ -35,7 +48,7 @@ export default function Router() {
     },
     {
       path: '',
-      element: <DashboardLayout />,
+      element: <DashboardLayout user={user}  setUser={setUser}/>,
       children: [
         { element: <Navigate to="play" />, index: true },
         { path: 'play', element: <PlayPage client={gameclient} /> },
@@ -43,11 +56,11 @@ export default function Router() {
       //   element: <LoginPage />,
     },
     {
-      element: <SimpleLayout />,
+      element: <DashboardLayout user={user} setUser={setUser} />,
       children: [
         { element: <Navigate to="/dashboard/app" />, index: true },
-        { path: 'wordlist', element: <Wordlist client={wordlistclient} /> },
-        { path: 'wordlist-overview', element: <WordlistOverviewPage client={wordlistclient} /> },
+        { path: 'wordlist', element: <Wordlist client={wordlistclient} user={user} /> },
+        { path: 'wordlist-overview', element: <WordlistOverviewPage client={wordlistclient} user={user} /> },
 
         { path: '*', element: <Navigate to="/404" /> },
       ],
