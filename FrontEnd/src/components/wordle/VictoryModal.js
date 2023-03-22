@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 export default function VictoryModal({ isCorrect, gameOver, solution, turn }) {
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(3);
 
   useEffect(() => {
     if (count > 0) {

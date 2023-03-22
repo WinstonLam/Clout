@@ -41,7 +41,7 @@ export default function Wordle({ solution, description, setSolution, setDescript
           // On correct guess, get new word to continue the game
           if (response.array[0] === true) {
             setGuessModal(true);
-            setTimeout(() => setGuessModal(false), 3000);
+            // setTimeout(() => setGuessModal(false), 3000);
 
             setIsCorrect(false);
             // setTurn(0);
@@ -60,28 +60,14 @@ export default function Wordle({ solution, description, setSolution, setDescript
                   // navigate home after 5 seconds
                   setTimeout(() => {
                     window.location.href = '/';
-                  }, 7000);
+                  }, 5000);
                 } else {
-                  console.log(response.array[3]);
-                  setDescription(response.array[3]);
-                  setTimeout(() => setGuessModal(false), 2000);
-                  setTimeout(() => setSolution(response.array[2].replace(/\s/g, '')), 2000);
+                  setTimeout(() => setDescription(response.array[3]), 3000);
+                  setTimeout(() => setSolution(response.array[2].replace(/\s/g, '')), 3000);
+                  setTimeout(() => setGuessModal(false), 3000);
                 }
-
-                // if (response.array[0] !== null) {
-                //   console.log(response.array[3]);
-                //   setDescription(response.array[3]);
-                //   setTimeout(() => setGuessModal(false), 2000);
-                //   setTimeout(() => setSolution(response.array[2].replace(/\s/g, '')), 2000);
-                //   // setTimeout(() => setDescription(response.array[3]), 3100);
-                //   // setSolution(response.array[3].replace(/\s/g, ''));
-                // } else {
-                //   setGuessModal(true);
-                // }
               }
             });
-
-            // window.removeEventListener('keyup', handleKeyup)
           } else {
             console.log('guess is not correct according to server');
             setIsCorrect(false);
