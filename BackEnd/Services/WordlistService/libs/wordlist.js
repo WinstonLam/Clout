@@ -61,6 +61,7 @@ async function getWordExceptIDs(input) {
     };
     return returnObject;
   } catch (error) {
+    console.log(error.message)
     throw new Error("error retrieving data from database", error);
   }
 }

@@ -1,23 +1,204 @@
-const { getWordListByUserID } = require('../libs/wordlist').default
-const database = require('../libs/database').default
+const { getWordListByUserID, getWordExceptIDs, post } = require('../libs/wordlist')
+const database = require('../libs/database')
+
+jest.mock('../libs/database')
 
 describe('Wordlist Service:', () => {
-  jest.mock('mysql2/promise')
+  // jest.mock('mysql2/promise')
   describe('getWordListByUserID', () => {
-    it('should return a wordlist object based on an user ID', () => {
-      // jest.mock(database, () => () => false)
-      database.queryMySQL = jest.fn().mockReturnValueOnce({
-        wordlistName: 'Wordlist name',
-        description: 'description',
-        userID: 1,
-        wordlistID: 4,
-        words: [],
-        serverInfo: {}
+    it('Should return an array with matching name, description and userID', async () => {
+      const input = {
+        request: {
+          userID: 123
+        }
+      }
+      const queryResult = [
+        {
+          Id: 1,
+          Name: 'wordlist 1',
+          description: 'description 1',
+          userID: 123
+        },
+        {
+          Id: 2,
+          Name: 'wordlist 2',
+          description: 'description 2',
+          userID: 123
+        }
+      ]
+      const expectedOutput = {
+        wordlistInfo: [
+          {
+            wordlistName: 'wordlist 1',
+            description: 'description 1',
+            userID: 123,
+            wordlistID: 1
+          },
+          {
+            wordlistName: 'wordlist 2',
+            description: 'description 2',
+            userID: 123,
+            wordlistID: 2
+          }
+        ]
+      }
+      database.queryMySQL = jest.fn().mockResolvedValue([queryResult])
+      const wordlistsOfUser = await getWordListByUserID(input)
+      expect(wordlistsOfUser).toEqual(expectedOutput)
+    })
+  })
+  describe('getWordExceptIDs', () => {
+    it('Should return an the following properties of a word:  word, description, Id', async () => {
+      const input = {
+        request: {
+          wordlistID: 1,
+          filter: [{ id: 1 }, { id: 2 }, { id: 3 }]
+        }
+      }
+      const queryResult = [
+        {
+          Id: 4,
+          word: 'word4',
+          description: 'description of word4'
+        }
+      ]
+      const expectedOutput = {
+        words:
+        [{
+          word: 'word4',
+          description: 'description of word4',
+          Id: 4
+        }]
+      }
+      database.queryMySQL = jest.fn().mockResolvedValue([queryResult])
+      const wordlistsOfUser = await getWordExceptIDs(input)
+      expect(wordlistsOfUser).toEqual(expectedOutput)
+    })
+  })
+  // describe('post', () => {
+  //   it('Should return statuscode 200 and responsebody', async () => {
+  //     const input = {
+  //       request: {
+  //         userID: 123,
+  //         wordlistName: 'Wordlist 1',
+  //         description: 'description 1',
+  //         words:
+  //         [{
+  //           word: 'word4',
+  //           description: 'description of word4',
+  //           Id: 4
+  //         }]
+  //       }
+  //     }
+  //     const queryResult = [
+  //       {
+  //         Id: 1,
+  //         Name: 'wordlist 1',
+  //         description: 'description 1',
+  //         userID: 123
+  //       },
+  //       {
+  //         Id: 2,
+  //         Name: 'wordlist 2',
+  //         description: 'description 2',
+  //         userID: 123
+  //       }
+  //     ]
+  //     const expectedOutput = {
+  //       wordlistInfo: [
+  //         {
+  //           wordlistName: 'wordlist 1',
+  //           description: 'description 1',
+  //           userID: 123,
+  //           wordlistID: 1
+  //         },
+  //         {
+  //           wordlistName: 'wordlist 2',
+  //           description: 'description 2',
+  //           userID: 123,
+  //           wordlistID: 2
+  //         }
+  //       ]
+  //     }
+  //     database.queryMySQL = jest.fn().mockResolvedValue([queryResult])
+  //     const postResult = await post(input)
+  //     expect(postResult).toEqual(expectedOutput)
+  //   })
+  // })
+  jest.mock('../libs/database', () => ({
+    queryMySQL: jest.fn()
+  }))
 
-      })
-      const requestObject = { input: { request: { id: 1 } } }
-      const wordlistsOfUser = getWordListByUserID(requestObject)
-      expect(wordlistsOfUser).toConatin('wordlistName')
+  describe('post function', () => {
+    afterEach(() => {
+      jest.resetAllMocks() // Reset mock after each test
+    })
+
+    it('should return a successful response if inputWordlist.request.words is not empty', async () => {
+      const inputWordlist = {
+        request: {
+          wordlistName: 'Test Wordlist',
+          description: 'This is a test wordlist',
+          userID: 123,
+          words: [
+            { word: 'word1', description: 'This is word1' },
+            { word: 'word2', description: 'This is word2' }
+          ]
+        }
+      }
+
+      const expectedResult = {
+        statusCode: 200,
+        responseBody: 'Saving wordlist to dataBase succesful'
+      }
+
+      // Mock database connection functions
+      database.queryMySQL.mockResolvedValue([{ insertId: 1 }])
+
+      // Call the post function
+      const result = await post(inputWordlist)
+
+      // Assert that the result matches the expected result
+      expect(result).toEqual(expectedResult)
+
+      // Assert that the database connection functions were called with the expected parameters
+      expect(database.queryMySQL).toHaveBeenCalledTimes(2)
+      expect(database.queryMySQL).toHaveBeenCalledWith(
+        expect.stringContaining(
+          `Insert Into wordlist(\`Name\`, \`description\`, \`userID\`) values (
+            'Test Wordlist ',
+            'This is a test wordlist',
+            '123')`
+        )
+      )
+      // expect(database.queryMySQL).toHaveBeenCalledWith(
+      //   `Insert Into wordlist(\`Name\`, \`description\`, \`userID\`) values (
+      //     'Test Wordlist ',
+      //     'This is a test wordlist',
+      //     '123')`
+      // )
+      // expect(database.queryMySQL).toHaveBeenCalledWith(
+      //   "insert into words (`word`, `description`, `wordlistID` ) values ('word1 ' , 'This is word1', 1),('word2 ' , 'This is word2', 1)"
+      // )
+    })
+
+    it('should throw an error if inputWordlist.request.words is empty', async () => {
+      const inputWordlist = {
+        request: {
+          wordlistName: 'Test Wordlist',
+          description: 'This is a test wordlist',
+          userID: 123,
+          words: []
+        }
+      }
+
+      // Call the post function and expect it to throw an error
+      await expect(post(inputWordlist)).rejects.toThrow(
+        'Error saving new wordlist: Cannot destructure property \'insertId\' of \'resultWordList[0]\' as it is undefined.'
+      )
+
+      // Assert that the database connection function was not called
+      expect(database.queryMySQL).not.toHaveBeenCalled()
     })
   })
 })
