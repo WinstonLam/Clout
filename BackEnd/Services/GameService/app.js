@@ -151,6 +151,7 @@ function main () {
 
   console.log(`starting gameservice server at ${serverAddress}:${serverPort}`)
   console.log('extra logging for gameservice!')
+  console.log(`Address of wordlist: ${process.env.WORDLIST_REMOTE_ADDRESS}`)
   const server = new grpc.Server()
   server.addService(lingoGameService, { updateGame, initGame, deleteGame, nextWord })
   server.bindAsync(serverAddress + ':' + serverPort, grpc.ServerCredentials.createInsecure(), () => {

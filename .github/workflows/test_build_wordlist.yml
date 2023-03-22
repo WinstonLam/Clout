@@ -15,33 +15,33 @@ env:
   TASK_DEFINITION: task_for_wordlist_production.json
 
 jobs:
-  # test:
+  test:
 
-  #   runs-on: ubuntu-22.04
+    runs-on: ubuntu-22.04
 
-  #   strategy:
-  #     matrix:
-  #       node-version: [18.x]
-  #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-  #   steps:
-  #   - uses: actions/checkout@v3
+    steps:
+    - uses: actions/checkout@v3
 
-  #   - name: Use Node.js ${{ matrix.node-version }}
-  #     uses: actions/setup-node@v3
-  #     with:
-  #       node-version: ${{ matrix.node-version }}
-  #       cache: 'npm'
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
-  #   - run: npm ci
-  #     working-directory: ./BackEnd/Services/WordlistService
+    - run: npm ci
+      working-directory: ./BackEnd/Services/WordlistService
 
-  #   - run: npm test
-  #     working-directory: ./BackEnd/Services/WordlistService
+    - run: npm test
+      working-directory: ./BackEnd/Services/WordlistService
 
   push:
 
-    # needs: test
+    needs: test
 
     runs-on: ubuntu-22.04
 
