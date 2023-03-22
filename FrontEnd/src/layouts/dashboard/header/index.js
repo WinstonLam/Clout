@@ -113,7 +113,7 @@ export default function Header({ user, setUser }) {
             size="large"
             endIcon={<Iconify icon={'eva:arrow-ios-forward-fill'} />}
           >
-            View All
+            View All Lists
           </Button>
         </Box>
       </Box>
