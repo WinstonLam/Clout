@@ -1,18 +1,18 @@
-name: GameService code updated
+name: Wordlist service code updated
 
 on:
   push:
     branches: ["Development", "master"]
     paths:
-      - "BackEnd/Services/GameService/**.js"
+      - "BackEnd/Services/WordlistService/**.js"
 
 env:
-  IMAGE_NAME: gameservice
+  IMAGE_NAME: wordlistservice
   REPO_NAME: jurrewolff
-  ECS_SERVICE: gameservice_production_service_7  # set this to your Amazon ECS service name
+  ECS_SERVICE: wordlist_production_service_3 # set this to your Amazon ECS service name
   ECS_CLUSTER: lingocluster                  # set this to your Amazon ECS cluster name
   AWS_REGION: us-east-1                   # set this to your preferred AWS region, e.g. us-west-1
-  TASK_DEFINITION: task_for_gameservice_production.json
+  TASK_DEFINITION: task_for_wordlist_production.json
 
 jobs:
   # test:
@@ -34,10 +34,10 @@ jobs:
   #       cache: 'npm'
 
   #   - run: npm ci
-  #     working-directory: ./BackEnd/Services/GameService
+  #     working-directory: ./BackEnd/Services/WordlistService
 
   #   - run: npm test
-  #     working-directory: ./BackEnd/Services/GameService
+  #     working-directory: ./BackEnd/Services/WordlistService
 
   push:
 
@@ -56,11 +56,11 @@ jobs:
 
     - name: Build docker
       run: docker build . -t $REPO_NAME/$IMAGE_NAME
-      working-directory: ./BackEnd/Services/GameService
+      working-directory: ./BackEnd/Services/WordlistService
 
     - name: Push image to docker hub Container Registry
       run: docker push $REPO_NAME/$IMAGE_NAME
-      working-directory: ./BackEnd/Services/GameService
+      working-directory: ./BackEnd/Services/WordlistService
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1

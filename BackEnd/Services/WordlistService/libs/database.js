@@ -14,6 +14,7 @@ async function queryMySQL (queryToExecute) {
     const connection = await mysql.createConnection(configMysql)
     await connection.connect()
     const result = await connection.execute(queryToExecute)
+    connection.end()
     return result
   } catch (error) {
     console.log('error in query execution:' + error.message)

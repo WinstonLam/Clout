@@ -1,0 +1,142 @@
+{
+    "ipcMode": null,
+    "executionRoleArn": "arn:aws:iam::823054780436:role/ecstaskexecution",
+    "containerDefinitions": [
+        {
+            "dnsSearchDomains": null,
+            "environmentFiles": null,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": null,
+                "options": {
+                    "awslogs-group": "/ecs/task_for_wordlist_production",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "entryPoint": [],
+            "portMappings": [
+                {
+                    "hostPort": 5000,
+                    "protocol": "tcp",
+                    "containerPort": 5000
+                }
+            ],
+            "command": [],
+            "linuxParameters": null,
+            "cpu": 512,
+            "environment": [],
+            "resourceRequirements": null,
+            "ulimits": null,
+            "dnsServers": null,
+            "mountPoints": [],
+            "workingDirectory": null,
+            "secrets": [
+                {
+                    "valueFrom": "NODE_ENV",
+                    "name": "NODE_ENV"
+                },
+                {
+                    "valueFrom": "WORDLIST_ADDRESS",
+                    "name": "WORDLIST_ADDRESS"
+                },
+                {
+                    "valueFrom": "WORDLIST_PORT",
+                    "name": "WORDLIST_PORT"
+                },
+                {
+                    "valueFrom": "DB_NAME",
+                    "name": "DB_NAME"
+                },
+                {
+                    "valueFrom": "DB_PASS",
+                    "name": "DB_PASS"
+                },
+                {
+                    "valueFrom": "DB_USER",
+                    "name": "DB_USER"
+                },
+                {
+                    "valueFrom": "DB_REMOTE_ADDRESS",
+                    "name": "DB_REMOTE_ADDRESS"
+                }
+            ],
+            "dockerSecurityOptions": null,
+            "memory": null,
+            "memoryReservation": null,
+            "volumesFrom": [],
+            "stopTimeout": null,
+            "image": "jurrewolff/wordlistservice",
+            "startTimeout": null,
+            "firelensConfiguration": null,
+            "dependsOn": null,
+            "disableNetworking": null,
+            "interactive": null,
+            "healthCheck": null,
+            "essential": true,
+            "links": null,
+            "hostname": null,
+            "extraHosts": null,
+            "pseudoTerminal": null,
+            "user": null,
+            "readonlyRootFilesystem": null,
+            "dockerLabels": null,
+            "systemControls": null,
+            "privileged": null,
+            "name": "wordlistproduction"
+        }
+    ],
+    "placementConstraints": [],
+    "memory": "128",
+    "taskRoleArn": "arn:aws:iam::823054780436:role/ecstaskexecution",
+    "compatibilities": [
+        "EXTERNAL",
+        "EC2"
+    ],
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:823054780436:task-definition/task_for_wordlist_production:3",
+    "family": "task_for_wordlist_production",
+    "requiresAttributes": [
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "targetId": null,
+            "targetType": null,
+            "value": null,
+            "name": "ecs.capability.secrets.ssm.environment-variables"
+        }
+    ],
+    "pidMode": null,
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "networkMode": null,
+    "runtimePlatform": null,
+    "cpu": "1024",
+    "revision": 3,
+    "status": "ACTIVE",
+    "inferenceAccelerators": null,
+    "proxyConfiguration": null,
+    "volumes": []
+}
