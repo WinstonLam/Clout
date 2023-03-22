@@ -82,7 +82,7 @@ export default function Header({ user, setUser }) {
     navigate(`/${route}`, { replace: true });
   };
 
-  // Opens and closes the popup
+  // Opens and closes the popups
   const openScreen = () => {
     setShowComponent(!showComponent);
   };
