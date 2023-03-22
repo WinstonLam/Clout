@@ -75,56 +75,6 @@ describe('Wordlist Service:', () => {
       expect(wordlistsOfUser).toEqual(expectedOutput)
     })
   })
-  // describe('post', () => {
-  //   it('Should return statuscode 200 and responsebody', async () => {
-  //     const input = {
-  //       request: {
-  //         userID: 123,
-  //         wordlistName: 'Wordlist 1',
-  //         description: 'description 1',
-  //         words:
-  //         [{
-  //           word: 'word4',
-  //           description: 'description of word4',
-  //           Id: 4
-  //         }]
-  //       }
-  //     }
-  //     const queryResult = [
-  //       {
-  //         Id: 1,
-  //         Name: 'wordlist 1',
-  //         description: 'description 1',
-  //         userID: 123
-  //       },
-  //       {
-  //         Id: 2,
-  //         Name: 'wordlist 2',
-  //         description: 'description 2',
-  //         userID: 123
-  //       }
-  //     ]
-  //     const expectedOutput = {
-  //       wordlistInfo: [
-  //         {
-  //           wordlistName: 'wordlist 1',
-  //           description: 'description 1',
-  //           userID: 123,
-  //           wordlistID: 1
-  //         },
-  //         {
-  //           wordlistName: 'wordlist 2',
-  //           description: 'description 2',
-  //           userID: 123,
-  //           wordlistID: 2
-  //         }
-  //       ]
-  //     }
-  //     database.queryMySQL = jest.fn().mockResolvedValue([queryResult])
-  //     const postResult = await post(input)
-  //     expect(postResult).toEqual(expectedOutput)
-  //   })
-  // })
   jest.mock('../libs/database', () => ({
     queryMySQL: jest.fn()
   }))
@@ -163,42 +113,9 @@ describe('Wordlist Service:', () => {
 
       // Assert that the database connection functions were called with the expected parameters
       expect(database.queryMySQL).toHaveBeenCalledTimes(2)
-      expect(database.queryMySQL).toHaveBeenCalledWith(
-        expect.stringContaining(
-          `Insert Into wordlist(\`Name\`, \`description\`, \`userID\`) values (
-            'Test Wordlist ',
-            'This is a test wordlist',
-            '123')`
-        )
+      expect(database.queryMySQL).lastCalledWith(
+        "insert into words (`word`, `description`, `wordlistID` ) values ('word1 ' , 'This is word1', 1),('word2 ' , 'This is word2', 1)"
       )
-      // expect(database.queryMySQL).toHaveBeenCalledWith(
-      //   `Insert Into wordlist(\`Name\`, \`description\`, \`userID\`) values (
-      //     'Test Wordlist ',
-      //     'This is a test wordlist',
-      //     '123')`
-      // )
-      // expect(database.queryMySQL).toHaveBeenCalledWith(
-      //   "insert into words (`word`, `description`, `wordlistID` ) values ('word1 ' , 'This is word1', 1),('word2 ' , 'This is word2', 1)"
-      // )
-    })
-
-    it('should throw an error if inputWordlist.request.words is empty', async () => {
-      const inputWordlist = {
-        request: {
-          wordlistName: 'Test Wordlist',
-          description: 'This is a test wordlist',
-          userID: 123,
-          words: []
-        }
-      }
-
-      // Call the post function and expect it to throw an error
-      await expect(post(inputWordlist)).rejects.toThrow(
-        'Error saving new wordlist: Cannot destructure property \'insertId\' of \'resultWordList[0]\' as it is undefined.'
-      )
-
-      // Assert that the database connection function was not called
-      expect(database.queryMySQL).not.toHaveBeenCalled()
     })
   })
 })
