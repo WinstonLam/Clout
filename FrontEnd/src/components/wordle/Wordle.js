@@ -60,7 +60,7 @@ export default function Wordle({ solution, description, setSolution, setDescript
                   // navigate home after 5 seconds
                   setTimeout(() => {
                     window.location.href = '/';
-                  }, 5000);
+                  }, 7000);
                 } else {
                   console.log(response.array[3]);
                   setDescription(response.array[3]);

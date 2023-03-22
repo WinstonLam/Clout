@@ -17,11 +17,11 @@ function createData(name, calories, fat, carbs, protein) {
 }
 
 const rows = [
-  createData('Winston', 'English', 139, 24, 4.0),
-  createData('Jurre', 'Mandarin', 124, 37, 4.3),
-  createData('Dennis', 'Slang', 123, 24, 6.0),
-  createData('Douwe', 'Mandarin', 119, 67, 4.3),
-  createData('Jurre', 'Noob', 100000, 49, 3.9),
+  createData('Winston', 'English', 9, 24, 4.0),
+  createData('Jurre', 'Dutch', 8, 37, 4.3),
+  createData('Dennis', 'Mandarin', 9, 24, 6.0),
+  createData('Douwe', 'German', 10, 67, 4.3),
+  createData('Jurre', 'Epic Gamer', 3, 49, 3.9),
 ];
 
 export default function HiscoreTable({ title, height, color, sx }) {

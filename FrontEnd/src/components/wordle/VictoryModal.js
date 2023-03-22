@@ -19,7 +19,7 @@ export default function VictoryModal({ isCorrect, gameOver, solution, turn }) {
           <p>Redirecting to home in {count > 0 ? `${count}` : '0'}</p>
         </div>
       )}
-      {isCorrect && (
+      {isCorrect && !gameOver && (
         <div>
           <h1>You Win!</h1>
           <p className="solution">{solution}</p>
@@ -28,7 +28,7 @@ export default function VictoryModal({ isCorrect, gameOver, solution, turn }) {
           </p>
         </div>
       )}
-      {!isCorrect && (
+      {!isCorrect && !gameOver && (
         <div>
           <h1>Nevermind</h1>
           <p className="solution">{solution}</p>
