@@ -57,7 +57,3 @@ jobs:
     - name: Push image to docker hub Container Registry
       run: docker push $REPO_NAME/$IMAGE_NAME
       working-directory: ./BackEnd/Services/GameService
-
-
-key: AKIA37IPDJAKCJCTCK72
-secret key: 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
